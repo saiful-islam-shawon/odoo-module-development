@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="pricelist_form_inherit" model="ir.ui.view">
+        <field name="name">pricelist.form.inherit</field>
+        <field name="model">product.pricelist</field>
+        <field name="inherit_id" ref="product.product_pricelist_view"/>
+        <field name="arch" type="xml">
+
+            <!-- header inherit -->
+             <xpath expr="//button[@name='action_open_pricelist_report']" position="after">
+                <button string="Submit" name="action_submit" type="object" class="oe_highlight" groups="zencore_groups.group_zencore_clm_sales_manager"/>
+             </xpath>
+
+            <xpath expr="//button[@name='action_open_pricelist_report']" position="after">
+                <field name="status" widget="statusbar" statusbar_visible="draft,pending,approved,reject"></field>
+            </xpath>
+
+            <xpath expr="//field[@name='name']" position="replace">
+                <!-- data can customize sales manager group -->
+                <field name="name" groups="zencore_groups.group_zencore_clm_sales_manager"></field>
+
+                <!-- data can't customize for other group -->
+                <field name="name" groups="zencore_groups.group_zencore_clm_salesperson,zencore_groups.group_zencore_clm_ccm,zencore_groups.group_zencore_clm_warehouse,zencore_groups.group_zencore_clm_tdo,zencore_groups.group_zencore_clm_finance" readonly="1"></field>
+            </xpath>
+
+            <xpath expr="//field[@name='currency_id']" position="replace">
+                <!-- data can customize sales manager group -->
+                <field name="currency_id" groups="zencore_groups.group_zencore_clm_sales_manager"></field>
+
+                <!-- data can't customize for other group -->
+                <field name="currency_id" groups="zencore_groups.group_zencore_clm_salesperson,zencore_groups.group_zencore_clm_ccm,zencore_groups.group_zencore_clm_warehouse,zencore_groups.group_zencore_clm_tdo,zencore_groups.group_zencore_clm_finance" readonly="1"></field>
+            </xpath>
+
+            <xpath expr="//field[@name='country_group_ids']" position="replace">
+                <field name="country_group_ids" groups="zencore_groups.group_zencore_clm_sales_manager" widget="many2many_tags"></field>
+                <field name="country_group_ids" groups="zencore_groups.group_zencore_clm_salesperson,zencore_groups.group_zencore_clm_ccm,zencore_groups.group_zencore_clm_warehouse,zencore_groups.group_zencore_clm_tdo,zencore_groups.group_zencore_clm_finance" readonly="1" widget="many2many_tags"></field>
+            </xpath>
+
+            <!-- items id ar upor aa kaj kora -->
+            <xpath expr="//field[@name='item_ids']" position="replace">
+
+                <!-- this will work for sales manager group -->
+                <field name="item_ids" nolabel="1"
+                    context="{'default_base': 'list_price', 'default_compute_price': 'fixed'}"
+                    groups="zencore_groups.group_zencore_clm_sales_manager">
+                    <list string="Pricelist Rules">
+                        <field name="product_tmpl_id" column_invisible="True"/>
+                        <field name="name" string="Apply on"/>
+                        <field name="compute_price" column_invisible="True"/>
+                        <field name="price" string="Price"/>
+                        <field name="min_quantity"/>
+                        <field name="date_start" string="validity"/>
+                        <!-- <field name="date_end"/> -->
+                        <field name="base" column_invisible="True"/>
+                        <field name="price_discount" column_invisible="True"/>
+                        <field name="applied_on" column_invisible="True"/>
+                    </list>
+                </field>
+
+
+                <!-- this will work for other group -->
+                <field name="item_ids" nolabel="1"
+                    context="{'default_base': 'list_price', 'default_compute_price': 'fixed'}"
+                    groups="zencore_groups.group_zencore_clm_salesperson,zencore_groups.group_zencore_clm_ccm,zencore_groups.group_zencore_clm_warehouse,zencore_groups.group_zencore_clm_tdo,zencore_groups.group_zencore_clm_finance">
+                    <list string="Pricelist Rules">
+                        <field name="product_tmpl_id" column_invisible="True"/>
+                        <field name="name" string="Apply on"/>
+                        <field name="compute_price" column_invisible="True"/>
+                        <field name="price" string="Price"/>
+                        <field name="min_quantity"/>
+                        <field name="date_start" string="validity"/>
+                        <!-- <field name="date_end"/> -->
+                        <field name="base" column_invisible="True"/>
+                        <field name="price_discount" column_invisible="True"/>
+                        <field name="applied_on" column_invisible="True"/>
+                    </list>
+                </field>
+            </xpath>
+
+
+            <xpath expr="//page[@name='pricelist_rules']" position="after">
+                <page name="approver" string="Approver">
+                    <field name="approve_user_ids" groups="zencore_groups.group_zencore_clm_salesperson,zencore_groups.group_zencore_clm_ccm,zencore_groups.group_zencore_clm_warehouse,zencore_groups.group_zencore_clm_tdo,zencore_groups.group_zencore_clm_finance">
+                        <list editable="bottom">
+                            <field name="user_id" readonly="1"></field>
+                            <field name="approve" readonly="reject"></field>
+                            <field name="reject" readonly="approve"></field>
+                        </list>
+                    </field>
+
+
+                    <field name="approve_user_ids" groups="zencore_groups.group_zencore_clm_sales_manager">
+                        <list editable="bottom">
+                            <field name="user_id"></field>
+                            <field name="approve" readonly="reject"></field>
+                            <field name="reject" readonly="approve"></field>
+                        </list>
+                    </field>
+                </page>
+            </xpath>
+
+        </field>
+    </record>
+</odoo>

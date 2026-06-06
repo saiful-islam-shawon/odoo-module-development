@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="pricing_committe_member" model="res.groups.privilege">
+        <field name="name">Pricing Committe</field>
+        <field name="sequence">10</field>
+    </record>
+
+    <record id="yes_group" model="res.groups">
+        <field name="name">Yes</field>
+        <field name="privilege_id" ref="pricing_committe_member"></field>
+    </record>
+
+</odoo>
