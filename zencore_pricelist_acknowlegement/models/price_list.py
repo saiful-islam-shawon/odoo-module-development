@@ -1,14 +1,17 @@
 from odoo import api, fields, models
 from odoo.exceptions import ValidationError
+from markupsafe import Markup
 
 
 class PriceList(models.Model):
     _inherit = 'product.pricelist'
     
     # add status in pricelist
-    status = fields.Selection([('draft', 'Draft'),('pending', 'Pending'), ('approved', 'Approved'), ('reject', 'Reject')], string="Status", default="draft", compute="_status_change", store=True, readonly=False, tracking=True)
+    status = fields.Selection([('draft', 'Draft'),('pending', 'Pending'), ('approved', 'Approved'), ('reject', 'Rejected')], string="Status", default="draft", tracking=True, store=True)
     approve_user_ids = fields.One2many('approve.user', 'pricelist_id', string="Users Approve", tracking=True)
-    pending_update = fields.Boolean(default=False, tracking=True)
+    pending_update = fields.Boolean(default=False)
+    
+    
     
     @api.depends('approve_user_ids.approve', 'approve_user_ids.reject')
     def _status_change(self):
@@ -25,12 +28,8 @@ class PriceList(models.Model):
                 rec.status = 'approved'
             else:
                 rec.status = 'pending'
-                
-    # tatus = approved হলে active = True, বাকি সব False
-    @api.depends('status')
-    def _compute_active(self):
-        for rec in self:
-                rec.active = rec.status == 'approved'
+    
+
                 
                 
     # add submit button
@@ -43,16 +42,51 @@ class PriceList(models.Model):
             else:
                 rec.pending_update = True
                 rec.status = 'pending'
+                
+                
+                # activity type খোঁজো
+                activity_type = self.env.ref('mail.mail_activity_data_todo')
+                
+                # প্রতিটা approver user এর জন্য activity create করো
+                for approver in rec.approve_user_ids:
+                    rec.activity_schedule(
+                        activity_type_id=activity_type.id,
+                        summary='To-Do',
+                        note='Please review the Pricelist',
+                        date_deadline=fields.Date.today(),
+                        user_id=approver.user_id.id,
+                    )
+                    
+    # active check
+    @api.model
+    def _search(self, domain, offset=0, limit=None, order=None, **kwargs):
+        # system/superuser হলে block করবো না
+        if self.env.su:
+            return super()._search(domain, offset=offset, limit=limit, order=order, **kwargs)
+        
+        # pricelist নিজের view তে সব দেখাবে
+        if self.env.context.get('show_all_pricelist'):
+            return super()._search(domain, offset=offset, limit=limit, order=order, **kwargs)
+        
+        # active_test=False মানে system internally call করছে — block করবো না
+        if not kwargs.get('active_test', True):
+            return super()._search(domain, offset=offset, limit=limit, order=order, **kwargs)
+
+        domain = [('status', '=', 'approved')] + domain
+        return super()._search(domain, offset=offset, limit=limit, order=order, **kwargs)
+    
     
     
     
 class ApproveUser(models.Model):
     _name = 'approve.user'
+    _rec_name = 'user_id'
     
     user_id = fields.Many2one('res.users', string="Users", domain=lambda self: self._get_valid_user_domain())
     approve = fields.Boolean(string="Approved")
     reject = fields.Boolean(string="Reject")
     pricelist_id = fields.Many2one('product.pricelist')
+
     
     
     def write(self, vals):
@@ -60,16 +94,42 @@ class ApproveUser(models.Model):
             vals['reject'] = False
         if vals.get('reject'):
             vals['approve'] = False
-        return super().write(vals)
+        result = super().write(vals)
+        # status update trigger করো
+        for rec in self:
+            if rec.pricelist_id:
+                rec.pricelist_id._status_change()
+                
+                # chatter এ message add করো
+                if vals.get('approve'):
+                    rec.pricelist_id.message_post(
+                        body=Markup("Approvers: <b>{approver}</b><br/>Approved By: <b>{user}</b>").format(
+                            approver=rec.user_id.name,
+                            user=self.env.user.name,
+                        ),
+                        message_type='notification',
+                        subtype_xmlid='mail.mt_note',
+                    )
+                elif vals.get('reject'):
+                    rec.pricelist_id.message_post(
+                        body=Markup("Approvers: <b>{reject}</b><br/>Rejected By: <b>{user}</b>").format(
+                            reject=rec.user_id.name,
+                            user=self.env.user.name,
+                        ),
+                        message_type='notification',
+                        subtype_xmlid='mail.mt_note',
+                    )
+        return result
     
     
+    # akjon user onno user ar data change korte parbe na
     @api.onchange('approve', 'reject')
     def _onchange_approveAndreject(self):
         if not self.env.user.has_group('zencore_groups.group_zencore_clm_sales_manager') and self.user_id.id != self.env.user.id:
             raise ValidationError("You can't change another user data")
         
         
-    
+    # sudu grooup ar under aa thaka oi user gulor data ii cole asbe
     def _get_valid_user_domain(self):
         valid_groups = [
             'zencore_groups.group_zencore_clm_sales_manager',

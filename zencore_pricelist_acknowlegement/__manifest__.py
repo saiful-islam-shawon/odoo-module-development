@@ -5,7 +5,7 @@
     'category': 'msa',
     'author': "Zencore Solution",
     'license': 'LGPL-3',
-    'depends': ['base', 'sale', 'zencore_groups'],
+    'depends': ['base', 'sale', 'zencore_groups', 'mail'],
     'data': [
         # security
         'security/ir.model.access.csv',
