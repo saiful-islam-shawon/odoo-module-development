@@ -10,6 +10,7 @@ class PriceList(models.Model):
     status = fields.Selection([('draft', 'Draft'),('pending', 'Pending'), ('approved', 'Approved'), ('reject', 'Rejected')], string="Status", default="draft", tracking=True, store=True)
     approve_user_ids = fields.One2many('approve.user', 'pricelist_id', string="Users Approve", tracking=True)
     pending_update = fields.Boolean(default=False)
+    is_approved = fields.Boolean(compute="_approver_check")
     
     
     
@@ -57,6 +58,36 @@ class PriceList(models.Model):
                         user_id=approver.user_id.id,
                     )
                     
+                    
+    # add approve and reject button
+    def action_approve(self):
+        for rec in self:
+            current_user = self.env.user
+            approver = rec.approve_user_ids.filtered(lambda a: a.user_id.id == current_user.id)
+            if not approver:
+                raise ValidationError("You are not in the approver list!")
+            approver.sudo().write({'approve': True, 'reject': False})
+
+    def action_reject(self):
+        for rec in self:
+            current_user = self.env.user
+            approver = rec.approve_user_ids.filtered(lambda a: a.user_id.id == current_user.id)
+            if not approver:
+                raise ValidationError("You are not in the approver list!")
+            approver.sudo().write({'approve': False, 'reject': True})
+            
+    # approver check
+    @api.depends('approve_user_ids.approve')
+    def _approver_check(self):
+        for rec in self:
+            approver = rec.approve_user_ids.filtered(
+                lambda a: a.user_id.id == self.env.uid
+            )
+            rec.is_approved = approver.approve if approver else False
+            
+            
+            
+
     # active check
     @api.model
     def _search(self, domain, offset=0, limit=None, order=None, **kwargs):

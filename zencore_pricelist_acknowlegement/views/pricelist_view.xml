@@ -11,6 +11,12 @@
                 <button string="Submit" name="action_submit" type="object" class="oe_highlight" groups="zencore_groups.group_zencore_clm_sales_manager" invisible="status != 'draft'"/>
              </xpath>
 
+            <!-- add approve and reject button -->
+            <xpath expr="//button[@name='action_open_pricelist_report']" position="after">
+                <button string="Approve" name="action_approve" type="object" class="oe_highlight" invisible="status != 'pending' or is_approved"/>
+                <button string="Rejected" name="action_reject" type="object" class="oe_highlight" invisible="status != 'pending' or is_approved"/>
+            </xpath>
+
             <xpath expr="//button[@name='action_open_pricelist_report']" position="after">
                 <field name="status" widget="statusbar" statusbar_visible="draft,pending,approved,reject"></field>
             </xpath>
@@ -43,9 +49,10 @@
             </xpath>
 
             <!-- add created by field -->
-             <xpath expr="//field[@name='country_group_ids']" position="after">
-                <field name="create_uid"></field>
-             </xpath>
+            <xpath expr="//field[@name='country_group_ids']" position="after">
+            <field name="create_uid"></field>
+            </xpath>
+
 
             <!-- items id ar upor aa kaj kora -->
             <xpath expr="//field[@name='item_ids']" position="replace">
