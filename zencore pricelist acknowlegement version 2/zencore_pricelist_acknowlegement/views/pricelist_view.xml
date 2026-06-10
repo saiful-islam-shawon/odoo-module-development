@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="pricelist_form_inherit" model="ir.ui.view">
+        <field name="name">pricelist.form.inherit</field>
+        <field name="model">product.pricelist</field>
+        <!-- Odoo এর default pricelist form view কে inherit করছি -->
+        <field name="inherit_id" ref="product.product_pricelist_view"/>
+        <field name="arch" type="xml">
+
+            <!-- ==================== HEADER BUTTONS ==================== -->
+
+            <!-- Submit button — শুধু Sales Manager দেখবে, শুধু Draft এ দেখাবে -->
+            <xpath expr="//button[@name='action_open_pricelist_report']" position="after">
+                <button 
+                    string="Submit" 
+                    name="action_submit" 
+                    type="object" 
+                    class="oe_highlight" 
+                    groups="zencore_groups.group_zencore_clm_sales_manager" 
+                    invisible="status != 'draft'"/>
+            </xpath>
+
+            <!-- Approve/Reject button — সবাই দেখবে, শুধু Pending এ দেখাবে -->
+            <!-- is_approved = True হলে মানে already approve করেছে, তখন hide হবে -->
+            <xpath expr="//button[@name='action_open_pricelist_report']" position="after">
+                <button 
+                    string="Approve" 
+                    name="action_approve" 
+                    type="object" 
+                    class="oe_highlight" 
+                    invisible="status != 'pending' or is_approved"/>
+                <button 
+                    string="Rejected" 
+                    name="action_reject" 
+                    type="object" 
+                    class="oe_highlight" 
+                    invisible="status != 'pending' or is_approved"/>
+            </xpath>
+
+            <!-- Status bar — Draft → Pending → Approved → Rejected -->
+            <xpath expr="//button[@name='action_open_pricelist_report']" position="after">
+                <field 
+                    name="status" 
+                    widget="statusbar" 
+                    statusbar_visible="draft,pending,approved,reject"/>
+            </xpath>
+
+
+            <!-- ==================== FORM FIELDS ==================== -->
+
+            <!-- Pricelist Name field -->
+            <!-- is_name_readonly = True হলে edit করা যাবে না -->
+            <!-- Sales Manager → approved/reject এ readonly -->
+            <!-- অন্য group → সবসময় readonly -->
+            <xpath expr="//field[@name='name']" position="replace">
+                <field name="name" readonly="is_name_readonly"/>
+            </xpath>
+
+            <!-- Currency field -->
+            <!-- is_name_readonly দিয়ে control করা হচ্ছে — name এর মতো একই logic -->
+            <xpath expr="//field[@name='currency_id']" position="replace">
+                <field name="currency_id" readonly="is_name_readonly"/>
+            </xpath>
+
+            <!-- Country Groups field -->
+            <!-- is_name_readonly দিয়ে control করা হচ্ছে — many2many_tags widget -->
+            <xpath expr="//field[@name='country_group_ids']" position="replace">
+                <field 
+                    name="country_group_ids" 
+                    readonly="is_name_readonly" 
+                    widget="many2many_tags"/>
+            </xpath>
+
+            <!-- Company field -->
+            <!-- is_name_readonly দিয়ে control করা হচ্ছে -->
+            <xpath expr="//field[@name='company_id']" position="replace">
+                <field name="company_id" readonly="is_name_readonly"/>
+            </xpath>
+
+            <!-- Created By field — country_group_ids এর পরে add করা হয়েছে -->
+            <!-- কে pricelist তৈরি করেছে সেটা দেখানোর জন্য -->
+            <xpath expr="//field[@name='country_group_ids']" position="after">
+                <field name="create_uid"/>
+            </xpath>
+
+
+            <!-- ==================== PRICELIST ITEMS (Sales Prices Tab) ==================== -->
+
+            <!-- Pricelist Items field — Sales Prices tab এ থাকে -->
+            <!-- is_name_readonly = True হলে পুরো list readonly হবে -->
+            <!-- default: list_price base, fixed price compute -->
+            <xpath expr="//field[@name='item_ids']" position="replace">
+                <field 
+                    name="item_ids" 
+                    nolabel="1"
+                    context="{'default_base': 'list_price', 'default_compute_price': 'fixed'}"
+                    readonly="is_name_readonly">
+                    <list string="Pricelist Rules">
+                        <!-- Product Template — column hide করা আছে -->
+                        <field name="product_tmpl_id" column_invisible="True"/>
+                        <!-- Apply On column — product/category/all -->
+                        <field name="name" string="Apply on"/>
+                        <!-- Compute Price type — column hide করা আছে -->
+                        <field name="compute_price" column_invisible="True"/>
+                        <!-- Product এর Price -->
+                        <field name="price" string="Price"/>
+                        <!-- Minimum Quantity -->
+                        <field name="min_quantity"/>
+                        <!-- Price Validity date -->
+                        <field name="date_start" string="validity"/>
+                        <!-- Base price type — column hide করা আছে -->
+                        <field name="base" column_invisible="True"/>
+                        <!-- Price Discount — column hide করা আছে -->
+                        <field name="price_discount" column_invisible="True"/>
+                        <!-- Applied On type — column hide করা আছে -->
+                        <field name="applied_on" column_invisible="True"/>
+                    </list>
+                </field>
+            </xpath>
+
+
+            <!-- ==================== APPROVER TAB ==================== -->
+
+            <!-- pricelist_rules page এর পরে নতুন Approver tab যোগ করা হয়েছে -->
+            <xpath expr="//page[@name='pricelist_rules']" position="after">
+                <page name="approver" string="Approver">
+
+                    <!-- Approver list field -->
+                    <!-- is_approver_readonly = True হলে পুরো list readonly হবে -->
+                    <!-- Sales Manager → approved/reject এ readonly -->
+                    <!-- অন্য group → শুধু approved এ readonly -->
+                    <field name="approve_user_ids" readonly="is_approver_readonly">
+                        <list editable="bottom">
+
+                            <!-- User column -->
+                            <!-- parent.is_user_id_readonly → pricelist model এর field -->
+                            <!-- domain → selected_user_ids এ শুধু available user দেখাবে -->
+                            <!-- already selected user এবং invalid group এর user বাদ থাকবে -->
+                            <field 
+                                name="user_id" 
+                                readonly="parent.is_user_id_readonly" 
+                                domain="[('id', 'in', parent.selected_user_ids)]"/>
+
+                            <!-- Approve checkbox -->
+                            <!-- reject = True থাকলে বা status pending না হলে readonly -->
+                            <field 
+                                name="approve" 
+                                readonly="reject or parent.status != 'pending'"/>
+
+                            <!-- Reject checkbox -->
+                            <!-- approve = True থাকলে বা status pending না হলে readonly -->
+                            <field 
+                                name="reject" 
+                                readonly="approve or parent.status != 'pending'"/>
+
+                            <!-- Add a Line button control -->
+                            <!-- is_name_readonly = True হলে hide হবে -->
+                            <!-- মানে Sales Manager ছাড়া অন্য group "Add a Line" দেখবে না -->
+                            <control>
+                                <create 
+                                    string="Add a Line" 
+                                    invisible="parent.is_name_readonly"/>
+                            </control>
+
+                        </list>
+                    </field>
+
+                </page>
+            </xpath>
+
+        </field>
+    </record>
+
+
+    <!-- ==================== ACTION OVERRIDE ==================== -->
+
+    <!-- Pricelist list view action override -->
+    <!-- show_all_pricelist = True করা হয়েছে -->
+    <!-- এই context ছাড়া _search method শুধু approved pricelist দেখায় -->
+    <!-- এই context দিলে pricelist নিজের view তে সব status এর pricelist দেখাবে -->
+    <record id="product.product_pricelist_action2" model="ir.actions.act_window">
+        <field name="context">{'show_all_pricelist': True}</field>
+    </record>
+
+</odoo>
