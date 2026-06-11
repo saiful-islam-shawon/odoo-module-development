@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="sale_order_view" model="ir.ui.view">
+        <field name="name">Sale Order View</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"></field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='validity_date']" position="attributes">
+                <attribute name="readonly">1</attribute>
+            </xpath>
+
+            <!-- add page after other information -->
+            <xpath expr="//page[@name='other_information']" position="after">
+                <page name="pi_expiary" string="PI Expiary" invisible="ccm_group_check">
+                    <!-- Add your fields here -->
+                    <group>
+                        <group>
+                            <h3>CCM</h3> <br/>
+                            <h3>Finance Manager</h3>
+                        </group>
+                        <group>
+                            <field name="approve"/>
+                            <field name="reject"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="write_date" readonly="1" string="Submit Date:"/>
+                        <field name="write_uid" readonly="1" string="Submitted by:"/>
+                    </group>
+
+                    <separator string="Other Information"/>
+                    <group>
+                        <field name="write_uid" string="Name"></field>
+                        <field name="approver_groups"></field>
+                        <field name="write_date" string="Approve time and date"></field> 
+                        <field name="status_text" readonly="1"/>
+                    </group>
+                </page>
+
+
+                <!-- for second check -->
+                <page name="pi_expiary" string="PI Expiary" invisible="finance_group_check">
+                    <!-- Add your fields here -->
+                    <group>
+                        <group>
+                            <h3>CCM</h3> <br/>
+                            <h3>Finance Manager</h3>
+                        </group>
+                        <group>
+                            <field name="approve"/>
+                            <field name="reject"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="write_date" readonly="1" string="Submit Date:"/>
+                        <field name="write_uid" readonly="1" string="Submitted by:"/>
+                    </group>
+
+                    <separator string="Other Information"/>
+                    <group>
+                        <field name="write_uid" string="Name"></field>
+                        <field name="approver_groups"></field>
+                        <field name="write_date" string="Approve time and date"></field> 
+                        <field name="status_text" readonly="1"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+
+    <!-- request for quotation ar jonno action add korlam -->
+    <record id="request_for_quotation_action" model="ir.actions.server">
+        <field name="name">Expiary Date Extension</field>
+        <field name="model_id" ref="sale.model_sale_order"/>
+        <field name="binding_model_id" ref="sale.model_sale_order"/>
+        <field name="binding_view_types">form</field>
+        <field name="state">code</field>
+        <field name="code">action = record.action_request_pi_extension()</field>
+    </record>
+
+</odoo>

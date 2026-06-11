@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="sale_popup_wizerd_view_form" model="ir.ui.view">
+        <field name="name">sale.popup.wizerd.view.form</field>
+        <field name="model">sale.order</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="validity_date" string="Old Date" readonly="1"></field>
+                        </group>
+                        <group>
+                            <field name="new_date"></field>
+                        </group>
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="Apply"
+                            type="object"
+                            name="action_apply_extension"
+                            class="btn-primary"/>
+                    <button string="Cancel"
+                            class="btn-secondary"
+                            special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+</odoo>
