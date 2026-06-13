@@ -6,6 +6,7 @@
     'depends': ['base', 'sale', 'zencore_groups'],
     'data': [
         # security
+        'security/ir.model.access.csv',
         # action
         'views/sale_order_view.xml',
         'views/sale_popup_wizerd.xml',

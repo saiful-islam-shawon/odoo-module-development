@@ -12,58 +12,46 @@
 
             <!-- add page after other information -->
             <xpath expr="//page[@name='other_information']" position="after">
-                <page name="pi_expiary" string="PI Expiary" invisible="ccm_group_check">
-                    <!-- Add your fields here -->
+                <page name="pi_expiary" string="PI Expiary" invisible="finance_group_check or intial_page_hide_rule">
+
                     <group>
-                        <group>
-                            <h3>CCM</h3> <br/>
-                            <h3>Finance Manager</h3>
+                        <!-- Row 1: CCM -->
+                        <group string="CCM">
+                            <field name="finance_group_check" invisible="1"></field>
+                            <field name="approve" string="Approve" readonly="reject" groups="zencore_groups.group_zencore_clm_ccm"/>
+                            <field name="reject" string="Reject" readonly="approve" groups="zencore_groups.group_zencore_clm_ccm"/>
                         </group>
-                        <group>
-                            <field name="approve"/>
-                            <field name="reject"/>
+
+                        <!-- Row 2: Finance Manager -->
+                        <group string="Finance Manager" invisible="finance_manager_hide_rule">
+                            <field name="approve_finance" string="Approve" readonly="not approve or reject_finance" groups="zencore_groups.group_zencore_clm_finance"/>
+                            <field name="reject_finance" string="Reject" readonly="not approve or approve_finance" groups="zencore_groups.group_zencore_clm_finance"/>
                         </group>
                     </group>
+
+
                     <group>
                         <field name="write_date" readonly="1" string="Submit Date:"/>
                         <field name="write_uid" readonly="1" string="Submitted by:"/>
                     </group>
 
-                    <separator string="Other Information"/>
+                    <!-- <separator string="Other Information"/>
                     <group>
                         <field name="write_uid" string="Name"></field>
                         <field name="approver_groups"></field>
                         <field name="write_date" string="Approve time and date"></field> 
                         <field name="status_text" readonly="1"/>
-                    </group>
-                </page>
+                    </group> -->
 
-
-                <!-- for second check -->
-                <page name="pi_expiary" string="PI Expiary" invisible="finance_group_check">
-                    <!-- Add your fields here -->
-                    <group>
-                        <group>
-                            <h3>CCM</h3> <br/>
-                            <h3>Finance Manager</h3>
-                        </group>
-                        <group>
-                            <field name="approve"/>
-                            <field name="reject"/>
-                        </group>
-                    </group>
-                    <group>
-                        <field name="write_date" readonly="1" string="Submit Date:"/>
-                        <field name="write_uid" readonly="1" string="Submitted by:"/>
-                    </group>
-
-                    <separator string="Other Information"/>
-                    <group>
-                        <field name="write_uid" string="Name"></field>
-                        <field name="approver_groups"></field>
-                        <field name="write_date" string="Approve time and date"></field> 
-                        <field name="status_text" readonly="1"/>
-                    </group>
+                    <separator string="Approval History"/>
+                    <field name="approval_line_ids" readonly="1">
+                        <list>
+                            <field name="name" string="Name"/>
+                            <field name="designation" string="Designation"/>
+                            <field name="approve_date" string="Approve Date"/>
+                            <field name="status" string="Status"/>
+                        </list>
+                    </field>
                 </page>
             </xpath>
         </field>
