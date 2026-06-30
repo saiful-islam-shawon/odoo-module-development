@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="inherit_purchase_view" model="ir.ui.view">
+        <field name="name">inherit.purchase.view</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='button_validate']" position="attributes">
+                <attribute name="invisible">true_after_request == True or state == 'done'</attribute>
+            </xpath>
+
+            <xpath expr="//button[@name='button_validate']" position="after">
+                <button string="Approve Discrepency" name="action_discrepency" type="object" class="oe_highlight" invisible="true_after_request == False or state == 'cancel'" groups="product_receipt_validation.procurement_officer_group"/>
+            </xpath>
+
+            <xpath expr="//button[@name='action_assign']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

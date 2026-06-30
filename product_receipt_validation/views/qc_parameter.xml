@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="quality_check_inherit" model="ir.ui.view">
+        <field name="name">Quality check inherit view</field>
+        <field name="model">quality.check</field>
+        <field name="inherit_id" ref="quality_control.quality_check_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='notes']" position="after">
+                <page name="qc_parameter" string="QC Parameter">
+                    <group>
+                        <group string="Left Side">
+                            <field name="fiber_characteristics"/>
+                            <field name="micronaire"/>
+                            <field name="length"/>
+                            <field name="strength"/>
+                            <field name="uniformity"/>
+                            <field name="trash"/>
+                            <field name="short_fiber_index"/>
+                        </group>
+                        <group string="Right Side">
+                            <field name="color_grade"/>
+                            <field name="leaf_grade"/>
+                            <field name="crt_tc_no"/>
+                            <field name="moisture"/>
+                            <field name="uhml"/>
+                            <field name="reflectance"/>
+                            <field name="trash_pct"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

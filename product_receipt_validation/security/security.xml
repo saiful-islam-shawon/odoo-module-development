@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- creating privilege -->
+   <record id="procurement_officer_privilege" model="res.groups.privilege">
+       <field name="name">Procurement Officer</field>
+   </record>
+
+
+   <!-- creating group -->
+   <record id="procurement_officer_group" model="res.groups">
+       <field name="name">yes</field>
+       <field name="privilege_id" ref="procurement_officer_privilege" />
+   </record>
+
+
+</odoo>
