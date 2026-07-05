@@ -1,0 +1,143 @@
+// mouse parallax effect for body
+
+
+#wrap {
+    position: relative;
+    overflow: hidden;
+    // min-height: 100vh;
+    background: #000;
+}
+
+/* Background Image */
+.parallax-image {
+    position: absolute;
+
+    top: -120px;
+    left: -120px;
+
+    width: calc(100% + 240px);
+    height: calc(100% + 240px);
+
+    object-fit: cover;
+}
+
+
+// hero section
+
+.hero-section{
+    width: 100%;
+    height: 600px;
+    margin-top: 10px;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+}
+
+.hero-section img{
+    width: 100%;
+    height: 100%;
+    
+}
+
+.hero_absolet_position{
+    position: absolute;
+    top: 20px;
+    left: 30px;
+
+    width: 100%;
+    height: 100%;
+}
+
+.demand_margin{
+    margin-top: 70px;
+}
+
+
+
+
+// company
+
+.carosel{
+    margin-top: 100px;
+    margin-bottom: 150px;
+    overflow: hidden;
+    mask-image: linear-gradient(to right, transparent, #000 10% 90%, transparent);
+}
+.track{
+   display: flex;
+//    width: max-content;
+   will-change: transform;
+   animation: scroll 5s linear infinite;
+   /* animation-direction: reverse; */
+}
+
+
+@keyframes scroll {
+   to{
+       transform: translateX(-50%);
+   }
+}
+
+
+.carosel:hover .track{
+   animation-play-state: paused;
+}
+
+
+
+// success section
+
+ul{
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.right_to_left_animation {
+    opacity: 0;
+    transform: translateX(50px);
+    transition: transform 1s ease-out, opacity 0.8s ease-out;
+}
+
+.right_to_left_animation.aux-animated {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+
+// software solution section
+.software_solution_relative_div {
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+
+    &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+            to bottom left,
+            rgba(48, 75, 143, 0.55) 0%,
+            rgba(15, 34, 112, 0.75) 60%,
+            rgba(10, 15, 45, 0.9) 100%
+        );
+        transition: opacity 0.4s ease;
+    }
+
+    &:hover::after {
+        opacity: 0;
+    }
+}
+
+.software_solution_absolet_div {
+    position: absolute;
+    left: 30px;
+    top: 40px;
+    z-index: 1;
+}
+
+
+

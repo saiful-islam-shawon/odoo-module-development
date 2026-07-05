@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="custom_homepage" inherit_id="website.homepage" name="Custome Homepage">
+        <xpath expr="//div[@id='wrap']" position="replace">
+            <div id="wrap" class="oe_structure oe_empty">
+
+                <!-- mouse parallax effect for body -->
+                <img src="/website_practice/static/src/img/background_img.png" class="parallax-image"/>
+
+
+                <!-- hero section -->
+                <div class="container">
+                    <section class="hero-section">
+                        <img src="/website_practice/static/src/img/hero_section_img.jpg" class="hero-bg"/>
+                        <div class="hero_absolet_position">
+                            <p class="text-secondary mt-5 ms-5">Full-cycle offshore software development service company and your dedicated partner in Bangladesh <br></br>with top talents who create the best quality custom-made software solutions</p>
+                            <h1 class="text-secondary ms-5 demand_margin">On-demand</h1>
+                            <h1 class="text-secondary ms-5">Custom Agile Team to</h1>
+                            <h1 class="ms-5">
+                                <a href="" class="typewrite text-danger" data-period="2000" data-type='[ "Hi, Im Shawon.", "I am Creative.", "I Love Design.", "I Love to Develop." ]'>
+                                </a>
+                            </h1>
+                            <h1 class="text-secondary ms-5">digital solutions</h1>
+
+                            <a href="#" class="btn btn-primary text-secondary ms-5 mt-5 p-3">Build your Team</a>
+                            <a href="#" class="btn btn-secondary text-dark ms-5 mt-5 p-3">Start your Project</a>
+                        </div>
+                    </section>
+                </div>
+
+
+                <!-- company -->
+                 
+                <section>
+                    <div class="carosel container">
+                        <div class="track">
+                            <div class="item"><h2 class="text-secondary bg-dark px-5 py-4 d-inline">Berger</h2></div>
+                            <div class="item"><h2 class="text-secondary bg-dark px-5 py-4 ms-3 d-inline-block">Berger</h2></div>
+                            <div class="item"><h2 class="text-secondary bg-dark px-5 py-4 ms-3 d-inline-block">Berger</h2></div>
+                            <div class="item"><h2 class="text-secondary bg-dark px-5 py-4 ms-3 d-inline-block">Berger</h2></div>
+                            <div class="item"><h2 class="text-secondary bg-dark px-5 py-4 ms-3 d-inline-block">Berger</h2></div>
+                            <div class="item"><h2 class="text-secondary bg-dark px-5 py-4 ms-3 d-inline-block">Berger</h2></div>
+                            <div class="item"><h2 class="text-secondary bg-dark px-5 py-4 ms-3 d-inline-block">Berger</h2></div>
+                            <div class="item"><h2 class="text-secondary bg-dark px-5 py-4 ms-3 d-inline-block">Berger</h2></div>
+
+
+                            <!-- duplicate item -->
+                            <div class="item"><h2 class="text-secondary bg-dark px-5 py-4 ms-3 d-inline-block">Berger</h2></div>
+                            <div class="item"><h2 class="text-secondary bg-dark px-5 py-4 ms-3 d-inline-block">Berger</h2></div>
+                            <div class="item"><h2 class="text-secondary bg-dark px-5 py-4 ms-3 d-inline-block">Berger</h2></div>
+                            <div class="item"><h2 class="text-secondary bg-dark px-5 py-4 ms-3 d-inline-block">Berger</h2></div>
+                            <div class="item"><h2 class="text-secondary bg-dark px-5 py-4 ms-3 d-inline-block">Berger</h2></div>
+                            <div class="item"><h2 class="text-secondary bg-dark px-5 py-4 ms-3 d-inline-block">Berger</h2></div>
+                            <div class="item"><h2 class="text-secondary bg-dark px-5 py-4 ms-3 d-inline-block">Berger</h2></div>
+                            <div class="item"><h2 class="text-secondary bg-dark px-5 py-4 ms-3 d-inline-block">Berger</h2></div>
+                        </div>
+                    </div>
+                </section>
+
+
+                <!-- success section -->
+                <section class="mb-5">
+                    <div class="container">
+                        <h2 class="text-white">Automate success with Tech Trends</h2>
+                        <p class="text-secondary">FullStack AI, Block Chain or IoT implementation to assist businesses with powerful automation capabilities to stay ahead of the curve.</p>
+                        <hr class="border border-white border-3" style="width: 100px;"></hr>
+
+                        <div class="row g-2 mt-3">
+                            <div class="col right_to_left_animation">
+                                <div class="bg-black p-5 rounded border">
+                                    <i class="fa-solid fa-brain text-danger fa-3x mb-4"/>
+                                    <h4 class="text-white">AI and Agentic Development</h4>
+                                    <p class="small text-white">Highly Secure IoT Development And Integration Solutions Will Let You Gather Big Data, Unify Operations, Streamline Processes And Improve Decision-Making.</p>
+                                    <ul>
+                                        <li class="text-white">
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#d92b2b" stroke-width="3">
+                                                <path d="M4 12 L9 17 L20 6"/>
+                                            </svg>
+                                            IoT solution deployment
+                                        </li>
+                                        <li class="text-white">
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#d92b2b" stroke-width="3">
+                                                <path d="M4 12 L9 17 L20 6"/>
+                                            </svg>
+                                            IoT analytics
+                                        </li>
+                                        <li class="text-white">
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#d92b2b" stroke-width="3">
+                                                <path d="M4 12 L9 17 L20 6"/>
+                                            </svg>
+                                            IoT support and implementation
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="col right_to_left_animation">
+                                <div class="bg-black p-5 rounded border">
+                                    <i class="fa-solid fa-lock text-danger fa-3x mb-4"></i>
+                                    <h4 class="text-white">AI and Agentic Development</h4>
+                                    <p class="small text-white">Highly Secure IoT Development And Integration Solutions Will Let You Gather Big Data, Unify Operations, Streamline Processes And Improve Decision-Making.</p>
+                                    <ul>
+                                        <li class="text-white">
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#d92b2b" stroke-width="3">
+                                                <path d="M4 12 L9 17 L20 6"/>
+                                            </svg>
+                                            IoT solution deployment
+                                        </li>
+                                        <li class="text-white">
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#d92b2b" stroke-width="3">
+                                                <path d="M4 12 L9 17 L20 6"/>
+                                            </svg>
+                                            IoT analytics
+                                        </li>
+                                        <li class="text-white">
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#d92b2b" stroke-width="3">
+                                                <path d="M4 12 L9 17 L20 6"/>
+                                            </svg>
+                                            IoT support and implementation
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col right_to_left_animation">
+                                <div class="bg-black p-5 rounded border">
+                                    <i class="fa-solid fa-wifi text-danger fa-3x mb-4"></i>
+                                    <h4 class="text-white">AI and Agentic Development</h4>
+                                    <p class="small text-white">Highly Secure IoT Development And Integration Solutions Will Let You Gather Big Data, Unify Operations, Streamline Processes And Improve Decision-Making.</p>
+                                    <ul>
+                                        <li class="text-white">
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#d92b2b" stroke-width="3">
+                                                <path d="M4 12 L9 17 L20 6"/>
+                                            </svg>
+                                            IoT solution deployment
+                                        </li>
+                                        <li class="text-white">
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#d92b2b" stroke-width="3">
+                                                <path d="M4 12 L9 17 L20 6"/>
+                                            </svg>
+                                            IoT analytics
+                                        </li>
+                                        <li class="text-white">
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#d92b2b" stroke-width="3">
+                                                <path d="M4 12 L9 17 L20 6"/>
+                                            </svg>
+                                            IoT support and implementation
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+
+
+                <!-- software solution section -->
+                <section class="mt-5">
+                    <div class="container">
+                        <h2 class="text-white">Offshore Software Solutions: Tailored for You</h2>
+                        <p class="text-secondary">Dedicated to providing you with the best tailored software solution services that help solve your business problems and succeed through digital transformation consultancy. For you, our teams are adaptable, flexible, and agile. Your core requirements and goals are the guidelines we follow to create top-quality software solutions.</p>
+                        <hr class="border border-white border-3" style="width: 100px;"></hr>
+
+                        <div class="row g-2">
+                            <div class="col software_solution_relative_div" style="height: 380px">
+                                <img src="/website_practice/static/src/img/typing.avif" style="width: 100%; height: 100%; object-fit: cover;"></img>
+                                <div class="software_solution_absolet_div">
+                                    <i class="fa-solid fa-wifi text-danger fa-3x mb-5"></i>
+                                    <p class="small text-white my-5">Remote Extended Team</p>
+                                    <h5 class="text-white mt-5">Dedicated</h5>
+                                    <h5 class="text-white">Development Teams</h5>
+                                </div>
+                            </div>
+                            <div class="col software_solution_relative_div" style="height: 380px">
+                                <img src="/website_practice/static/src/img/typing.avif" style="width: 100%; height: 100%; object-fit: cover;"></img>
+                                <div class="software_solution_absolet_div">
+                                    <i class="fa-solid fa-wifi text-danger fa-3x mb-5"></i>
+                                    <p class="small text-white my-5">Remote Extended Team</p>
+                                    <h5 class="text-white mt-5">Dedicated</h5>
+                                    <h5 class="text-white">Development Teams</h5>
+                                </div>
+                            </div>
+                            <div class="col software_solution_relative_div" style="height: 380px">
+                                <img src="/website_practice/static/src/img/typing.avif" style="width: 100%; height: 100%; object-fit: cover;"></img>
+                                <div class="software_solution_absolet_div">
+                                    <i class="fa-solid fa-wifi text-danger fa-3x mb-5"></i>
+                                    <p class="small text-white my-5">Remote Extended Team</p>
+                                    <h5 class="text-white mt-5">Dedicated</h5>
+                                    <h5 class="text-white">Development Teams</h5>
+                                </div>
+                            </div>
+                            <div class="col software_solution_relative_div" style="height: 380px">
+                                <img src="/website_practice/static/src/img/typing.avif" style="width: 100%; height: 100%; object-fit: cover;"></img>
+                                <div class="software_solution_absolet_div">
+                                    <i class="fa-solid fa-wifi text-danger fa-3x mb-5"></i>
+                                    <p class="small text-white my-5">Remote Extended Team</p>
+                                    <h5 class="text-white mt-5">Dedicated</h5>
+                                    <h5 class="text-white">Development Teams</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+
+
+
+                <!-- solution section -->
+                <!-- <section class="solution_section">
+                    <div class="container">
+                        <div class="row g-2">
+                            <div class="col">
+                                <div style="height:607px; position: relative;" class="rounded overflow-hidden">
+                                    <img src="/website_practice/static/src/img/solve.jpg" style="width: 100%; height: 100%; object-fit: cover;"></img>
+                                    <h3 class="fw-bold" style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); margin: 0;">Mamia design studio</h3>
+                                </div>
+                            </div>
+
+                            <div class="col">
+                                <div style="height:607px;">
+                                    <div class="d-flex">
+                                        <div class="me-1" style="height: 300px; width: 50%;">
+                                            <img src="/website_practice/static/src/img/solve.jpg" style="width: 100%; height: 100%; object-fit: cover;"></img>
+                                        </div>
+
+                                        <div class="ms-1" style="height: 300px; width: 50%;">
+                                           <img src="/website_practice/static/src/img/solve.jpg" style="width: 100%; height: 100%; object-fit: cover;"></img>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex mt-2">
+                                        <div class="me-1" style="height: 300px; width: 50%;">
+                                            <img src="/website_practice/static/src/img/solve.jpg" style="width: 100%; height: 100%; object-fit: cover;"></img>
+                                        </div>
+                                        
+                                        <div class="ms-1" style="height: 300px; width: 50%;">
+                                            <img src="/website_practice/static/src/img/solve.jpg" style="width: 100%; height: 100%; object-fit: cover;"></img>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section> -->
+
+
+            </div>
+        </xpath>
+    </template>
+
+</odoo>
