@@ -1,0 +1,33 @@
+.hero_section_container{
+    border-radius: 8px;
+    overflow: hidden;
+    height: 700px;
+    position: relative;
+
+    img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .hero_section_content{
+        position: absolute;
+        left: 30px;
+        top: 40px;
+
+
+        p{
+            margin-bottom: 100px;
+        }
+
+        .typewrite {
+        color: inherit;
+        text-decoration: none;
+
+        .new_text {
+            border-right: 0.08em solid #fff;
+            padding-right: 4px;
+        }
+    }
+    }
+}

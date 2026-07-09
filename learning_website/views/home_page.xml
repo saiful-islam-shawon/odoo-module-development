@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="custom_home_page" inherit_id="website.homepage" name="Custom Home Page">
+        <xpath expr="//div[@id='wrap']" position="replace">
+            <div id="wrap" class="oe_structure">
+                <img src="/learning_website/static/src/img/parallax.jpg"
+                    alt="Parallax img"
+                    class="parallax-image" />
+            </div>
+        </xpath>
+    </template>
+
+</odoo>

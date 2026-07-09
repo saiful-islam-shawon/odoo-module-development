@@ -1,0 +1,36 @@
+.company_card_section{
+
+    .carosel{
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    .track{
+        display: flex;
+        width: max-content;
+        will-change: transform;
+        animation: scroll 8s linear infinite;
+    }
+
+    @keyframes scroll {
+        to{
+            transform: translateX(-50%);
+        }
+    }
+
+    .item{
+        height: 170px;
+        width: 280px;
+        margin: 0 4px;
+    }
+
+    .item img{
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+    }
+
+    .track:hover{
+        animation-play-state: paused;
+    }
+}

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="herosection_template" name="Hero Section Template">
+        <section class="hero_section pt64 pb64">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="hero_section_container">
+                            <img src="/learning_website/static/src/img/hero_img.jpg"></img>
+
+                            <div class="hero_section_content text-white fw-bold">
+                                <p>Full-cycle offshore software development service company and your dedicated partner in Bangladesh with <br></br>top talents who create the best quality custom-made software solutions</p>
+                                <h2>On-demand</h2>
+                                <h2 class="mb-3">Custom Agile Team to</h2>
+                                <h2><a href="" class="typewrite" data-period="2000" data-type='[ "Hi, Im Si.", "I am Creative.", "I Love Design.", "I Love to Develop." ]'>
+                                <span class="new_text"></span></a></h2>
+                                <h2 class="mt-3 mb-5">Digital Solution</h2>
+
+                                <!-- add button -->
+                                <div class="hero_buttons mt-5">
+                                    <a href="#" class="btn btn-success">Build your Team</a>
+                                    <a href="#" class="btn btn-warning">Start your Project</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </template>
+
+</odoo>

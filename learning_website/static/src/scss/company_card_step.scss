@@ -1,0 +1,58 @@
+.company_card_step_section {
+
+    .carosel {
+        border-radius: 8px;
+        overflow: hidden;
+        width: 100%;
+    }
+
+    .track {
+        display: flex;
+        width: max-content;
+        will-change: transform;
+        animation: stepMove 12s ease-in-out infinite;
+    }
+
+    .item {
+        flex: 0 0 280px;
+        height: 170px;
+        margin: 0 4px;
+    }
+
+    .item img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+    .track:hover {
+        animation-play-state: paused;
+    }
+}
+
+@keyframes stepMove {
+    0%, 10% {
+        transform: translateX(0);
+    }
+
+    18%, 28% {
+        transform: translateX(-288px);
+    }
+
+    36%, 46% {
+        transform: translateX(-576px);
+    }
+
+    54%, 64% {
+        transform: translateX(-864px);
+    }
+
+    72%, 82% {
+        transform: translateX(-1152px);
+    }
+
+    90%, 100% {
+        transform: translateX(-1440px);
+    }
+}
