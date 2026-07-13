@@ -1,0 +1,117 @@
+.total_work_section {
+
+
+    /* Base banner section configuration */
+    .banner-section {
+        background-color: #1e2022;
+        /* Image er moto dark grey background color */
+        font-family: 'Inter', sans-serif;
+        min-height: 280px;
+        overflow: hidden;
+        border-bottom: 3px solid #141517;
+        position: relative;
+        border-radius: 8px;
+    }
+
+    /* Canvas design background wrapper */
+    #networkCanvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        pointer-events: none;
+        /* User jeno interact korte pare text er shathe */
+        opacity: 0.35;
+        /* Faint look er jonno opacity */
+    }
+
+    .content-container {
+        position: relative;
+        z-index: 2;
+        /* Elements canvas er upore thakbe */
+    }
+
+    /* Banner main heading custom typography */
+    .banner-title {
+        font-size: 2.2rem;
+        font-weight: 700;
+        line-height: 1.25;
+        color: #ffffff;
+        letter-spacing: -0.5px;
+    }
+
+    /* Custom Learn How pill-button */
+    .btn-learn {
+        background: transparent;
+        border: 1.5px solid rgba(255, 255, 255, 0.4);
+        color: rgba(255, 255, 255, 0.85);
+        font-weight: 500;
+        font-size: 0.88rem;
+        padding: 9px 24px;
+        border-radius: 50px;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+    }
+
+    .btn-learn:hover {
+        border-color: #e31c25;
+        background-color: rgba(227, 28, 37, 0.05);
+        color: #ffffff;
+        transform: translateY(-2px);
+    }
+
+    .btn-learn .arrow-icon {
+        color: #e31c25;
+        /* Red arrow color as per image */
+        margin-left: 10px;
+        font-size: 1.1rem;
+        transition: transform 0.3s ease;
+    }
+
+    .btn-learn:hover .arrow-icon {
+        transform: translateX(4px);
+    }
+
+    /* Serif font properties numeric statistics card er jonno */
+    .stat-number {
+        font-family: 'Playfair Display', serif;
+        font-size: 4rem;
+        /* Boro boro statistics font size */
+        font-weight: 700;
+        color: #e31c25;
+        /* High-contrast red/crimson color code */
+        line-height: 1;
+        margin-bottom: 8px;
+        letter-spacing: -1px;
+    }
+
+    /* Muted white label text descriptions */
+    .stat-label {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #d1d5db;
+        letter-spacing: -0.3px;
+    }
+
+    /* Responsive styling small screen adjustment er jonno */
+    @media (max-width: 991.98px) {
+        .banner-title {
+            font-size: 1.85rem;
+            margin-bottom: 20px;
+        }
+
+        .stat-number {
+            font-size: 3.2rem;
+        }
+
+        .stat-label {
+            font-size: 0.95rem;
+            margin-bottom: 25px;
+        }
+    }
+
+}

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="total_work_template" name="Total Work Template">
+        <section class="total_work_section pt64 pb64" data-snippet="s_total_work" data-name="Total Work">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <!-- Main Section: Dark Theme with Background Canvas and Bootstrap Grid -->
+                        <div class="banner-section py-5 d-flex align-items-center">
+                            <!-- Dynamic interactive network lines er canvas elements -->
+                            <canvas id="networkCanvas"></canvas>
+
+                            <div class="container content-container">
+                                <div class="row align-items-center justify-content-between g-4">
+
+                                    <!-- Left Column: Title & Learn How Outline Button -->
+                                    <div class="col-lg-4 col-md-12 text-start">
+                                        <h2 class="banner-title mb-4 ms-5"> Delivering Software<br></br>Excellence Globally</h2>
+                                        <a href="#" class="btn-learn ms-5"> Learn How <span class="arrow-icon">→</span></a>
+                                    </div>
+
+                                    <!-- Right Column: Numbers and Titles grid system -->
+                                    <div class="col-lg-8 col-md-12">
+                                        <div class="row text-start text-sm-start text-md-start">
+
+                                            <!-- 10+ Years Experience column box -->
+                                            <div class="col-sm-4">
+                                                <div class="stat-number" data-target="10">
+                                                    <span class="stat-count">0</span><span class="stat-plus">+</span>
+                                                </div>
+                                                <div class="stat-label">Years Experience</div>
+                                            </div>
+
+                                            <!-- 180+ Projects column box -->
+                                            <div class="col-sm-4">
+                                                <div class="stat-number" data-target="180">
+                                                    <span class="stat-count">0</span><span class="stat-plus">+</span>
+                                                </div>
+                                                <div class="stat-label">Projects</div>
+                                            </div>
+
+                                            <!-- 60+ Senior Engineers column box -->
+                                            <div class="col-sm-4">
+                                                <div class="stat-number" data-target="60">
+                                                    <span class="stat-count">0</span><span class="stat-plus">+</span>
+                                                </div>
+                                                <div class="stat-label">Senior Engineers</div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </template>
+
+</odoo>

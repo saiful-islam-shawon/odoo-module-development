@@ -14,6 +14,9 @@
         # homepage
         'views/home_page.xml',
         
+        # header page
+        'views/header.xml',
+        
         # company card
         'views/snippets/company_card_template.xml',
         
@@ -22,6 +25,9 @@
         
         # hero section
         'views/snippets/hero_section.xml',
+        
+        # total work
+        'views/snippets/total_work.xml',
         
         # snippet
         'views/snippets/snippet.xml',
@@ -43,6 +49,13 @@
             # hero section
             'learning_website/static/src/scss/hero_section.scss',
             'learning_website/static/src/js/hero_section.js',
+            
+            # total work
+            'learning_website/static/src/scss/total_work.scss',
+            'learning_website/static/src/js/total_work.js',
+            
+            # header
+            'learning_website/static/src/scss/header.scss',
         ],
     },
 
