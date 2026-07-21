@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="page_documents" model="website.page">
+
+        <field name="name">Documents</field>
+
+        <field name="type">qweb</field>
+
+        <field name="url">/documents</field>
+
+        <field name="is_published" eval="True"/>
+
+        <field name="key">
+            zaintagro_portal_user.page_documents
+        </field>
+
+        <field name="arch" type="xml">
+
+            <t t-name="zaintagro_portal_user.page_documents">
+
+                <t t-call="website.layout">
+
+                    <t t-set="additional_title">Documents</t>
+
+                    <div id="wrap"
+                         class="oe_structure custom_dashboard_page">
+
+                        <div class="container-fluid">
+
+                            <div class="row g-0">
+
+                                <!-- Left Sidebar -->
+                                <div class="col-lg-2 col-md-3 custom_sidebar_column">
+
+                                    <t t-set="active_menu"
+                                       t-value="'documents'"/>
+
+                                    <t t-call="zaintagro_portal_user.custom_left_sidebar"/>
+
+                                </div>
+
+                                <!-- Main Content -->
+                                <div class="col-lg-10 col-md-9 custom_dashboard_content">
+
+                                    <div class="custom_content_wrapper">
+
+                                        <h1>Documents</h1>
+
+                                        <p class="text-muted">
+                                            View and manage your documents.
+                                        </p>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </t>
+
+            </t>
+
+        </field>
+
+    </record>
+
+</odoo>

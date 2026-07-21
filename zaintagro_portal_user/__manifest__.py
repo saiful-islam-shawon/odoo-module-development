@@ -28,6 +28,9 @@
         
         # sidebar template
         'views/sidebar_template.xml',
+        
+        # document page
+        'views/document_page.xml',
        
     ],
 
