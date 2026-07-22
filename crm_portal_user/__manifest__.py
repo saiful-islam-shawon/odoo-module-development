@@ -1,0 +1,38 @@
+# -*- coding: utf-8 -*-
+
+{
+    "name": "CRM Portal User",
+    "version": "19.0.1.0.0",
+    "summary": "CRM Portal Dashboard for Portal Users",
+    "category": "Website",
+    "author": "Saiful Islam Shawon",
+    "website": "",
+    "license": "LGPL-3",
+    "depends": [
+        "website",
+        "crm",
+        "portal",
+        "mail",
+        "utm",
+    ],
+    "data": [
+        
+        # homepage
+        'views/homepage.xml',
+
+        # sidebar_template
+        'views/sidebar_template.xml',
+    ],
+    "assets": {
+        "web.assets_frontend": [
+            
+            # sidebar template
+            'crm_portal_user/static/src/scss/sidebar_template.scss',
+
+            # crm tags
+            'crm_portal_user/static/src/js/crm_tags.js',
+        ],
+    },
+    "application": True,
+    "installable": True,
+}
