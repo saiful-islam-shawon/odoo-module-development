@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="sale_order_template" name="Sale Order Template">
+        <t t-call="website.layout">
+
+            <t t-set="additional_title">Sale Order</t>
+
+            <div id="wrap" class="oe_structure custom_dashboard_page">
+
+                <div class="container-fluid">
+                    <div class="row g-0">
+
+                        <!-- Left Sidebar -->
+                        <div class="col-lg-2 col-md-3 custom_sidebar_column">
+                            <t t-set="active_menu" t-value="'sale_order'" />
+                            <t t-call="crm_portal_user.custom_left_sidebar" />
+                        </div>
+
+                        <!-- Main Content -->
+                        <div class="col-lg-10 col-md-9 custom_dashboard_content">
+                            <div class="custom_content_wrapper">
+
+                                <!-- Success Message -->
+                                <div t-if="request.params.get('success')"
+                                    class="custom_success_banner">
+                                    <div class="custom_success_icon">
+                                        <i class="fa fa-check" />
+                                    </div>
+                                    <div class="custom_success_text">
+                                        <h5>Sale Order Submitted</h5>
+                                        <p>Your sale order request has been created successfully.</p>
+                                    </div>
+                                </div>
+
+                                <div class="mb-4">
+                                    <h2 class="mb-1">Create Sale Order</h2>
+                                    <p class="text-muted mb-0">
+                                        Select products and quantities to request a new sale order.
+                                    </p>
+                                </div>
+
+                                <section>
+                                    <div class="container-fluid px-0">
+
+                                        <form id="sale_order_form"
+                                            action="/sale_order/submit"
+                                            method="post"
+                                            class="o_mark_required">
+
+                                            <input type="hidden" name="csrf_token"
+                                                t-att-value="request.csrf_token()" />
+
+
+                                            <!-- Order Header Info -->
+                                            <div class="row g-3 mb-4">
+
+                                                <!-- Customer -->
+                                                <div class="col-lg-6 col-12">
+                                                    <label class="form-label"
+                                                        for="so_customer_select"> Customer <span
+                                                            class="text-danger">*</span>
+                                                    </label>
+                                                    <select id="so_customer_select"
+                                                        name="partner_id" class="form-select"
+                                                        required="required">
+                                                        <option value="">Select Customer</option>
+                                                        <t t-foreach="customers" t-as="customer">
+                                                            <option t-att-value="customer.id">
+                                                                <t t-esc="customer.name" />
+                                                            </option>
+                                                        </t>
+                                                    </select>
+                                                </div>
+
+                                                <!-- Expiration -->
+                                                <div class="col-lg-3 col-6">
+                                                    <label class="form-label" for="so_validity_date">
+                                                        Expiration</label>
+                                                    <input type="date" id="so_validity_date"
+                                                        name="validity_date" class="form-control" />
+                                                </div>
+
+                                                <!-- Quotation Date -->
+                                                <div class="col-lg-3 col-6">
+                                                    <label class="form-label" for="so_date_order">Quotation
+                                                        Date</label>
+                                                    <input type="datetime-local" id="so_date_order"
+                                                        name="date_order" class="form-control" />
+                                                </div>
+
+                                                <!-- Invoice Address -->
+                                                <div class="col-lg-6 col-12">
+                                                    <label class="form-label"
+                                                        for="so_invoice_address">Invoice Address</label>
+                                                    <select id="so_invoice_address"
+                                                        name="partner_invoice_id"
+                                                        class="form-select" disabled="disabled">
+                                                        <option value="">Select customer first</option>
+                                                    </select>
+                                                </div>
+
+                                                <!-- Delivery Address -->
+                                                <div class="col-lg-6 col-12">
+                                                    <label class="form-label"
+                                                        for="so_delivery_address">Delivery Address</label>
+                                                    <select id="so_delivery_address"
+                                                        name="partner_shipping_id"
+                                                        class="form-select" disabled="disabled">
+                                                        <option value="">Select customer first</option>
+                                                    </select>
+                                                </div>
+
+                                                <!-- Pricelist -->
+                                                <div class="col-lg-6 col-12">
+                                                    <label class="form-label" for="so_pricelist_id">
+                                                        Pricelist</label>
+                                                    <select id="so_pricelist_id" name="pricelist_id"
+                                                        class="form-select">
+                                                        <option value="">Select Pricelist</option>
+                                                        <t t-foreach="pricelists" t-as="pricelist">
+                                                            <option t-att-value="pricelist.id">
+                                                                <t t-esc="pricelist.name" />
+                                                            </option>
+                                                        </t>
+                                                    </select>
+                                                </div>
+
+                                                <!-- Payment Terms -->
+                                                <div class="col-lg-6 col-12">
+                                                    <label class="form-label"
+                                                        for="so_payment_term_id">Payment Terms</label>
+                                                    <select id="so_payment_term_id"
+                                                        name="payment_term_id" class="form-select">
+                                                        <option value="">Select Payment Terms</option>
+                                                        <t t-foreach="payment_terms" t-as="term">
+                                                            <option t-att-value="term.id">
+                                                                <t t-esc="term.name" />
+                                                            </option>
+                                                        </t>
+                                                    </select>
+                                                </div>
+
+                                            </div>
+
+
+                                            <!-- Tabs -->
+                                            <ul class="nav nav-tabs so_form_tabs mb-3"
+                                                role="tablist">
+                                                <li class="nav-item" role="presentation">
+                                                    <button class="nav-link active"
+                                                        id="so_tab_lines_btn" data-bs-toggle="tab"
+                                                        data-bs-target="#so_tab_lines" type="button"
+                                                        role="tab">
+                                                        Order Lines
+                                                    </button>
+                                                </li>
+                                                <li class="nav-item" role="presentation">
+                                                    <button class="nav-link" id="so_tab_other_btn"
+                                                        data-bs-toggle="tab"
+                                                        data-bs-target="#so_tab_other" type="button"
+                                                        role="tab">
+                                                        Other Info
+                                                    </button>
+                                                </li>
+                                            </ul>
+
+                                            <div class="tab-content">
+
+                                                <!-- Order Lines Tab -->
+                                                <div class="tab-pane fade show active"
+                                                    id="so_tab_lines" role="tabpanel">
+
+                                                    <div class="table-responsive">
+                                                        <table
+                                                            class="table so_order_lines_table align-middle">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th style="width: 40%;">Product</th>
+                                                                    <th style="width: 15%;">Quantity</th>
+                                                                    <th style="width: 15%;">Unit Price</th>
+                                                                    <th style="width: 10%;">Taxes</th>
+                                                                    <th style="width: 15%;">Amount</th>
+                                                                    <th style="width: 5%;"></th>
+                                                                </tr>
+                                                            </thead>
+
+                                                            <tbody id="so_order_lines_container">
+
+                                                                <!-- one starting row -->
+                                                                <tr class="so_order_line_row">
+
+                                                                    <td>
+                                                                        <select name="product_id[]"
+                                                                            class="form-select so_product_select"
+                                                                            required="required">
+                                                                            <option value="">Select
+                                                                                Product</option>
+                                                                            <t t-foreach="products"
+                                                                                t-as="product">
+                                                                                <option
+                                                                                    t-att-value="product.id"
+                                                                                    t-att-data-price="product.list_price"
+                                                                                    t-att-data-tax="product_tax_map.get(product.id, 0)">
+                                                                                    
+                                                                                    <t
+                                                                                        t-esc="product.name" />
+                                                                                </option>
+                                                                            </t>
+                                                                        </select>
+                                                                    </td>
+
+                                                                    <td>
+                                                                        <input type="number"
+                                                                            name="quantity[]"
+                                                                            class="form-control so_qty_input"
+                                                                            min="1" step="1"
+                                                                            value="1"
+                                                                            required="required" />
+                                                                    </td>
+
+                                                                    <td>
+                                                                        <input type="text"
+                                                                            class="form-control so_unit_price_display"
+                                                                            value="0.00"
+                                                                            readonly="readonly" />
+                                                                    </td>
+
+                                                                    <td>
+                                                                        <input type="text" class="form-control so_tax_display" value="0%" readonly="readonly" />
+                                                                    </td>
+
+                                                                    <td>
+                                                                        <input type="text"
+                                                                            class="form-control so_amount_display"
+                                                                            value="0.00"
+                                                                            readonly="readonly" />
+                                                                    </td>
+
+                                                                    <td class="text-end">
+                                                                        <button type="button"
+                                                                            class="btn btn-outline-danger btn-sm so_remove_line">
+                                                                            <i class="fa fa-trash" />
+                                                                        </button>
+                                                                    </td>
+
+                                                                </tr>
+
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+
+                                                    <button type="button" id="so_add_line"
+                                                        class="btn btn-outline-primary btn-sm mt-2">
+                                                        <i class="fa fa-plus me-1" /> Add Line </button>
+
+                                                    <div class="text-end mt-3">
+                                                        <div class="mb-1">Untaxed Amount: <span id="so_untaxed_total">0.00</span></div>
+                                                        <div class="mb-1">Tax: <span id="so_tax_total">0.00</span></div>
+                                                        <h5>Total: <span id="so_grand_total">0.00</span></h5>
+                                                    </div>
+
+                                                </div>
+
+                                                <!-- Other Info Tab (placeholder) -->
+                                                <div class="tab-pane fade" id="so_tab_other"
+                                                    role="tabpanel">
+                                                    <p class="text-muted">Other info fields will be
+                                                        added here later.</p>
+                                                </div>
+
+                                            </div>
+
+                                            <!-- Note -->
+                                            <div class="mb-3 mt-4">
+                                                <label class="form-label" for="so_note">Notes</label>
+                                                <textarea id="so_note" name="note"
+                                                    class="form-control" rows="4"
+                                                    placeholder="Any additional notes for this order..."></textarea>
+                                            </div>
+
+                                            <div class="text-end">
+                                                <button type="submit" class="btn btn-primary px-4">
+                                                    <i class="fa fa-paper-plane me-2" /> Submit Sale
+                                                    Order </button>
+                                            </div>
+
+                                        </form>
+
+                                    </div>
+                                </section>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </t>
+    </template>
+
+</odoo>

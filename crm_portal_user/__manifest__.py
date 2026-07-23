@@ -22,6 +22,9 @@
 
         # sidebar_template
         'views/sidebar_template.xml',
+        
+        # sale order template
+        'views/sale_order_template.xml',
     ],
     "assets": {
         "web.assets_frontend": [
@@ -31,6 +34,13 @@
 
             # crm tags
             'crm_portal_user/static/src/js/crm_tags.js',
+            
+            # sale order
+            'crm_portal_user/static/src/js/sale_order.js',
+            'crm_portal_user/static/src/scss/sale_order.scss',
+            
+            # sale order line
+            'crm_portal_user/static/src/js/sale_order_line.js',
         ],
     },
     "application": True,

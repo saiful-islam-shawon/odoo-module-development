@@ -1,1 +1,1 @@
-from . import crm_controller
+from . import crm_controller, sale_order_controller
