@@ -4,8 +4,10 @@ from odoo.http import request
 
 class CrmPortal(http.Controller):
 
-    @http.route("/", type="http", auth="user", website=True)
+    @http.route("/create_crm", type="http", auth="user", website=True)
     def homepage(self, **kwargs):
+               
+        # code start
         values = {
             "partner": request.env.user.partner_id,
             "crm_countries": request.env["res.country"].sudo().search([], order="name"),

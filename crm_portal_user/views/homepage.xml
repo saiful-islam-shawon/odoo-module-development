@@ -439,31 +439,35 @@
                                                     data-type="many2one"
                                                     data-name="Country">
 
-                                                    <label class="form-label"
-                                                        for="crm_country_id">
+                                                    <label class="form-label" for="crm_country_search">
                                                         Country
                                                     </label>
 
-                                                    <select id="crm_country_id"
+                                                    <input type="hidden"
+                                                        id="crm_country_id"
                                                         name="country_id"
-                                                        class="form-select s_website_form_input">
+                                                        class="s_website_form_input"
+                                                        t-att-value="partner.country_id.id if partner.country_id else ''" />
 
-                                                        <option value="">Select Country</option>
+                                                    <div class="position-relative crm_country_search_wrapper">
+                                                        <input type="text"
+                                                            id="crm_country_search"
+                                                            class="form-control s_website_form_input"
+                                                            placeholder="Select Country"
+                                                            autocomplete="off"
+                                                            t-att-value="partner.country_id.name if partner.country_id else ''" />
 
-                                                        <t t-foreach="crm_countries"
-                                                            t-as="country">
-
-                                                            <option t-att-value="country.id"
-                                                                t-att-selected="
-                        partner.country_id
-                        and country.id == partner.country_id.id
-                    ">
-                                                                <t t-esc="country.name" />
-                                                            </option>
-
-                                                        </t>
-
-                                                    </select>
+                                                        <div id="crm_country_suggestions"
+                                                            class="crm_country_suggestions_dropdown d-none">
+                                                            <t t-foreach="crm_countries" t-as="country">
+                                                                <div class="crm_country_suggestion_item"
+                                                                    t-att-data-id="country.id"
+                                                                    t-att-data-name="country.name">
+                                                                    <t t-esc="country.name" />
+                                                                </div>
+                                                            </t>
+                                                        </div>
+                                                    </div>
                                                 </div>
 
                                                 <!-- State -->
@@ -472,32 +476,36 @@
                                                     data-type="many2one"
                                                     data-name="State">
 
-                                                    <label class="form-label"
-                                                        for="crm_state_id">
+                                                    <label class="form-label" for="crm_state_search">
                                                         State
                                                     </label>
 
-                                                    <select id="crm_state_id"
-                                                        name="state_id"
-                                                        class="form-select s_website_form_input">
+                                                    <input type="hidden"
+                                                            id="crm_state_id"
+                                                            name="state_id"
+                                                            class="s_website_form_input"
+                                                            t-att-value="partner.state_id.id if partner.state_id else ''" />
 
-                                                        <option value="">Select State</option>
+                                                        <div class="position-relative crm_state_search_wrapper">
+                                                            <input type="text"
+                                                                id="crm_state_search"
+                                                                class="form-control s_website_form_input"
+                                                                placeholder="Select State"
+                                                                autocomplete="off"
+                                                                t-att-value="partner.state_id.name if partner.state_id else ''" />
 
-                                                        <t t-foreach="crm_states"
-                                                            t-as="state">
-
-                                                            <option t-att-value="state.id"
-                                                                t-att-data-country-id="state.country_id.id"
-                                                                t-att-selected="
-                        partner.state_id
-                        and state.id == partner.state_id.id
-                    ">
-                                                                <t t-esc="state.name" />
-                                                            </option>
-
-                                                        </t>
-
-                                                    </select>
+                                                            <div id="crm_state_suggestions"
+                                                                class="crm_state_suggestions_dropdown d-none">
+                                                                <t t-foreach="crm_states" t-as="state">
+                                                                    <div class="crm_state_suggestion_item"
+                                                                        t-att-data-id="state.id"
+                                                                        t-att-data-name="state.name"
+                                                                        t-att-data-country-id="state.country_id.id">
+                                                                        <t t-esc="state.name" />
+                                                                    </div>
+                                                                </t>
+                                                            </div>
+                                                        </div>
                                                 </div>
 
 
@@ -513,23 +521,33 @@
                                                     data-type="many2one"
                                                     data-name="Campaign">
 
-                                                    <label class="form-label" for="crm_campaign_id">
+                                                    <label class="form-label" for="crm_campaign_search">
                                                         Campaign
                                                     </label>
 
-                                                    <select id="crm_campaign_id"
+                                                    <input type="hidden"
+                                                        id="crm_campaign_id"
                                                         name="campaign_id"
-                                                        class="form-select s_website_form_input">
+                                                        class="s_website_form_input" />
 
-                                                        <option value="">Select Campaign</option>
+                                                    <div class="position-relative crm_campaign_search_wrapper">
+                                                        <input type="text"
+                                                            id="crm_campaign_search"
+                                                            class="form-control s_website_form_input"
+                                                            placeholder="Select Campaign"
+                                                            autocomplete="off" />
 
-                                                        <t t-foreach="crm_campaigns" t-as="campaign">
-                                                            <option t-att-value="campaign.id">
-                                                                <t t-esc="campaign.name" />
-                                                            </option>
-                                                        </t>
-
-                                                    </select>
+                                                        <div id="crm_campaign_suggestions"
+                                                            class="crm_campaign_suggestions_dropdown d-none">
+                                                            <t t-foreach="crm_campaigns" t-as="campaign">
+                                                                <div class="crm_campaign_suggestion_item"
+                                                                    t-att-data-id="campaign.id"
+                                                                    t-att-data-name="campaign.name">
+                                                                    <t t-esc="campaign.name" />
+                                                                </div>
+                                                            </t>
+                                                        </div>
+                                                    </div>
                                                 </div>
 
                                                 <!-- Medium -->
@@ -538,23 +556,33 @@
                                                     data-type="many2one"
                                                     data-name="Medium">
 
-                                                    <label class="form-label" for="crm_medium_id">
+                                                    <label class="form-label" for="crm_medium_search">
                                                         Medium
                                                     </label>
 
-                                                    <select id="crm_medium_id"
+                                                    <input type="hidden"
+                                                        id="crm_medium_id"
                                                         name="medium_id"
-                                                        class="form-select s_website_form_input">
+                                                        class="s_website_form_input" />
 
-                                                        <option value="">Select Medium</option>
+                                                    <div class="position-relative crm_medium_search_wrapper">
+                                                        <input type="text"
+                                                            id="crm_medium_search"
+                                                            class="form-control s_website_form_input"
+                                                            placeholder="Select Medium"
+                                                            autocomplete="off" />
 
-                                                        <t t-foreach="crm_mediums" t-as="medium">
-                                                            <option t-att-value="medium.id">
-                                                                <t t-esc="medium.name" />
-                                                            </option>
-                                                        </t>
-
-                                                    </select>
+                                                        <div id="crm_medium_suggestions"
+                                                            class="crm_medium_suggestions_dropdown d-none">
+                                                            <t t-foreach="crm_mediums" t-as="medium">
+                                                                <div class="crm_medium_suggestion_item"
+                                                                    t-att-data-id="medium.id"
+                                                                    t-att-data-name="medium.name">
+                                                                    <t t-esc="medium.name" />
+                                                                </div>
+                                                            </t>
+                                                        </div>
+                                                    </div>
                                                 </div>
 
                                                 <!-- Source -->
@@ -563,23 +591,33 @@
                                                     data-type="many2one"
                                                     data-name="Source">
 
-                                                    <label class="form-label" for="crm_source_id">
+                                                    <label class="form-label" for="crm_source_search">
                                                         Source
                                                     </label>
 
-                                                    <select id="crm_source_id"
+                                                    <input type="hidden"
+                                                        id="crm_source_id"
                                                         name="source_id"
-                                                        class="form-select s_website_form_input">
+                                                        class="s_website_form_input" />
 
-                                                        <option value="">Select Source</option>
+                                                    <div class="position-relative crm_source_search_wrapper">
+                                                        <input type="text"
+                                                            id="crm_source_search"
+                                                            class="form-control s_website_form_input"
+                                                            placeholder="Select Source"
+                                                            autocomplete="off" />
 
-                                                        <t t-foreach="crm_sources" t-as="source">
-                                                            <option t-att-value="source.id">
-                                                                <t t-esc="source.name" />
-                                                            </option>
-                                                        </t>
-
-                                                    </select>
+                                                        <div id="crm_source_suggestions"
+                                                            class="crm_source_suggestions_dropdown d-none">
+                                                            <t t-foreach="crm_sources" t-as="source">
+                                                                <div class="crm_source_suggestion_item"
+                                                                    t-att-data-id="source.id"
+                                                                    t-att-data-name="source.name">
+                                                                    <t t-esc="source.name" />
+                                                                </div>
+                                                            </t>
+                                                        </div>
+                                                    </div>
                                                 </div>
 
                                                 <!-- Referred By -->

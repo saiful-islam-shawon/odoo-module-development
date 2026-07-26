@@ -345,6 +345,34 @@
     }
 }
 
+// START start
+
+.crm_state_search_wrapper {
+    position: relative;
+}
+.crm_state_suggestions_dropdown {
+    position: absolute;
+    z-index: 50;
+    width: 100%;
+    max-height: 240px;
+    margin-top: 4px;
+    overflow-y: auto;
+    background: #ffffff;
+    border: 1px solid #d8dadd;
+    border-radius: 6px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+.crm_state_suggestion_item {
+    padding: 9px 12px;
+    cursor: pointer;
+    &:hover {
+        background: #f1f6f7;
+    }
+}
+
+// start end
+
+
 @keyframes custom_success_fade_in {
     from {
         opacity: 0;
@@ -360,4 +388,122 @@
     .custom_success_banner {
         padding: 14px 16px;
     }
+}
+
+
+
+// campaign
+
+.crm_campaign_search_wrapper {
+    position: relative;
+}
+.crm_campaign_suggestions_dropdown {
+    position: absolute;
+    z-index: 50;
+    width: 100%;
+    max-height: 240px;
+    margin-top: 4px;
+    overflow-y: auto;
+    background: #ffffff;
+    border: 1px solid #d8dadd;
+    border-radius: 6px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+.crm_campaign_suggestion_item {
+    padding: 9px 12px;
+    cursor: pointer;
+    &:hover {
+        background: #f1f6f7;
+    }
+}
+
+
+// medium
+
+.crm_medium_search_wrapper {
+    position: relative;
+}
+.crm_medium_suggestions_dropdown {
+    position: absolute;
+    z-index: 50;
+    width: 100%;
+    max-height: 240px;
+    margin-top: 4px;
+    overflow-y: auto;
+    background: #ffffff;
+    border: 1px solid #d8dadd;
+    border-radius: 6px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+.crm_medium_suggestion_item {
+    padding: 9px 12px;
+    cursor: pointer;
+    &:hover {
+        background: #f1f6f7;
+    }
+}
+
+
+// source
+
+.crm_source_search_wrapper {
+    position: relative;
+}
+.crm_source_suggestions_dropdown {
+    position: absolute;
+    z-index: 50;
+    width: 100%;
+    max-height: 240px;
+    margin-top: 4px;
+    overflow-y: auto;
+    background: #ffffff;
+    border: 1px solid #d8dadd;
+    border-radius: 6px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+.crm_source_suggestion_item {
+    padding: 9px 12px;
+    cursor: pointer;
+    &:hover {
+        background: #f1f6f7;
+    }
+}
+
+
+// country
+
+.crm_country_search_wrapper {
+    position: relative;
+}
+.crm_country_suggestions_dropdown {
+    position: absolute;
+    z-index: 50;
+    width: 100%;
+    max-height: 240px;
+    margin-top: 4px;
+    overflow-y: auto;
+    background: #ffffff;
+    border: 1px solid #d8dadd;
+    border-radius: 6px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+.crm_country_suggestion_item {
+    padding: 9px 12px;
+    cursor: pointer;
+    &:hover {
+        background: #f1f6f7;
+    }
+}
+
+
+// tags
+
+.crm_tags_dropdown_menu {
+    max-height: 320px;
+    overflow: hidden;
+}
+.crm_tag_options {
+    max-height: 250px;
+    overflow-y: auto;
+    padding-right: 4px;
 }

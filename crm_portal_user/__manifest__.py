@@ -17,6 +17,12 @@
     ],
     "data": [
         
+        # security
+        'security/security.xml',
+        
+        # default homepage
+        'views/default_homepage.xml',
+        
         # homepage
         'views/homepage.xml',
 
