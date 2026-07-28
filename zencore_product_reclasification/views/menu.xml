@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem
+        id="sku_reclasification_menu"
+        name="Sku Reclasification"
+        parent="stock.menu_stock_warehouse_mgmt"
+        action="sku_reclasification_request_action"
+        sequence="2"/>
+
+</odoo>

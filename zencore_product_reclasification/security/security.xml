@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Security category -->
+    <record id="sku_reclassification_security_category" model="ir.module.category">
+        <field name="name">SKU Reclassification Security</field>
+        <field name="sequence">10</field>
+    </record>
+
+
+
+    <!-- Privilege -->
+    <record id="store_keeper_privilege" model="res.groups.privilege">
+        <field name="name">Store Keeper</field>
+        <field name="category_id" ref="sku_reclassification_security_category"/>
+    </record>
+
+    <!-- Storekeeper group -->
+    <record id="store_keeper_group" model="res.groups">
+        <field name="name">Yes</field>
+        <field name="privilege_id" ref="store_keeper_privilege"/>
+    </record>
+
+
+
+    <!-- Factory Manager Privilege -->
+    <record id="factory_manager_privilege" model="res.groups.privilege">
+        <field name="name">Factory Manager</field>
+        <field name="category_id" ref="sku_reclassification_security_category"/>
+    </record>
+
+    <!-- Factory Manager group -->
+    <record id="factory_manager_group" model="res.groups">
+        <field name="name">Yes</field>
+        <field name="privilege_id" ref="factory_manager_privilege"/>
+    </record>
+
+
+
+    <!-- Sales Manager Privilege -->
+    <record id="sales_manager_privilege" model="res.groups.privilege">
+        <field name="name">Sales Manager</field>
+        <field name="category_id" ref="sku_reclassification_security_category"/>
+    </record>
+
+    <!-- Sales Manager group -->
+    <record id="sales_manager_group" model="res.groups">
+        <field name="name">Yes</field>
+        <field name="privilege_id" ref="sales_manager_privilege"/>
+    </record>
+
+
+
+    <!-- Finance Manager Privilege -->
+    <record id="finance_manager_privilege" model="res.groups.privilege">
+        <field name="name">Finance Manager</field>
+        <field name="category_id" ref="sku_reclassification_security_category"/>
+    </record>
+
+    <!-- Sales Manager group -->
+    <record id="finance_manager_group" model="res.groups">
+        <field name="name">Yes</field>
+        <field name="privilege_id" ref="finance_manager_privilege"/>
+    </record>
+
+</odoo>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- list view -->
+    <record id="sku_reclasification_request_view_list" model="ir.ui.view">
+        <field name="name">sku_reclasification_request.view.list</field>
+        <field name="model">sku.reclassification.request</field>
+        <field name="arch" type="xml">
+            <list string="">
+                <field name="sku_source_product"></field>
+                <field name="sku_target_product"></field>
+            </list>
+        </field>
+    </record>
+
+    <!-- form view -->
+    <record id="sku_reclasification_request_view_form" model="ir.ui.view">
+        <field name="name">sku_reclasification_request_view_form</field>
+        <field name="model">sku.reclassification.request</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <header>
+
+                    <!-- statusbar -->
+                    <!-- <field name="state" widget="statusbar" statusbar_visible="complete,new,pending"/> -->
+
+                    <!-- button -->
+                    <!-- <button string="Approve By Storekeeper" name="storekeeper_action" type="object" class="oe_highlight" groups="zencore_product_reclasification.store_keeper_group"/>
+                    <button string="Approve By Factory Manager" name="factory_manager_action" type="object" class="oe_highlight" groups="zencore_product_reclasification.factory_manager_group"/>
+                    <button string="Approve By Sales Manager" name="sales_manager_action" type="object" class="oe_highlight" groups="zencore_product_reclasification.sales_manager_group"/>
+                    <button string="Approve By Finance Manager" name="finance_manager_action" type="object" class="oe_highlight" groups="zencore_product_reclasification.finance_manager_privilege"/> -->
+
+                    <button string="Approve" name="approve_action" type="object" class="oe_highlight"/>
+                    <!-- <button string="jurnal show" name="action_jurnal" type="object" class="oe_highlight"/> -->
+                    <button string="Journal Test" name="action_manufacturing_journal" type="object" class="oe_highlight"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group string="Source Product">
+                            <field name="sku_source_product"></field>
+                            <field name="quantity"></field>
+                        </group>
+                        <group string="Target Product">
+                            <field name="sku_target_product"></field>
+                        </group>
+                    </group>
+                </sheet>
+
+                <!-- add chatter -->
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- action -->
+    <record id="sku_reclasification_request_action" model="ir.actions.act_window">
+        <field name="name">Sku Reclasification Request</field>
+        <field name="res_model">sku.reclassification.request</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first SKU Reclassification Request
+            </p>
+
+            <p>
+                Submit a controlled request to transfer inventory
+                from a source SKU to the correct target SKU.
+            </p>
+        </field>
+    </record>
+
+</odoo>
