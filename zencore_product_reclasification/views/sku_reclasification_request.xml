@@ -20,30 +20,102 @@
         <field name="arch" type="xml">
             <form string="">
                 <header>
-
                     <!-- statusbar -->
-                    <!-- <field name="state" widget="statusbar" statusbar_visible="complete,new,pending"/> -->
+                    <field name="state" widget="statusbar" statusbar_visible="complete,new,pending"/>
 
-                    <!-- button -->
-                    <!-- <button string="Approve By Storekeeper" name="storekeeper_action" type="object" class="oe_highlight" groups="zencore_product_reclasification.store_keeper_group"/>
-                    <button string="Approve By Factory Manager" name="factory_manager_action" type="object" class="oe_highlight" groups="zencore_product_reclasification.factory_manager_group"/>
-                    <button string="Approve By Sales Manager" name="sales_manager_action" type="object" class="oe_highlight" groups="zencore_product_reclasification.sales_manager_group"/>
-                    <button string="Approve By Finance Manager" name="finance_manager_action" type="object" class="oe_highlight" groups="zencore_product_reclasification.finance_manager_privilege"/> -->
 
-                    <button string="Approve" name="approve_action" type="object" class="oe_highlight"/>
-                    <!-- <button string="jurnal show" name="action_jurnal" type="object" class="oe_highlight"/> -->
-                    <button string="Journal Test" name="action_manufacturing_journal" type="object" class="oe_highlight"/>
+                    <!-- store keeper buttons -->
+                    <button string="Change Req" name="change_req_by_storekeeper" type="object" class="oe_highlight" groups="zencore_product_reclasification.store_keeper_group" invisible="state not in ['new', 'draft']"/>
+                    <button string="Cancel" name="cancel_by_storekeeper" type="object" class="oe_highlight" groups="zencore_product_reclasification.store_keeper_group" invisible="state in ['cancel', 'complete', 'pending']"/>
+                    <button string="Reset To Draft" name="reset_to_draft_action" type="object" class="oe_highlight" groups="zencore_product_reclasification.store_keeper_group" invisible="state != 'cancel'"/>
+
+                    <!-- factory manager buttons -->
+                    <button string="Approve" name="approve_by_factory_manager" type="object" class="oe_highlight" groups="zencore_product_reclasification.factory_manager_group" invisible="factory_manager_visiblity_button or factory_manager_hiearicy"/>
+                    <button string="Reject" name="reject_by_factory_manager" type="object" class="oe_highlight" groups="zencore_product_reclasification.factory_manager_group" invisible="factory_manager_visiblity_button or factory_manager_hiearicy"/>
+
+
+                    <!-- sales manager buttons -->
+                    <button string="Approve" name="approve_by_sales_manager" type="object" class="oe_highlight" groups="zencore_product_reclasification.sales_manager_group" invisible="sales_manager_visibility_button or sales_manager_hiearicy"/>
+                    <button string="Reject" name="reject_by_sales_manager" type="object" class="oe_highlight" groups="zencore_product_reclasification.sales_manager_group" invisible="sales_manager_visibility_button or sales_manager_hiearicy"/>
+
+                    <!-- finance manager button -->
+                    <button string="Approve" name="finance_manager_action" type="object" class="oe_highlight" groups="zencore_product_reclasification.finance_manager_group" invisible="finance_manager_visibility_button or finance_manager_hiearicy"/>
+                    <button string="Reject" name="reject_by_finance_manager" type="object" class="oe_highlight" groups="zencore_product_reclasification.finance_manager_group" invisible="finance_manager_visibility_button or finance_manager_hiearicy"/>
+
+
+                    <!-- test -->
+                    <!-- <button string="product test" name="approve_action" type="object" class="oe_highlight"/> -->
+
                 </header>
                 <sheet>
                     <group>
                         <group string="Source Product">
-                            <field name="sku_source_product"></field>
-                            <field name="quantity"></field>
+                            <field name="sku_source_product" readonly="state != 'new'"></field>
+                            <field name="source_product_name"></field>
+                            <field name="source_product_quantity"></field>
+                            <field name="source_product_cost_price"></field>
+                            <field name="source_lot_numbers"/>
                         </group>
                         <group string="Target Product">
-                            <field name="sku_target_product"></field>
+                            <field name="sku_target_product" readonly="state != 'new'"></field>
+                            <field name="target_product_name"></field>
+                            <field name="target_product_quantity"></field>
+                            <field name="target_product_cost_price"></field>
+                            <field name="target_lot_numbers"/>
+                        </group>
+
+                        <group string="SKU Change Request Quantity">
+                            <field name="quantity" readonly="state != 'new'"></field>
                         </group>
                     </group>
+
+
+                    <!-- note book -->
+                    <notebook>
+                        <page name="changing_status_information" string="Changing Status Information">
+                            <table class="table table-striped" invisible="state == 'new'">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Date</th>
+                                        <th scope="col">User</th>
+                                        <th scope="col">Role</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Note</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- <tr>
+                                        <th scope="row"><field name="store_keeper_approval_date" nolabel="1" readonly="1"/></th>
+                                        <td><field name="store_keeper_approved_by" nolabel="1" readonly="1"/></td>
+                                        <td>Store Keeper</td>
+                                        <td><field name="store_keeper_approval_status" nolabel="1" readonly="1" widget="badge" decoration-success="store_keeper_approval_status == 'approved'" decoration-warning="store_keeper_approval_status == 'pending'" decoration-danger="store_keeper_approval_status in ['cancel', 'rejected']" decoration-info="store_keeper_approval_status == 'reset_to_draft'"/></td>
+                                        <td>Approval Status By Store Keeper</td>
+                                    </tr> -->
+                                    <tr>
+                                        <th scope="row"><field name="factory_manager_approval_date" nolabel="1" readonly="1"/></th>
+                                        <td><field name="factory_manager_approved_by" nolabel="1" readonly="1"/></td>
+                                        <td>Factory Manager</td>
+                                        <td><field name="factory_manager_approval_status" nolabel="1" readonly="1" widget="badge" decoration-success="factory_manager_approval_status == 'approved'" decoration-warning="factory_manager_approval_status == 'pending'" decoration-danger="factory_manager_approval_status in ['cancel', 'rejected']" decoration-info="factory_manager_approval_status == 'reset_to_draft'"/></td>
+                                        <td>Approval Status By Factory Manager</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row"><field name="sales_manager_approval_date" nolabel="1" readonly="1"/></th>
+                                        <td><field name="sales_manager_approved_by" nolabel="1" readonly="1"/></td>
+                                        <td>Sales Manager</td>
+                                        <td><field name="sales_manager_approval_status" nolabel="1" readonly="1" widget="badge" decoration-success="sales_manager_approval_status == 'approved'" decoration-warning="sales_manager_approval_status == 'pending'" decoration-danger="sales_manager_approval_status in ['cancel', 'rejected']" decoration-info="sales_manager_approval_status == 'reset_to_draft'"/></td>
+                                        <td>Approval Status By Sales Manager</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row"><field name="finance_manager_approval_date" nolabel="1" readonly="1"/></th>
+                                        <td><field name="finance_manager_approved_by" nolabel="1" readonly="1"/></td>
+                                        <td>Finance Manager</td>
+                                        <td><field name="finance_manager_approval_status" nolabel="1" readonly="1" widget="badge" decoration-success="finance_manager_approval_status == 'approved'" decoration-warning="finance_manager_approval_status == 'pending'" decoration-danger="finance_manager_approval_status in ['cancel', 'rejected']" decoration-info="finance_manager_approval_status == 'reset_to_draft'"/></td>
+                                        <td>Approval Status By Finance Manager</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </page>
+                    </notebook>
                 </sheet>
 
                 <!-- add chatter -->

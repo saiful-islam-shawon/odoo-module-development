@@ -3,7 +3,7 @@
 {
     "name": "Zencore Product Reclassification",
     "version": "19.0.1.0.0",
-    "category": "Inventory/Inventory",
+    "category": "msa",
     "summary": "Controlled finished goods SKU reclassification workflow",
     "description": """
     Zencore Product Reclassification
@@ -13,7 +13,7 @@
     from a source SKU to a target SKU.
 
     Main Features
-    -------------
+    =====================
     * Storekeeper reclassification request
     * Factory Manager approval
     * Sales Manager approval
