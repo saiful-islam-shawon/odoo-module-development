@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="approve_button_inherit" model="ir.ui.view">
+        <field name="name">approve.button.inherit</field>
+        <field name="model">hr.leave</field>
+        <field name="inherit_id" ref="hr_holidays.hr_leave_view_form_manager"/>
+        <field name="arch" type="xml">
+
+            <!-- আগের Approve বাটন: validate state এ hide করো -->
+            <xpath expr="//button[@name='action_approve']" position="attributes">
+                <attribute name="invisible">state == 'validate'</attribute>
+            </xpath>
+
+            <!-- নতুন বাটন: validate state এ visible, নিজের method/label দিয়ে -->
+            <!-- <xpath expr="//button[@name='action_approve']" position="after">
+                <button name="your_custom_method"
+                        string="Approved"
+                        type="object"
+                        class="btn-primary"
+                        invisible="state != 'validate'"
+                        readonly = "state == 'validate'" />
+            </xpath> -->
+
+            <!-- <xpath expr="//button[@name='action_approve']" position="after">
+                <span class="o_arrow_button_current text-bg-success px-3 py-1 rounded"
+                    invisible="state != 'validate'"
+                    style="font-weight: 500;">
+                    Approved
+                </span>
+            </xpath> -->
+
+            <xpath expr="//button[@name='action_approve']" position="after">
+                <span class="px-3 py-1 rounded"
+                    invisible="state != 'validate'"
+                    style="font-weight: 600; font-size: 16px; background-color: #714B67; color: #FFFFFF;">
+                    Approved
+                </span>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>
