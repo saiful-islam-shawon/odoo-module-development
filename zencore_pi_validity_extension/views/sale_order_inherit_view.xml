@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="sale_order_view" model="ir.ui.view">
+        <field name="name">Sale Order View</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"></field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='validity_date']" position="attributes">
+                <attribute name="readonly">1</attribute>
+            </xpath>
+
+            <!-- add page after other information -->
+            <xpath expr="//page[@name='other_information']" position="after">
+                <page name="pi_expiary" string="PI Expiary">
+
+                    <group>
+                        
+                        <group string="CCM Group">
+                            <button string="Approve" name="approve_action" type="object" class="oe_highlight"/>
+                            <button string="Rejected" name="reject_action" type="object" class="oe_highlight"/>
+                        </group>
+
+                        <group string="Finance_manager">
+                            <button string="Approve" name="approve_action" type="object" class="oe_highlight"/>
+                            <button string="Rejected" name="reject_action" type="object" class="oe_highlight"/>
+                        </group>
+                        
+                    </group>
+
+
+                    <separator string="Approval History"/>
+
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Designation</th>
+                                <th scope="col">Approve Date</th>
+                                <th scope="col">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">ahkash</th>
+                                <td>CCM</td>
+                                <td>45</td>
+                                <!-- <td><field name="ccm_approval_status"></field></td> -->
+                                <td>
+                                    <field name="ccm_approval_status"
+                                        widget="badge"
+                                        readonly="1"
+                                        nolabel="1"
+                                        decoration-warning="ccm_approval_status == 'pending'"
+                                        decoration-success="ccm_approval_status == 'approved'"
+                                        decoration-danger="ccm_approval_status == 'rejected'"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">ahkash</th>
+                                <td>Finance Manager</td>
+                                <td>45</td>
+                                <!-- <td><field name="finance_approval_status"></field></td> -->
+                                <td>
+                                    <field name="finance_approval_status"
+                                        widget="badge"
+                                        readonly="1"
+                                        nolabel="1"
+                                        decoration-warning="finance_approval_status == 'pending'"
+                                        decoration-success="finance_approval_status == 'approved'"
+                                        decoration-danger="finance_approval_status == 'rejected'"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+
+</odoo>

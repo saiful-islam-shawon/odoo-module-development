@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- request for quotation ar jonno action add korlam -->
+    <record id="request_for_quotation_action" model="ir.actions.server">
+        <field name="name">Expiary Date Extension</field>
+        <field name="model_id" ref="sale.model_sale_order"/>
+        <field name="binding_model_id" ref="sale.model_sale_order"/>
+        <field name="binding_view_types">form</field>
+        <field name="state">code</field>
+        <field name="code">action = record.action_request_pi_extension()</field>
+    </record>
+
+</odoo>
