@@ -46,6 +46,9 @@ Features:
         
         # popup widget
         'views/sale_popup_wizerd.xml',
+
+        # approval line form
+        'views/approval_line_form.xml',
     ],
     "installable": True,
 

@@ -30,4 +30,4 @@ class SaleOrderPopupWidget(models.Model):
     
     def action_apply_extension(self):
         self.ensure_one()
-        self.sale_order_id.validity_date = self.new_date
+        self.sale_order_id.new_date = self.new_date

@@ -4,31 +4,15 @@ from odoo.exceptions import UserError
 
 class SaleOrderPiExtension(models.Model):
     _inherit = "sale.order"
+
+    new_date = fields.Date(string="date")
     
     sale_order_popup_widget_ids = fields.One2many("sale.order.popup.widget", "sale_order_id")
     
-    _APPROVAL_STATUS_SELECTION = [
-        ("pending", "Pending"),
-        ("approved", "Approved"),
-        ("rejected", "Rejected"),
-    ]
-    
-    ccm_approval_status = fields.Selection(
-        selection=_APPROVAL_STATUS_SELECTION,
-        string="CCM Status",
-        default="pending",
-        readonly=True,
-        copy=False,
+    approval_line_ids = fields.One2many(
+        "sale.order.approval.line",
+        "sale_order_id",
     )
-    
-    finance_approval_status = fields.Selection(
-        selection=_APPROVAL_STATUS_SELECTION,
-        string="Finance Manager Status",
-        default="pending",
-        readonly=True,
-        copy=False,
-    )
-    
     
     
     def action_request_pi_extension(self):
@@ -46,33 +30,23 @@ class SaleOrderPiExtension(models.Model):
             },
         }
         
-        
-    
-    # test
-    def approve_action(self):
-        self.ensure_one()
-        
-        if self.env.user.has_group("zencore_groups.group_zencore_clm_ccm"):
-            if self.ccm_approval_status == "pending":
-                self.ccm_approval_status = "approved"
 
-            elif self.finance_approval_status == "pending":
-                # self.finance_approval_status = "approved"
-                pass
 
-            else:
-                raise UserError(
-                    "CCM and Finance approval are already completed."
-                )
-        else:
-            raise UserError("sorry")
+    @api.model_create_multi
+    def create(self, vals_list):
+        orders = super().create(vals_list)
 
-        return True
-    
-    
-    
-    def reject_action(self):
-        pass
+        for order in orders:
+            order.approval_line_ids = [
+                (0, 0, {
+                    "approval_level": "CCM",
+                }),
+                (0, 0, {
+                    "approval_level": "Finance Manager",
+                }),
+            ]
+
+        return orders
         
         
         
