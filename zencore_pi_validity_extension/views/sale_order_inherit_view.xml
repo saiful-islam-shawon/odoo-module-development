@@ -12,7 +12,7 @@
 
             <!-- add page after other information -->
             <xpath expr="//page[@name='other_information']" position="after">
-                <page name="pi_expiary" string="PI Expiary">
+                <page name="pi_expiary" string="PI Expiary" groups="zencore_groups.group_zencore_clm_ccm,zencore_groups.group_zencore_clm_finance">
 
 
                     <separator string="Approval History"/>

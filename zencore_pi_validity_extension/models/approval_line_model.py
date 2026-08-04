@@ -25,8 +25,8 @@ class SaleOrderApprovalLine(models.Model):
 
     user_id = fields.Many2one(
         "res.users",
-        string="User",
-        default=lambda self: self.env.user,
+        string="Approved By",
+        readonly=True,
     )
 
     approval_level = fields.Char()
@@ -69,15 +69,51 @@ class SaleOrderApprovalLine(models.Model):
                 raise UserError(
                     "CCM approval is required before Finance Manager approval."
                 )
-
+        
+        
         self.write({
             "status": "approved",
             "approve_date": fields.Datetime.now(),
+            "user_id": self.env.user.id,
         })
 
-        self.sale_order_id.write({
-            "validity_date": self.sale_order_id.new_date,
-        })
+        # কত দিনের extension
+        difference = (
+            self.sale_order_id.new_date - self.sale_order_id.validity_date
+        ).days
+
+      
+        
+        if difference < 30:
+
+            self.sale_order_id.write({
+                "validity_date": self.sale_order_id.new_date,
+            })
+
+            self.sale_order_id._remove_group_activity(
+                "zencore_groups.group_zencore_clm_ccm"
+            )
+
+        elif self.approval_level == "CCM":
+
+            self.sale_order_id._remove_group_activity(
+                "zencore_groups.group_zencore_clm_ccm"
+            )
+
+            self.sale_order_id._create_group_activity(
+                "zencore_groups.group_zencore_clm_finance",
+                "Finance Approval Required"
+            )
+
+        elif self.approval_level == "Finance Manager":
+
+            self.sale_order_id.write({
+                "validity_date": self.sale_order_id.new_date,
+            })
+
+            self.sale_order_id._remove_group_activity(
+                "zencore_groups.group_zencore_clm_finance"
+            )
 
         return {
             "type": "ir.actions.client",
@@ -120,7 +156,18 @@ class SaleOrderApprovalLine(models.Model):
         self.write({
             "status": "rejected",
             "approve_date": fields.Datetime.now(),
+            "user_id": self.env.user.id,
         })
+        
+        
+        # remove all activity
+        self.sale_order_id._remove_group_activity(
+            "zencore_groups.group_zencore_clm_ccm"
+        )
+
+        self.sale_order_id._remove_group_activity(
+            "zencore_groups.group_zencore_clm_finance"
+        )
 
         return {
             "type": "ir.actions.client",

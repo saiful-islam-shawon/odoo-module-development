@@ -31,23 +31,34 @@ class SaleOrderPiExtension(models.Model):
         }
         
 
-
-    @api.model_create_multi
-    def create(self, vals_list):
-        orders = super().create(vals_list)
-
-        for order in orders:
-            order.approval_line_ids = [
-                (0, 0, {
-                    "approval_level": "CCM",
-                }),
-                (0, 0, {
-                    "approval_level": "Finance Manager",
-                }),
-            ]
-
-        return orders
         
+    def _create_group_activity(self, group_xmlid, summary):
+        self.ensure_one()
+
+        group = self.env.ref(group_xmlid)
+        todo_type = self.env.ref("mail.mail_activity_data_todo")
+
+        for user in group.user_ids:
+            self.activity_schedule(
+                activity_type_id=todo_type.id,
+                user_id=user.id,
+                summary=summary,
+            )
+        
+    
+    
+    def _remove_group_activity(self, group_xmlid):
+        self.ensure_one()
+
+        group = self.env.ref(group_xmlid)
+
+        activities = self.env["mail.activity"].search([
+            ("res_model", "=", "sale.order"),
+            ("res_id", "=", self.id),
+            ("user_id", "in", group.user_ids.ids),
+        ])
+
+        activities.unlink()
         
         
     

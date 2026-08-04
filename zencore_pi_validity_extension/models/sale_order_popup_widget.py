@@ -1,5 +1,5 @@
 from odoo import models, api, fields
-
+from odoo.exceptions import UserError
 
 
 class SaleOrderPopupWidget(models.Model):
@@ -30,4 +30,53 @@ class SaleOrderPopupWidget(models.Model):
     
     def action_apply_extension(self):
         self.ensure_one()
-        self.sale_order_id.new_date = self.new_date
+        
+        if self.new_date <= self.validity_date:
+            raise UserError(
+                "New Expiration Date must be greater than the current Expiration Date."
+            )
+
+        difference = (
+            self.new_date - self.validity_date
+        ).days
+
+        self.sale_order_id.approval_line_ids.unlink()
+
+        approval_lines = [
+            (0, 0, {
+                "approval_level": "CCM",
+            })
+        ]
+        
+        # remove all activity for ccm and finance manager
+        self.sale_order_id._remove_group_activity(
+            "zencore_groups.group_zencore_clm_ccm"
+        )
+
+        self.sale_order_id._remove_group_activity(
+            "zencore_groups.group_zencore_clm_finance"
+        )
+        
+        # create activity for ccm
+        self.sale_order_id._create_group_activity(
+            "zencore_groups.group_zencore_clm_ccm",
+            "PI Extension Approval",
+        )
+        
+        
+        
+        if difference >= 30:
+            approval_lines.append(
+                (0, 0, {
+                    "approval_level": "Finance Manager",
+                })
+            )
+
+        self.sale_order_id.write({
+            "new_date": self.new_date,
+            "approval_line_ids": approval_lines,
+        })
+
+        return {
+            "type": "ir.actions.act_window_close",
+        }
