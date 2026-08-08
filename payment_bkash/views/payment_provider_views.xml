@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="payment_provider_form_bkash" model="ir.ui.view">
+        <field name="name">payment.provider.form.bkash</field>
+        <field name="model">payment.provider</field>
+        <field name="inherit_id" ref="payment.payment_provider_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='provider_credentials']" position="inside">
+                <group invisible="code != 'bkash'">
+                    <field name="bkash_app_key" required="code == 'bkash'" password="True"/>
+                    <field name="bkash_app_secret" required="code == 'bkash'" password="True"/>
+                    <field name="bkash_username" required="code == 'bkash'"/>
+                    <field name="bkash_password" required="code == 'bkash'" password="True"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Simple redirect template: bKash returns a fully-hosted checkout URL,
+         so we just bounce the browser there instead of auto-submitting a form. -->
+    <template id="redirect_form" name="bKash Redirect Form">
+        <div id="o_bkash_redirect_url" t-att-data-url="api_url" style="display:none;"/>
+        <script type="text/javascript">
+            document.addEventListener('DOMContentLoaded', function () {
+                var el = document.getElementById('o_bkash_redirect_url');
+                if (el &amp;&amp; el.dataset.url) {
+                    window.location.href = el.dataset.url;
+                }
+            });
+        </script>
+    </template>
+
+</odoo>
