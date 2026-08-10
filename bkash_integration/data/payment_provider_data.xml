@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- ১. bKash Payment Method তৈরি -->
+        <record id="account_payment_method_bkash" model="account.payment.method">
+            <field name="name">bKash</field>
+            <field name="code">bkash</field>
+            <field name="payment_type">inbound</field>
+        </record>
+
+        <!-- ২. Provider-এর সাথে Method লিংক করা -->
+        <record id="payment_provider_bkash" model="payment.provider">
+            <field name="name">bKash</field>
+            <field name="code">bkash</field>
+            <field name="state">test</field>
+            <field name="is_published">True</field>
+            <!-- এখানে ref আইডিটি আপডেট করা হয়েছে -->
+            <field name="payment_method_ids" eval="[(4, ref('account_payment_method_bkash'))]"/>
+        </record>
+    </data>
+</odoo>

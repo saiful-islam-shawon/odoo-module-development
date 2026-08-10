@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="payment_provider_form_bkash" model="ir.ui.view">
+        <field name="name">payment.provider.form.bkash</field>
+        <field name="model">payment.provider</field>
+        <field name="inherit_id" ref="payment.payment_provider_form"/>
+        <field name="arch" type="xml">
+
+            <!-- sheet এর একদম শুরুতে Smart Button Box যোগ করা -->
+            <xpath expr="//sheet/*[1]" position="before">
+                <div class="oe_button_box" name="button_box">
+                    <button name="action_toggle_is_published"
+                            type="object"
+                            class="oe_stat_button"
+                            invisible="code != 'bkash'">
+                        <!-- Published হলে সবুজ আইকন, Unpublished হলে লাল আইকন -->
+                        <i invisible="not is_published" class="fa fa-fw fa-circle text-success me-1"/>
+                        <i invisible="is_published" class="fa fa-fw fa-circle text-danger me-1"/>
+                        <div class="o_stat_info">
+                            <span class="o_stat_text">Website</span>
+                            <span class="o_stat_text" invisible="not is_published" style="color: #28a745; font-weight: bold;">Published</span>
+                            <span class="o_stat_text" invisible="is_published" style="color: #dc3545; font-weight: bold;">Unpublished</span>
+                        </div>
+                        <field name="is_published" invisible="1"/>
+                    </button>
+                </div>
+            </xpath>
+
+
+            <xpath expr="//group[@name='provider_credentials']" position="inside">
+                <group invisible="code != 'bkash'">
+                    <field name="bkash_app_key" required="code == 'bkash' and state != 'disabled'"/>
+                    <field name="bkash_app_secret" password="True" required="code == 'bkash' and state != 'disabled'"/>
+                    <field name="bkash_username" required="code == 'bkash' and state != 'disabled'"/>
+                    <field name="bkash_password" password="True" required="code == 'bkash' and state != 'disabled'"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>
