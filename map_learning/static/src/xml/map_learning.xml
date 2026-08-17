@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="map_learning.MapLearningTemplate">
+        <div class="o_map_learning_view w-100 h-100 p-3 bg-white">
+            <div class="border-bottom pb-2 mb-3 d-flex justify-content-between align-items-center">
+                <h4 class="m-0 text-primary">Leaflet Map Learning</h4>
+                <!-- Current Location Button -->
+                <button class="btn btn-primary" t-on-click="locateUser">
+                    <i class="fa fa-map-marker me-1"/> Get Current Location
+                </button>
+            </div>
+            <!-- Map Container -->
+            <div t-ref="mapContainer" style="width: 100%; height: 500px; display: block; border: 2px solid #0D508B; border-radius: 6px;"></div>
+        </div>
+    </t>
+</templates>
+
