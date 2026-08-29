@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="redirect_form">
+        <form t-att-action="api_url" method="get">
+            <t t-foreach="amarpay_params or {}" t-as="param_key">
+                <input type="hidden" t-att-name="param_key" t-att-value="amarpay_params[param_key]"/>
+            </t>
+        </form>
+    </template>
+</odoo>

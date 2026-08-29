@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="payment_provider_amarpay" model="payment.provider">
+            <field name="name">Aamarpay</field>
+            <field name="code">amarpay</field>
+            <field name="state">test</field>
+            <field name="is_published">True</field>
+            <field name="amarpay_store_id">aamarpaytest</field>
+            <field name="amarpay_signature_key">dbb74894e82415a2f7ff0ec3a97e4183</field>
+            <field name="amarpay_sandbox">True</field>
+            <!-- ডিফল্ট কার্ড মেথড এবং নিজস্ব মেথড যুক্ত করা -->
+            <field name="payment_method_ids" eval="[
+                (4, ref('payment.payment_method_card', raise_if_not_found=False)),
+                (4, ref('payment.payment_method_unknown', raise_if_not_found=False))
+            ]"/>
+        </record>
+    </data>
+</odoo>
