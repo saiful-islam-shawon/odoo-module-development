@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_account_payment_form_amarpay_payer" model="ir.ui.view">
+        <field name="name">account.payment.form.amarpay.payer</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='memo']" position="after">
+                <field name="amarpay_transaction_reference" invisible="not amarpay_transaction_reference"/>
+                <field name="amarpay_payer_name" invisible="not amarpay_transaction_reference"/>
+                <field name="amarpay_payer_phone" invisible="not amarpay_transaction_reference"/>
+                <field name="amarpay_payer_email" invisible="not amarpay_transaction_reference"/>
+                <field name="amarpay_payer_address" invisible="not amarpay_transaction_reference"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
