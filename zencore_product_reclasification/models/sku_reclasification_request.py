@@ -51,8 +51,8 @@ class SkuReclasificationRequest(models.Model):
         string="Cost Price",
     )
     target_lot_numbers = fields.Char(
-        string="Lot Numbers",
-        compute="_compute_target_lot_numbers",
+        string="Lot Number",
+        tracking=True,
     )
 
     quantity = fields.Float(string="Quantity Changes")
@@ -191,6 +191,10 @@ class SkuReclasificationRequest(models.Model):
     )
     
     
+    # note field
+    description = fields.Html(string="Note")
+    
+    
     
     
     # =========================
@@ -228,25 +232,9 @@ class SkuReclasificationRequest(models.Model):
 
             rec.source_lot_numbers = ", ".join(quants.mapped("lot_id.name"))
 
-    @api.depends("sku_target_product")
-    def _compute_target_lot_numbers(self):
-        StockQuant = self.env["stock.quant"].sudo()
-
-        for rec in self:
-            if not rec.sku_target_product:
-                rec.target_lot_numbers = ""
-                continue
-
-            product_variants = rec.sku_target_product.product_variant_ids
-
-            quants = StockQuant.search([
-                ("product_id", "in", product_variants.ids),
-                ("location_id.usage", "=", "internal"),
-                ("quantity", ">", 0),
-                ("lot_id", "!=", False),
-            ])
-
-            rec.target_lot_numbers = ", ".join(quants.mapped("lot_id.name"))
+    @api.onchange("sku_target_product")
+    def _onchange_sku_target_product(self):
+        self.target_lot_numbers = False
 
     # =========================
     # HELPERS
@@ -308,6 +296,9 @@ class SkuReclasificationRequest(models.Model):
         for rec in self:
             if rec.state not in ["new", "draft"]:
                 raise UserError("Only new/draft requests can be submitted.")
+            
+            if not rec.target_lot_numbers or not rec.target_lot_numbers.strip():
+                raise UserError("Please enter the Target Lot Number.")
 
             rec.state = "pending"
             rec.factory_manager_hiearicy = False
@@ -619,21 +610,6 @@ class SkuReclasificationRequest(models.Model):
             # টার্গেট প্রোডাক্টের Tracking 'lot' সেট আছে কিনা নিশ্চিত করুন
             if target_product.tracking == 'none':
                 target_product.sudo().write({'tracking': 'lot'})
-
-            # source_quants = StockQuant.search([
-            #     ("product_id", "in", source_variants.ids),
-            #     ("location_id.usage", "=", "internal"),
-            #     ("company_id", "=", self.env.company.id),
-            #     ("quantity", ">", 0),
-            # ])
-
-            # if not source_quants:
-            #     raise UserError("No internal stock found for source product.")
-
-            # available_qty = sum(source_quants.mapped("available_quantity"))
-
-            # if rec.quantity > available_qty:
-            #     raise UserError("The requested quantity exceeds the available stock.")
             
             
             source_quants = self.env["stock.quant"].search(
@@ -654,6 +630,23 @@ class SkuReclasificationRequest(models.Model):
                 raise UserError("The requested quantity exceeds the total stock.")
             
             
+            lot_name = (rec.target_lot_numbers or "").strip()
+
+            if not lot_name:
+                raise UserError("Please enter the Target Lot Number.")
+
+            target_lot = StockLot.search([
+                ("name", "=", lot_name),
+                ("product_id", "=", target_product.id),
+                ("company_id", "=", self.env.company.id),
+            ], limit=1)
+
+            if not target_lot:
+                target_lot = StockLot.create({
+                    "name": lot_name,
+                    "product_id": target_product.id,
+                    "company_id": self.env.company.id,
+                })
             
 
             remaining_qty = rec.quantity
@@ -671,22 +664,6 @@ class SkuReclasificationRequest(models.Model):
                 if quant.product_id.standard_price:
                     target_product.sudo().standard_price = quant.product_id.standard_price
 
-                # ২. সোর্স লটের নাম নেওয়া (যদি Quant-এ লট না থাকে তবে ডিফল্ট লট তৈরি করবে)
-                lot_name = quant.lot_id.name if quant.lot_id else "0000004" # আপনার স্ক্রিনশটের নাম অনুসারে
-
-                # ৩. Target Product-এর জন্য লট সার্চ অথবা ক্রিয়েট করা
-                target_lot = StockLot.search([
-                    ('name', '=', lot_name),
-                    ('product_id', '=', target_product.id),
-                    ('company_id', '=', self.env.company.id),
-                ], limit=1)
-
-                if not target_lot:
-                    target_lot = StockLot.create({
-                        'name': lot_name,
-                        'product_id': target_product.id,
-                        'company_id': self.env.company.id,
-                    })
 
                 # ৪. Source Quant থেকে কমানো
                 StockQuant._update_available_quantity(
