@@ -1,77 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+
     <template id="hero_section" name="Bendsta Hero Section">
-        <section class="c_hero_section py-5" data-snippet="hero_section" data-name="Bendsta Hero Section">
+        <section class="c_hero_section py-5"
+                 data-snippet="hero_section"
+                 data-name="Bendsta Hero Section">
+
             <div class="container">
                 <div class="row align-items-center gy-4">
-                    <!-- বাম পাশ: টেক্সট ও বাটন -->
+
+                    <!-- বাম পাশ -->
                     <div class="col-lg-6">
+
                         <h1 class="heading fw-bold mb-3">
                             Promoting a Healthier Bangladesh with Regulated Tobacco Harm Reduction Alternatives
                         </h1>
+
                         <p class="description lead text-muted mb-4">
-                            BENDSTA stands at the forefront of tobacco harm reduction (THR) advocacy, supporting Bangladesh’s move towards safer nicotine alternatives like vaping. Join us as we work towards creating accessible, scientifically-backed alternatives to smoking that benefit both health and economy.
+                            BENDSTA stands at the forefront of tobacco harm reduction (THR) advocacy,
+                            supporting Bangladesh’s move towards safer nicotine alternatives like vaping.
+                            Join us as we work towards creating accessible, scientifically-backed
+                            alternatives to smoking that benefit both health and economy.
                         </p>
-                        <a href="/contactus" class="btn btn-primary btn-lg px-4 shadow-sm">
+
+                        <a href="/contactus"
+                           class="btn btn-primary btn-lg px-4 shadow-sm">
                             Join Us
                         </a>
+
                     </div>
 
-                    <!-- ডান পাশ: স্লাইডার -->
+                    <!-- ডান পাশ: Odoo Dynamic Carousel -->
                     <div class="col-lg-6">
-                        <div id="bendstaHeroCarousel" 
-                             class="carousel slide hero-carousel shadow-sm rounded-4 overflow-hidden" 
-                             data-bs-ride="carousel" 
-                             data-bs-interval="4000">
-                            
-                            <!-- ইন্ডিকেটরস -->
-                            <div class="carousel-indicators">
-                                <button type="button" data-bs-target="#bendstaHeroCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                                <button type="button" data-bs-target="#bendstaHeroCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                                <button type="button" data-bs-target="#bendstaHeroCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                            </div>
-
-                            <!-- স্লাইডস -->
-                            <div class="carousel-inner">
-                                <div class="carousel-item active">
-                                    <div class="carousel-image-wrapper">
-                                        <img src="/web/image/website.s_banner_default_image" 
-                                             class="d-block w-100 img-fluid hero-carousel-img" 
-                                             alt="Hero Slide 1"
-                                             loading="lazy"/>
-                                    </div>
-                                </div>
-                                <div class="carousel-item">
-                                    <div class="carousel-image-wrapper">
-                                        <img src="/web/image/website.s_banner_default_image" 
-                                             class="d-block w-100 img-fluid hero-carousel-img" 
-                                             alt="Hero Slide 2"
-                                             loading="lazy"/>
-                                    </div>
-                                </div>
-                                <div class="carousel-item">
-                                    <div class="carousel-image-wrapper">
-                                        <img src="/web/image/website.s_banner_default_image" 
-                                             class="d-block w-100 img-fluid hero-carousel-img" 
-                                             alt="Hero Slide 3"
-                                             loading="lazy"/>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- নেভিগেশন অ্যারো -->
-                            <button class="carousel-control-prev" type="button" data-bs-target="#bendstaHeroCarousel" data-bs-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Previous</span>
-                            </button>
-                            <button class="carousel-control-next" type="button" data-bs-target="#bendstaHeroCarousel" data-bs-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Next</span>
-                            </button>
+                        <div class="bendsta_hero_carousel">
+                            <t t-call="website.s_carousel"/>
                         </div>
                     </div>
+
                 </div>
             </div>
+
         </section>
+
     </template>
+
 </odoo>

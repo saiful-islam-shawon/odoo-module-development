@@ -1,4 +1,9 @@
 .c_hero_section {
+
+    // ==========================================
+    // Left Content
+    // ==========================================
+
     .heading {
         font-size: 2.5rem;
         line-height: 1.25;
@@ -9,41 +14,84 @@
         line-height: 1.6;
     }
 
-    .hero-carousel {
-        position: relative;
-        background-color: #f8f9fa;
 
-        .carousel-image-wrapper {
+    // ==========================================
+    // Odoo Carousel - Bendsta Design
+    // ==========================================
+
+    .bendsta_hero_carousel {
+
+        // Main carousel
+        .carousel {
             position: relative;
-            width: 100%;
-            height: 420px;
+            background-color: #f8f9fa;
 
-            @media (max-width: 768px) {
-                height: 280px;
-            }
+            border-radius: 1rem;
+            overflow: hidden;
 
-            .hero-carousel-img {
+            box-shadow:
+                0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+        }
+
+
+        // ======================================
+        // Carousel slide
+        // ======================================
+
+        .carousel-item {
+            height: 400px !important;
+            min-height: 400px !important;
+            overflow: hidden;
+
+            // Odoo carousel background/image
+            > img,
+            img {
                 width: 100%;
                 height: 100%;
                 object-fit: cover;
                 object-position: center;
-                display: block;
+            }
+
+            // Odoo slides may use background images
+            .o_bg_img_center,
+            .o_background_video_container {
+                width: 100%;
+                height: 100%;
+            }
+
+            .o_bg_img_center {
+                background-position: center;
+                background-size: cover;
             }
         }
+
+
+        // ======================================
+        // Indicators
+        // ======================================
 
         .carousel-indicators {
             bottom: 12px;
             margin-bottom: 0;
 
-            button {
+            button,
+            [data-bs-target] {
                 width: 10px;
                 height: 10px;
-                border-radius: 50%;
+
+                padding: 0;
                 margin: 0 5px;
+
                 border: 0;
+                border-radius: 50%;
+
                 background-color: #ffffff;
+
                 opacity: 0.6;
-                transition: opacity 0.2s ease, transform 0.2s ease;
+
+                transition:
+                    opacity 0.2s ease,
+                    transform 0.2s ease;
 
                 &.active {
                     opacity: 1;
@@ -53,22 +101,129 @@
             }
         }
 
+
+        // ======================================
+        // Previous / Next buttons
+        // ======================================
+
         .carousel-control-prev,
         .carousel-control-next {
             width: 42px;
             height: 42px;
+
             top: 50%;
+            bottom: auto;
+
             transform: translateY(-50%);
+
             background-color: rgba(0, 0, 0, 0.35);
+
             border: 0;
             border-radius: 50%;
-            margin: 0 15px;
+
             opacity: 0.7;
-            transition: opacity 0.2s ease, background-color 0.2s ease;
+
+            transition:
+                opacity 0.2s ease,
+                background-color 0.2s ease;
 
             &:hover {
                 opacity: 1;
                 background-color: rgba(0, 0, 0, 0.65);
+            }
+        }
+
+        .carousel-control-prev {
+            left: 15px;
+        }
+
+        .carousel-control-next {
+            right: 15px;
+        }
+
+
+        // Arrow icon
+        .carousel-control-prev-icon,
+        .carousel-control-next-icon {
+            width: 20px;
+            height: 20px;
+        }
+    }
+
+
+    // ==========================================
+    // Mobile Design
+    // ==========================================
+
+    @media (max-width: 768px) {
+
+        // Left content center
+        .heading {
+            font-size: 2rem;
+            line-height: 1.25;
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .description {
+            font-size: 1rem;
+            line-height: 1.6;
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        // Join Us button center
+        .col-lg-6:first-child {
+            text-align: center;
+        }
+
+
+        // Carousel
+        .bendsta_hero_carousel {
+            margin-top: 10px;
+
+            .carousel {
+                border-radius: 0.75rem;
+            }
+
+            .carousel-item {
+                height: 280px !important;
+                min-height: 280px !important;
+            }
+
+            // Slightly smaller navigation buttons
+            .carousel-control-prev,
+            .carousel-control-next {
+                width: 36px;
+                height: 36px;
+            }
+
+            .carousel-control-prev {
+                left: 10px;
+            }
+
+            .carousel-control-next {
+                right: 10px;
+            }
+
+            .carousel-control-prev-icon,
+            .carousel-control-next-icon {
+                width: 16px;
+                height: 16px;
+            }
+
+            // Smaller indicators
+            .carousel-indicators {
+                bottom: 10px;
+
+                button,
+                [data-bs-target] {
+                    width: 8px;
+                    height: 8px;
+                    margin: 0 4px;
+                }
             }
         }
     }
