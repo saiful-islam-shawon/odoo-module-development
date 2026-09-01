@@ -1,0 +1,75 @@
+.c_hero_section {
+    .heading {
+        font-size: 2.5rem;
+        line-height: 1.25;
+    }
+
+    .description {
+        font-size: 1.05rem;
+        line-height: 1.6;
+    }
+
+    .hero-carousel {
+        position: relative;
+        background-color: #f8f9fa;
+
+        .carousel-image-wrapper {
+            position: relative;
+            width: 100%;
+            height: 420px;
+
+            @media (max-width: 768px) {
+                height: 280px;
+            }
+
+            .hero-carousel-img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                object-position: center;
+                display: block;
+            }
+        }
+
+        .carousel-indicators {
+            bottom: 12px;
+            margin-bottom: 0;
+
+            button {
+                width: 10px;
+                height: 10px;
+                border-radius: 50%;
+                margin: 0 5px;
+                border: 0;
+                background-color: #ffffff;
+                opacity: 0.6;
+                transition: opacity 0.2s ease, transform 0.2s ease;
+
+                &.active {
+                    opacity: 1;
+                    transform: scale(1.2);
+                    background-color: #ffffff;
+                }
+            }
+        }
+
+        .carousel-control-prev,
+        .carousel-control-next {
+            width: 42px;
+            height: 42px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.35);
+            border: 0;
+            border-radius: 50%;
+            margin: 0 15px;
+            opacity: 0.7;
+            transition: opacity 0.2s ease, background-color 0.2s ease;
+
+            &:hover {
+                opacity: 1;
+                background-color: rgba(0, 0, 0, 0.65);
+            }
+        }
+    }
+}
