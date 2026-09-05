@@ -6,7 +6,7 @@
                  data-snippet="hero_section"
                  data-name="Bendsta Hero Section">
 
-            <div class="container">
+            <div class="bendsta_blog_container">
                 <div class="row align-items-center gy-4">
 
                     <!-- বাম পাশ -->

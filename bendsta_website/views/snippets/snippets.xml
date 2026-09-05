@@ -5,13 +5,60 @@
         
         <!-- custom snippet group -->
         <xpath expr="//snippets[@id='snippet_groups']" position="inside">
+            <!-- bendsta group -->
             <t snippet-group="bendsta" t-snippet="website.s_snippet_group" string="Bendsta"
                 t-thumbnail="/website/static/src/img/snippets_thumbs/s_media_list.svg"/>
         </xpath>
 
         <xpath expr="//snippets[@id='snippet_structure']" position="inside">
+            <!-- hero section template -->
             <t t-snippet="bendsta_website.hero_section" string="Hero Section" group="bendsta">
                 <keywords>hero, jumbotron, headline, header, branding, intro, home, showcase, spotlight, lead, welcome, announcement, splash, top, main</keywords>
+            </t>
+
+            <!-- blog card design template -->
+            <t t-snippet="bendsta_website.blog_card_design" string="Hero Section" group="bendsta">
+                <keywords>hero, headline, header, branding, intro, home, showcase</keywords>
+            </t>
+
+            <!-- s_bendsta_hero design template -->
+            <t t-snippet="bendsta_website.s_bendsta_hero" string="Hero Section design" group="bendsta">
+                <keywords>hero, headline, header, branding, intro, home, showcase</keywords>
+            </t>
+
+            <!-- s_bendsta_about design template -->
+            <t t-snippet="bendsta_website.s_bendsta_about" string="About Section Design" group="bendsta">
+                <keywords>hero, headline, header, branding, intro, home, showcase</keywords>
+            </t>
+
+            <!-- s_bendsta_market_insight design template -->
+            <t t-snippet="bendsta_website.s_bendsta_market_insights" string="BENDSTA Market Insights" group="bendsta">
+                <keywords>hero, headline, header, branding, intro, home, showcase</keywords>
+            </t>
+
+            <!-- s_bendsta_thr_solution design template -->
+            <t t-snippet="bendsta_website.s_bendsta_thr_solutions" string="BENDSTA Scientific Evaluation" group="bendsta">
+                <keywords>hero, headline, header, branding, intro, home, showcase</keywords>
+            </t>
+
+            <!-- s_bendsta_global_regulations design template -->
+            <t t-snippet="bendsta_website.s_bendsta_global_regulations" string="BENDSTA Global Perspectives" group="bendsta">
+                <keywords>hero, headline, header, branding, intro, home, showcase</keywords>
+            </t>
+
+            <!-- s_bendsta_framework design template -->
+            <t t-snippet="bendsta_website.s_bendsta_framework" string="BENDSTA Regulatory Framework" group="bendsta">
+                <keywords>hero, headline, header, branding, intro, home, showcase</keywords>
+            </t>
+
+            <!-- s_bendsta_summit design template -->
+            <t t-snippet="bendsta_website.s_bendsta_summit" string="BENDSTA THR Summit" group="bendsta">
+                <keywords>hero, headline, header, branding, intro, home, showcase</keywords>
+            </t>
+
+            <!-- s_bendsta_contact design template -->
+            <t t-snippet="bendsta_website.s_bendsta_contact" string="BENDSTA Contact &amp; Location" group="bendsta">
+                <keywords>hero, headline, header, branding, intro, home, showcase</keywords>
             </t>
         </xpath>
     </template>

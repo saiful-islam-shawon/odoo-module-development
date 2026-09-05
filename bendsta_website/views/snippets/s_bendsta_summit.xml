@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <template id="s_bendsta_summit"
+              name="BENDSTA THR Summit 2023">
+
+        <section class="s_bendsta_summit"
+                 data-snippet="s_bendsta_summit"
+                 data-name="BENDSTA THR Summit 2023">
+
+            <div class="container">
+
+                <!-- ==============================
+                     Summit Introduction
+                =============================== -->
+
+                <div class="bendsta-summit-intro">
+
+                    <div class="bendsta-summit-badge">
+                        BENDSTA Awareness Programs &amp; Seminars
+                    </div>
+
+                    <h2 class="bendsta-summit-title">
+                        Bangladesh THR Summit 2023
+                    </h2>
+
+                    <p class="bendsta-summit-description">
+                        The landmark Bangladesh Tobacco Harm Reduction
+                        Summit 2023 served as a vital forum exploring the
+                        development of an enlightened regulatory framework
+                        for harm reduction in Bangladesh. The gathering
+                        brought together globally recognized scientists,
+                        medical practitioners, policy scholars, and
+                        industry representatives.
+                    </p>
+
+                </div>
+
+
+                <!-- ==============================
+                     Speaker Header
+                =============================== -->
+
+                <div class="bendsta-summit-speaker-header">
+
+                    <div class="bendsta-summit-speaker-heading">
+
+                        <h3>
+                            Key International &amp; National Dignitaries
+                        </h3>
+
+                        <span class="bendsta-summit-speaker-count">
+                            9 Esteemed Speakers
+                        </span>
+
+                    </div>
+
+                    <div class="bendsta-summit-location">
+                        Dhaka, Bangladesh
+                    </div>
+
+                </div>
+
+
+                <!-- ==============================
+                     Speakers
+                =============================== -->
+
+                <div class="row g-4">
+
+
+                    <!-- Speaker 01 -->
+                    <div class="col-md-6 col-lg-4">
+
+                        <div class="bendsta-summit-speaker-card">
+
+                            <div class="bendsta-summit-speaker-profile">
+
+                                <div class="bendsta-summit-avatar">
+                                    DH
+                                </div>
+
+                                <div>
+
+                                    <h4 class="bendsta-summit-speaker-name">
+                                        Dr. Delon Human
+                                    </h4>
+
+                                    <div class="bendsta-summit-speaker-role">
+                                        Summit Chair &amp; Global Leader
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <p class="bendsta-summit-speaker-bio">
+                                Former Secretary-General of the World
+                                Medical Association (WMA) and adviser to
+                                WHO director-generals. Chaired the summit
+                                and emphasized science-backed harm
+                                reduction protocols.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Speaker 02 -->
+                    <div class="col-md-6 col-lg-4">
+
+                        <div class="bendsta-summit-speaker-card">
+
+                            <div class="bendsta-summit-speaker-profile">
+
+                                <div class="bendsta-summit-avatar">
+                                    DY
+                                </div>
+
+                                <div>
+
+                                    <h4 class="bendsta-summit-speaker-name">
+                                        Dr. Derek Yach
+                                    </h4>
+
+                                    <div class="bendsta-summit-speaker-role">
+                                        Global Public Health Expert
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <p class="bendsta-summit-speaker-bio">
+                                Former Executive Director at WHO, where he
+                                spearheaded the Framework Convention on
+                                Tobacco Control (FCTC). Championed harm
+                                reduction integration into national
+                                frameworks.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Speaker 03 -->
+                    <div class="col-md-6 col-lg-4">
+
+                        <div class="bendsta-summit-speaker-card">
+
+                            <div class="bendsta-summit-speaker-profile">
+
+                                <div class="bendsta-summit-avatar">
+                                    KF
+                                </div>
+
+                                <div>
+
+                                    <h4 class="bendsta-summit-speaker-name">
+                                        Dr. Konstantinos Farsalinos
+                                    </h4>
+
+                                    <div class="bendsta-summit-speaker-role">
+                                        Cardiologist &amp; Lead Researcher
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <p class="bendsta-summit-speaker-bio">
+                                Foremost clinical researcher on vaping
+                                safety and toxicology, renowned for
+                                publishing foundational peer-reviewed
+                                studies on cardiovascular risk reduction.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Speaker 04 -->
+                    <div class="col-md-6 col-lg-4">
+
+                        <div class="bendsta-summit-speaker-card">
+
+                            <div class="bendsta-summit-speaker-profile">
+
+                                <div class="bendsta-summit-avatar">
+                                    MG
+                                </div>
+
+                                <div>
+
+                                    <h4 class="bendsta-summit-speaker-name">
+                                        Dr. Marewa Glover
+                                    </h4>
+
+                                    <div class="bendsta-summit-speaker-role">
+                                        Behavioural Scientist (NZ)
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <p class="bendsta-summit-speaker-bio">
+                                Distinguished public health researcher
+                                specializing in smoking cessation,
+                                especially within marginalized and
+                                indigenous populations through pragmatic
+                                THR policies.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Speaker 05 -->
+                    <div class="col-md-6 col-lg-4">
+
+                        <div class="bendsta-summit-speaker-card">
+
+                            <div class="bendsta-summit-speaker-profile">
+
+                                <div class="bendsta-summit-avatar">
+                                    KL
+                                </div>
+
+                                <div>
+
+                                    <h4 class="bendsta-summit-speaker-name">
+                                        Dr. Kgosi Letlape
+                                    </h4>
+
+                                    <div class="bendsta-summit-speaker-role">
+                                        South African Medical Leader
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <p class="bendsta-summit-speaker-bio">
+                                Ophthalmologist, former President of the
+                                Medical Association of South Africa, and
+                                founder of the Africa Harm Reduction
+                                Alliance advocating for consumer access.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Speaker 06 -->
+                    <div class="col-md-6 col-lg-4">
+
+                        <div class="bendsta-summit-speaker-card">
+
+                            <div class="bendsta-summit-speaker-profile">
+
+                                <div class="bendsta-summit-avatar">
+                                    ML
+                                </div>
+
+                                <div>
+
+                                    <h4 class="bendsta-summit-speaker-name">
+                                        Michael Landl
+                                    </h4>
+
+                                    <div class="bendsta-summit-speaker-role">
+                                        Dir., World Vapers' Alliance
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <p class="bendsta-summit-speaker-bio">
+                                Representing adult vapers globally and
+                                advocating for fair access to
+                                harm-reduction tools to prevent smokers
+                                from relapsing into combustible cigarette
+                                use.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Speaker 07 -->
+                    <div class="col-md-6 col-lg-4">
+
+                        <div class="bendsta-summit-speaker-card">
+
+                            <div class="bendsta-summit-speaker-profile">
+
+                                <div class="bendsta-summit-avatar">
+                                    MR
+                                </div>
+
+                                <div>
+
+                                    <h4 class="bendsta-summit-speaker-name">
+                                        Prof. Mihaela Răescu
+                                    </h4>
+
+                                    <div class="bendsta-summit-speaker-role">
+                                        Oral &amp; Dental Health Prof.
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <p class="bendsta-summit-speaker-bio">
+                                Romanian dental medicine authority
+                                presenting toxicological and oral mucosa
+                                comparative analyses between toxic smoke
+                                and non-combustible vapor.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Speaker 08 -->
+                    <div class="col-md-6 col-lg-4">
+
+                        <div class="bendsta-summit-speaker-card">
+
+                            <div class="bendsta-summit-speaker-profile">
+
+                                <div class="bendsta-summit-avatar">
+                                    FF
+                                </div>
+
+                                <div>
+
+                                    <h4 class="bendsta-summit-speaker-name">
+                                        Federico N. Fernández
+                                    </h4>
+
+                                    <div class="bendsta-summit-speaker-role">
+                                        President, Somos Innovación
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <p class="bendsta-summit-speaker-bio">
+                                International innovation advocate examining
+                                consumer choice, deregulation of safer
+                                technologies, and economic freedom in
+                                saving lives.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Speaker 09 -->
+                    <div class="col-md-6 col-lg-4">
+
+                        <div class="bendsta-summit-speaker-card bendsta-summit-speaker-featured">
+
+                            <div class="bendsta-summit-speaker-profile">
+
+                                <div class="bendsta-summit-avatar bendsta-summit-avatar-featured">
+                                    SZ
+                                </div>
+
+                                <div>
+
+                                    <h4 class="bendsta-summit-speaker-name">
+                                        Schumann Zaman
+                                    </h4>
+
+                                    <div class="bendsta-summit-speaker-role">
+                                        President, BENDSTA
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <p class="bendsta-summit-speaker-bio">
+                                Leading the Bangladesh trade community in
+                                advocating for responsible domestic
+                                standards, strict youth protection, and
+                                constructive state collaboration.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ==============================
+                     Summit Outcome
+                =============================== -->
+
+                <div class="bendsta-summit-outcome">
+
+                    <div class="bendsta-summit-outcome-badge">
+                        Summit Outcome &amp; Consensus
+                    </div>
+
+                    <h3 class="bendsta-summit-outcome-title">
+                        A Calibrated, Science-First Blueprint for Bangladesh
+                    </h3>
+
+                    <p class="bendsta-summit-outcome-text">
+                        The summit concluded that
+                        <strong>
+                            prohibitionist bans do not reduce consumption
+                        </strong>;
+                        they merely drive millions of adult consumers into
+                        dangerous underground markets while depriving the
+                        state of oversight and revenue. Participants resolved
+                        that Bangladesh has a historic opportunity to model
+                        progressive policies seen in the United Kingdom and
+                        New Zealand, aligning public health policy with
+                        economic reality.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </template>
+
+</odoo>

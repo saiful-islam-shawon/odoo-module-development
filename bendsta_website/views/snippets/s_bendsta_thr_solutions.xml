@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <template id="s_bendsta_thr_solutions"
+              name="BENDSTA Scientific Evaluation">
+
+        <section class="s_bendsta_thr_solutions"
+                 data-snippet="s_bendsta_thr_solutions"
+                 data-name="BENDSTA Scientific Evaluation">
+
+            <div class="container">
+
+                <!-- =========================
+                     Heading
+                ========================== -->
+                <div class="bendsta-thr-heading">
+
+                    <div class="bendsta-thr-badge">
+                        Scientific Evaluation
+                    </div>
+
+                    <h2 class="bendsta-thr-title">
+                        An Overview of Benefits &amp; Harm Reduction
+                        <br class="d-none d-md-block"/>
+                        Potential of Vaping
+                    </h2>
+
+                    <p class="bendsta-thr-subtitle">
+                        Comparing combustion against non-combustible harm
+                        reduction modalities: Snus, NRT, Heated Tobacco
+                        Products (HTPs), and Vaping.
+                    </p>
+
+                </div>
+
+
+                <!-- =========================
+                     Modality Cards
+                ========================== -->
+                <div class="row g-3 bendsta-thr-modalities">
+
+                    <!-- 01 -->
+                    <div class="col-md-6 col-lg-3">
+                        <div class="bendsta-thr-modality-card">
+
+                            <div class="bendsta-thr-modality-label">
+                                THR Modality 01
+                            </div>
+
+                            <h3 class="bendsta-thr-modality-title">
+                                Snus (Oral Tobacco)
+                            </h3>
+
+                            <p class="bendsta-thr-modality-text">
+                                Smokeless pasteurized oral pouches pioneered
+                                in Sweden. Highly effective for nicotine
+                                delivery without smoke, yielding Europe's
+                                lowest lung cancer rates.
+                            </p>
+
+                        </div>
+                    </div>
+
+
+                    <!-- 02 -->
+                    <div class="col-md-6 col-lg-3">
+                        <div class="bendsta-thr-modality-card">
+
+                            <div class="bendsta-thr-modality-label">
+                                THR Modality 02
+                            </div>
+
+                            <h3 class="bendsta-thr-modality-title">
+                                NRT Therapies
+                            </h3>
+
+                            <p class="bendsta-thr-modality-text">
+                                Nicotine patches, gums, and lozenges.
+                                Effective for pharmaceutical weaning, yet
+                                often fail due to lack of behavioral
+                                hand-to-mouth satisfaction.
+                            </p>
+
+                        </div>
+                    </div>
+
+
+                    <!-- 03 -->
+                    <div class="col-md-6 col-lg-3">
+                        <div class="bendsta-thr-modality-card">
+
+                            <div class="bendsta-thr-modality-label">
+                                THR Modality 03
+                            </div>
+
+                            <h3 class="bendsta-thr-modality-title">
+                                Heated Tobacco (HTPs)
+                            </h3>
+
+                            <p class="bendsta-thr-modality-text">
+                                Heats genuine tobacco sticks below burning
+                                thresholds without open fire, significantly
+                                lowering carbon monoxide and hazardous toxins.
+                            </p>
+
+                        </div>
+                    </div>
+
+
+                    <!-- 04 -->
+                    <div class="col-md-6 col-lg-3">
+                        <div class="bendsta-thr-modality-card bendsta-thr-modality-featured">
+
+                            <div class="bendsta-thr-modality-label bendsta-thr-modality-label-featured">
+                                Most Effective Tool
+                            </div>
+
+                            <h3 class="bendsta-thr-modality-title">
+                                Vaping (ENDS)
+                            </h3>
+
+                            <p class="bendsta-thr-modality-text bendsta-thr-featured-text">
+                                Zero tobacco leaf, zero combustion, pure
+                                aerosolized pharmaceutical nicotine.
+                                Clinically proven 2x more effective than
+                                NRT in trials.
+                            </p>
+
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <!-- =========================
+                     Scientific Matrix
+                ========================== -->
+                <div class="bendsta-thr-matrix">
+
+                    <!-- Matrix Header -->
+                    <div class="bendsta-thr-matrix-header">
+
+                        <div class="bendsta-thr-matrix-heading-content">
+
+                            <h3 class="bendsta-thr-matrix-title">
+                                Comprehensive Scientific Matrix:
+                                Combustion vs Alternatives
+                            </h3>
+
+                            <p class="bendsta-thr-matrix-subtitle">
+                                Based on Public Health England, Cochrane
+                                Reviews, and FDA Science Review
+                            </p>
+
+                        </div>
+
+                        <div class="bendsta-thr-peer-badge">
+                            Clinical Peer-Reviewed Data
+                        </div>
+
+                    </div>
+
+
+                    <!-- Matrix Table -->
+                    <div class="bendsta-thr-table-wrapper">
+
+                        <table class="bendsta-thr-table">
+
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Evaluation Criterion
+                                    </th>
+
+                                    <th class="bendsta-thr-table-red">
+                                        Combustible Cigarette
+                                    </th>
+
+                                    <th class="bendsta-thr-table-teal">
+                                        Regulated Vaping (ENDS)
+                                    </th>
+
+                                    <th>
+                                        NRT Products
+                                    </th>
+                                </tr>
+                            </thead>
+
+
+                            <tbody>
+
+                                <tr>
+                                    <td>
+                                        <strong>Combustion (Burning)</strong>
+                                    </td>
+
+                                    <td class="bendsta-thr-table-red">
+                                        Yes (~900°C)
+                                    </td>
+
+                                    <td class="bendsta-thr-table-teal">
+                                        None (Liquid Vaporization)
+                                    </td>
+
+                                    <td>
+                                        None (Oral / Transdermal)
+                                    </td>
+                                </tr>
+
+
+                                <tr>
+                                    <td>
+                                        <strong>Tar &amp; Carbon Monoxide</strong>
+                                    </td>
+
+                                    <td class="bendsta-thr-table-red">
+                                        Massive Carcinogenic Volume
+                                    </td>
+
+                                    <td class="bendsta-thr-table-teal">
+                                        0% (Zero Detected)
+                                    </td>
+
+                                    <td>
+                                        0% (Zero Detected)
+                                    </td>
+                                </tr>
+
+
+                                <tr>
+                                    <td>
+                                        <strong>Toxics Reduction</strong>
+                                    </td>
+
+                                    <td class="bendsta-thr-table-red">
+                                        Baseline 100% Exposure
+                                    </td>
+
+                                    <td class="bendsta-thr-table-teal">
+                                        ~95% Relative Harm Reduction
+                                    </td>
+
+                                    <td>
+                                        ~98% Harm Reduction
+                                    </td>
+                                </tr>
+
+
+                                <tr>
+                                    <td>
+                                        <strong>Smoking Cessation Success</strong>
+                                    </td>
+
+                                    <td class="bendsta-thr-table-red">
+                                        Fails in &gt;90% of Unassisted Attempts
+                                    </td>
+
+                                    <td class="bendsta-thr-table-teal">
+                                        Highest Success Rate (Cochrane)
+                                    </td>
+
+                                    <td>
+                                        Moderate Long-Term Retention
+                                    </td>
+                                </tr>
+
+
+                                <tr>
+                                    <td>
+                                        <strong>Bystander Secondhand Risk</strong>
+                                    </td>
+
+                                    <td class="bendsta-thr-table-red">
+                                        High Toxic Environmental Smoke
+                                    </td>
+
+                                    <td class="bendsta-thr-table-teal">
+                                        Negligible Trace Vapor Dissipation
+                                    </td>
+
+                                    <td>
+                                        None
+                                    </td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =========================
+                     Public Concerns
+                ========================== -->
+                <div class="bendsta-thr-concerns">
+
+                    <h3 class="bendsta-thr-concerns-title">
+                        Addressing Legitimate Public Concerns
+                    </h3>
+
+
+                    <div class="row g-3">
+
+                        <!-- Concern 01 -->
+                        <div class="col-md-6">
+
+                            <div class="bendsta-thr-concern-card">
+
+                                <h4 class="bendsta-thr-concern-title">
+
+                                    <span class="bendsta-thr-concern-dot bendsta-thr-dot-red"></span>
+
+                                    Youth Access and Use Prevention
+
+                                </h4>
+
+                                <p class="bendsta-thr-concern-text">
+                                    BENDSTA unconditionally opposes minor
+                                    usage. Regulated retail licensing,
+                                    digital age verification, non-child-
+                                    appealing packaging, and punitive
+                                    revocation of licenses for underage
+                                    sales are non-negotiable standards.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Concern 02 -->
+                        <div class="col-md-6">
+
+                            <div class="bendsta-thr-concern-card">
+
+                                <h4 class="bendsta-thr-concern-title">
+
+                                    <span class="bendsta-thr-concern-dot bendsta-thr-dot-orange"></span>
+
+                                    Unregulated Markets &amp; Product Quality
+
+                                </h4>
+
+                                <p class="bendsta-thr-concern-text">
+                                    When vaping is unregulated or banned,
+                                    adulterated oils (such as illicit Vitamin
+                                    E acetate found in black-market THC) enter
+                                    the country. Standardized BSTI laboratory
+                                    testing and verified MSDS documentation
+                                    are essential safeguards.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </template>
+
+</odoo>

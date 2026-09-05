@@ -1,5 +1,17 @@
 .c_hero_section {
 
+
+    // ==========================================
+    // design container size
+    // ==========================================
+    .bendsta_blog_container {
+        width: calc(100% - 120px);
+        max-width: 1400px;
+
+        margin-left: auto;
+        margin-right: auto;
+    }
+
     // ==========================================
     // Left Content
     // ==========================================
@@ -156,6 +168,13 @@
     // ==========================================
 
     @media (max-width: 768px) {
+
+        // ==========================================
+        // designt container size
+        // ==========================================
+        .bendsta_blog_container {
+            width: calc(100% - 30px);
+        }
 
         // Left content center
         .heading {

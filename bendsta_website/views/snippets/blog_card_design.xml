@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <template id="blog_card_design"
+              name="Bendsta Blog Carousel">
+
+        <section class="c_bendsta_blog_cards py-5"
+                 data-snippet="blog_card_design"
+                 data-name="Bendsta Blog Carousel"
+                 data-post-limit="12">
+
+            <div class="bendsta_blog_container">
+
+                <div class="bendsta_blog_slider">
+
+                    <!-- Previous -->
+                    <button type="button"
+                            class="bendsta_blog_arrow bendsta_blog_prev"
+                            aria-label="Previous">
+
+                        <i class="fa fa-chevron-left"/>
+
+                    </button>
+
+
+                    <!-- Viewport -->
+                    <div class="bendsta_blog_viewport">
+
+                        <div class="bendsta_blog_track">
+
+                            <!--
+                                publicWidget এখানে Blog cards
+                                dynamically render করবে।
+                            -->
+
+                            <div class="bendsta_blog_loading">
+
+                                <i class="fa fa-spinner fa-spin"/>
+
+                                <span>
+                                    Loading blog posts...
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Next -->
+                    <button type="button"
+                            class="bendsta_blog_arrow bendsta_blog_next"
+                            aria-label="Next">
+
+                        <i class="fa fa-chevron-right"/>
+
+                    </button>
+
+                </div>
+
+
+                <!-- Pagination dots -->
+                <div class="bendsta_blog_dots"/>
+
+            </div>
+
+        </section>
+
+    </template>
+
+</odoo>

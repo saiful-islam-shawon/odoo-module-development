@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <template id="s_bendsta_market_insights"
+              name="BENDSTA Market Insights">
+
+        <section class="s_bendsta_market_insights"
+                 data-snippet="s_bendsta_market_insights"
+                 data-name="BENDSTA Market Insights">
+
+            <div class="container">
+
+                <!-- ============================= -->
+                <!-- Section Heading -->
+                <!-- ============================= -->
+
+                <div class="bendsta-market-heading">
+
+                    <div class="bendsta-market-badge">
+                        Economic &amp; Health Trajectory
+                    </div>
+
+                    <h2 class="bendsta-market-title">
+                        Market Insights: Market Size &amp; Economic
+                        <br class="d-none d-md-block"/>
+                        Impact
+                    </h2>
+
+                    <p class="bendsta-market-subtitle">
+                        Providing Safer Alternatives from the Death Trap
+                        of Traditional Tobacco Use.
+                    </p>
+
+                </div>
+
+
+                <!-- ============================= -->
+                <!-- Cards -->
+                <!-- ============================= -->
+
+                <div class="row g-4">
+
+
+                    <!-- Card 01 -->
+                    <div class="col-lg-4">
+
+                        <div class="bendsta-market-card">
+
+                            <div class="bendsta-market-card-content">
+
+                                <!-- Icon -->
+                                <div class="bendsta-market-icon bendsta-market-icon-danger">
+
+                                    <svg width="20"
+                                         height="20"
+                                         viewBox="0 0 24 24"
+                                         fill="none"
+                                         stroke="currentColor"
+                                         aria-hidden="true">
+
+                                        <path stroke-linecap="round"
+                                              stroke-linejoin="round"
+                                              stroke-width="2"
+                                              d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6"/>
+
+                                    </svg>
+
+                                </div>
+
+
+                                <h3 class="bendsta-market-card-title">
+                                    Healthcare Expenditure Burden
+                                </h3>
+
+
+                                <p class="bendsta-market-card-description">
+                                    Smoking-related illnesses in Bangladesh
+                                    consume billions of BDT annually in
+                                    healthcare expenses and lost economic
+                                    productivity. Providing harm-reduced
+                                    alternatives directly eases this hospital
+                                    bed saturation.
+                                </p>
+
+                            </div>
+
+
+                            <!-- Metric -->
+                            <div class="bendsta-market-metric">
+
+                                <span class="bendsta-market-metric-label">
+                                    Economic Drag
+                                </span>
+
+                                <span class="bendsta-market-metric-value bendsta-market-value-danger">
+                                    30,000+ Crore BDT/yr
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Card 02 -->
+                    <div class="col-lg-4">
+
+                        <div class="bendsta-market-card">
+
+                            <div class="bendsta-market-card-content">
+
+                                <!-- Icon -->
+                                <div class="bendsta-market-icon bendsta-market-icon-teal">
+
+                                    <svg width="20"
+                                         height="20"
+                                         viewBox="0 0 24 24"
+                                         fill="none"
+                                         stroke="currentColor"
+                                         aria-hidden="true">
+
+                                        <path stroke-linecap="round"
+                                              stroke-linejoin="round"
+                                              stroke-width="2"
+                                              d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 013.138-3.138z"/>
+
+                                    </svg>
+
+                                </div>
+
+
+                                <h3 class="bendsta-market-card-title">
+                                    Eliminating the Illicit Market
+                                </h3>
+
+
+                                <p class="bendsta-market-card-description">
+                                    Blanket bans do not stop demand; they only
+                                    empower smugglers and counterfeit sellers
+                                    who pay zero tax and sell untested
+                                    concoctions to youth. Regulation restores
+                                    state control and verifiable product safety.
+                                </p>
+
+                            </div>
+
+
+                            <!-- Metric -->
+                            <div class="bendsta-market-metric">
+
+                                <span class="bendsta-market-metric-label">
+                                    Legal Market Share
+                                </span>
+
+                                <span class="bendsta-market-metric-value bendsta-market-value-teal">
+                                    100% Traceable
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Card 03 -->
+                    <div class="col-lg-4">
+
+                        <div class="bendsta-market-card">
+
+                            <div class="bendsta-market-card-content">
+
+                                <!-- Icon -->
+                                <div class="bendsta-market-icon bendsta-market-icon-warning">
+
+                                    <svg width="20"
+                                         height="20"
+                                         viewBox="0 0 24 24"
+                                         fill="none"
+                                         stroke="currentColor"
+                                         aria-hidden="true">
+
+                                        <path stroke-linecap="round"
+                                              stroke-linejoin="round"
+                                              stroke-width="2"
+                                              d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+
+                                    </svg>
+
+                                </div>
+
+
+                                <h3 class="bendsta-market-card-title">
+                                    Substantial State Revenue
+                                </h3>
+
+
+                                <p class="bendsta-market-card-description">
+                                    Risk-proportionate taxation enables the
+                                    National Board of Revenue (NBR) to formalize
+                                    legitimate commerce, creating thousands of
+                                    compliant local jobs and boosting fiscal
+                                    revenue streams.
+                                </p>
+
+                            </div>
+
+
+                            <!-- Metric -->
+                            <div class="bendsta-market-metric">
+
+                                <span class="bendsta-market-metric-label">
+                                    Tax Potential
+                                </span>
+
+                                <span class="bendsta-market-metric-value bendsta-market-value-warning">
+                                    Multi-Million USD NBR
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </template>
+
+</odoo>

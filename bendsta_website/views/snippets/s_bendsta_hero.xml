@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <template id="s_bendsta_hero" name="BENDSTA Hero">
+
+        <section class="s_bendsta_hero"
+                 data-snippet="s_bendsta_hero"
+                 data-name="BENDSTA Hero">
+
+            <div class="bendsta-hero-grid-bg"></div>
+
+            <div class="container bendsta-hero-container">
+
+                <div class="row align-items-center">
+
+                    <div class="col-lg-9">
+
+                        <!-- Eyebrow -->
+                        <div class="bendsta-hero-badge mb-4">
+
+                            <span class="bendsta-hero-status-dot"></span>
+
+                            <span>
+                                Towards a Healthier Bangladesh Through
+                                Tobacco Harm Reduction
+                            </span>
+
+                        </div>
+
+
+                        <!-- Heading -->
+                        <h1 class="bendsta-hero-title mb-4">
+
+                            Promoting a Healthier Bangladesh with
+
+                            <span class="bendsta-hero-highlight">
+                                Regulated Harm Reduction
+                            </span>
+
+                            Alternatives.
+
+                        </h1>
+
+
+                        <!-- Description -->
+                        <p class="bendsta-hero-description mb-4">
+
+                            <strong>
+                                Embracing Tobacco Harm Reduction and
+                                Vaping Solutions:
+                            </strong>
+
+                            BENDSTA advocates for a calibrated,
+                            evidence-based regulatory framework for
+                            Electronic Nicotine Delivery Systems (ENDS)
+                            to provide safe, adult-only alternatives to
+                            combustible tobacco.
+
+                        </p>
+
+
+                        <!-- Buttons -->
+                        <div class="bendsta-hero-actions">
+
+                            <a href="#framework"
+                               class="bendsta-hero-button bendsta-hero-button-primary">
+
+                                <span>
+                                    Explore Recommendations
+                                </span>
+
+                                <svg width="16"
+                                     height="16"
+                                     viewBox="0 0 24 24"
+                                     fill="none"
+                                     stroke="currentColor"
+                                     aria-hidden="true">
+
+                                    <path stroke-linecap="round"
+                                          stroke-linejoin="round"
+                                          stroke-width="2.5"
+                                          d="M19 9l-7 7-7-7"/>
+
+                                </svg>
+
+                            </a>
+
+
+                            <a href="#summit"
+                               class="bendsta-hero-button bendsta-hero-button-secondary">
+
+                                <span>
+                                    Bangladesh THR Summit 2023
+                                </span>
+
+                                <svg width="16"
+                                     height="16"
+                                     viewBox="0 0 24 24"
+                                     fill="none"
+                                     stroke="currentColor"
+                                     aria-hidden="true">
+
+                                    <path stroke-linecap="round"
+                                          stroke-linejoin="round"
+                                          stroke-width="2"
+                                          d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+
+                                </svg>
+
+                            </a>
+
+                        </div>
+
+
+                        <!-- Statistics -->
+                        <div class="bendsta-hero-stats">
+
+                            <div class="bendsta-hero-stat">
+
+                                <div class="bendsta-hero-stat-value bendsta-hero-stat-teal">
+                                    95%
+                                </div>
+
+                                <div class="bendsta-hero-stat-label">
+                                    Less Harmful than Smoking (UK PHE)
+                                </div>
+
+                            </div>
+
+
+                            <div class="bendsta-hero-stat">
+
+                                <div class="bendsta-hero-stat-value">
+                                    2020
+                                </div>
+
+                                <div class="bendsta-hero-stat-label">
+                                    Founded for Responsible Trade
+                                </div>
+
+                            </div>
+
+
+                            <div class="bendsta-hero-stat">
+
+                                <div class="bendsta-hero-stat-value bendsta-hero-stat-teal">
+                                    11
+                                </div>
+
+                                <div class="bendsta-hero-stat-label">
+                                    Comprehensive Policy Pillars
+                                </div>
+
+                            </div>
+
+
+                            <div class="bendsta-hero-stat">
+
+                                <div class="bendsta-hero-stat-value bendsta-hero-stat-warning">
+                                    18+
+                                </div>
+
+                                <div class="bendsta-hero-stat-label">
+                                    Zero Tolerance Minor Gating
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </template>
+
+</odoo>

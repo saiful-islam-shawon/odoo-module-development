@@ -1,0 +1,438 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <template id="s_bendsta_framework"
+              name="BENDSTA Regulatory Framework">
+
+        <section class="s_bendsta_framework"
+                 data-snippet="s_bendsta_framework"
+                 data-name="BENDSTA Regulatory Framework">
+
+            <div class="container">
+
+                <!-- ==============================
+                     Section Heading
+                =============================== -->
+
+                <div class="bendsta-framework-heading">
+
+                    <div class="bendsta-framework-badge">
+                        Official Policy Submission
+                    </div>
+
+                    <h2 class="bendsta-framework-title">
+                        BENDSTA's Recommendations for a
+                        Regulatory Framework on ENDS
+                    </h2>
+
+                    <p class="bendsta-framework-subtitle">
+                        Submitted to Government Bodies, the Ministry of
+                        Health &amp; Family Welfare, and the National Board
+                        of Revenue. The following 11 recommendations outline
+                        a comprehensive framework prioritizing consumer
+                        safety, public health, and adult smoker harm reduction.
+                    </p>
+
+                </div>
+
+
+                <!-- ==============================
+                     Policy Pillars
+                =============================== -->
+
+                <div class="row g-4 bendsta-framework-grid">
+
+
+                    <!-- 01 -->
+                    <div class="col-md-6 col-lg-4">
+
+                        <div class="bendsta-framework-card">
+
+                            <div class="bendsta-framework-content">
+
+                                <div class="bendsta-framework-number bendsta-framework-number-navy">
+                                    01
+                                </div>
+
+                                <h3 class="bendsta-framework-card-title">
+                                    Recognition &amp; Classification of
+                                    ENDS as THR
+                                </h3>
+
+                                <p class="bendsta-framework-card-text">
+                                    Officially recognize ENDS as a separate
+                                    category from combustible tobacco. Studies
+                                    demonstrate ENDS are significantly less
+                                    harmful than cigarettes, warranting
+                                    differentiated legal treatment.
+                                </p>
+
+                            </div>
+
+                            <div class="bendsta-framework-footer bendsta-framework-footer-teal">
+                                Distinct Legal Category
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- 02 -->
+                    <div class="col-md-6 col-lg-4">
+
+                        <div class="bendsta-framework-card">
+
+                            <div class="bendsta-framework-content">
+
+                                <div class="bendsta-framework-number bendsta-framework-number-red">
+                                    02
+                                </div>
+
+                                <h3 class="bendsta-framework-card-title">
+                                    Age Restrictions &amp; Youth
+                                    Protection Measures
+                                </h3>
+
+                                <p class="bendsta-framework-card-text">
+                                    Enforce strict minimum age restrictions
+                                    (18+) for purchasing and using ENDS
+                                    products supported by digital National ID
+                                    verification and training for retailers
+                                    to strictly prevent underage sales.
+                                </p>
+
+                            </div>
+
+                            <div class="bendsta-framework-footer bendsta-framework-footer-red">
+                                Mandatory NID 18+ Verification
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- 03 -->
+                    <div class="col-md-6 col-lg-4">
+
+                        <div class="bendsta-framework-card">
+
+                            <div class="bendsta-framework-content">
+
+                                <div class="bendsta-framework-number bendsta-framework-number-dark-teal">
+                                    03
+                                </div>
+
+                                <h3 class="bendsta-framework-card-title">
+                                    Product Quality Standards &amp;
+                                    Safety Protocols
+                                </h3>
+
+                                <p class="bendsta-framework-card-text">
+                                    Establish comprehensive manufacturing and
+                                    safety standards for ENDS products,
+                                    including ingredient labeling,
+                                    child-resistant packaging, and batch
+                                    traceability to eliminate contaminated
+                                    black-market products.
+                                </p>
+
+                            </div>
+
+                            <div class="bendsta-framework-footer bendsta-framework-footer-teal">
+                                Child-Resistant Packaging
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- 04 -->
+                    <div class="col-md-6 col-lg-4">
+
+                        <div class="bendsta-framework-card">
+
+                            <div class="bendsta-framework-content">
+
+                                <div class="bendsta-framework-number bendsta-framework-number-teal">
+                                    04
+                                </div>
+
+                                <h3 class="bendsta-framework-card-title">
+                                    Health &amp; Safety Standards for
+                                    E-Liquids &amp; Devices
+                                </h3>
+
+                                <p class="bendsta-framework-card-text">
+                                    Require Material Safety Data Sheets
+                                    (MSDS), certificates of analysis, and
+                                    electrical safety certifications
+                                    (CE, RoHS). Prohibiting harmful additives
+                                    like diacetyl to ensure consumer safety.
+                                </p>
+
+                            </div>
+
+                            <div class="bendsta-framework-footer bendsta-framework-footer-teal">
+                                Certified MSDS Verification
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- 05 -->
+                    <div class="col-md-6 col-lg-4">
+
+                        <div class="bendsta-framework-card">
+
+                            <div class="bendsta-framework-content">
+
+                                <div class="bendsta-framework-number bendsta-framework-number-orange">
+                                    05
+                                </div>
+
+                                <h3 class="bendsta-framework-card-title">
+                                    Marketing &amp; Advertising Regulations
+                                </h3>
+
+                                <p class="bendsta-framework-card-text">
+                                    Restrict marketing exclusively to adult
+                                    smokers. Prohibiting celebrity
+                                    endorsements, lifestyle branding, and
+                                    youth-oriented channels to ensure
+                                    non-smokers and youth are never targeted.
+                                </p>
+
+                            </div>
+
+                            <div class="bendsta-framework-footer bendsta-framework-footer-orange">
+                                Adult-Smoker-Only Channels
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- 06 -->
+                    <div class="col-md-6 col-lg-4">
+
+                        <div class="bendsta-framework-card">
+
+                            <div class="bendsta-framework-content">
+
+                                <div class="bendsta-framework-number bendsta-framework-number-blue">
+                                    06
+                                </div>
+
+                                <h3 class="bendsta-framework-card-title">
+                                    Comprehensive Product Labeling
+                                    &amp; Warnings
+                                </h3>
+
+                                <p class="bendsta-framework-card-text">
+                                    Mandatory accurate nicotine concentration
+                                    labeling, full ingredient disclosures, and
+                                    proportionate health warnings accurately
+                                    distinguishing vapor from carcinogenic
+                                    smoke.
+                                </p>
+
+                            </div>
+
+                            <div class="bendsta-framework-footer bendsta-framework-footer-blue">
+                                Transparent Ingredient Disclosure
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- 07 -->
+                    <div class="col-md-6 col-lg-4">
+
+                        <div class="bendsta-framework-card">
+
+                            <div class="bendsta-framework-content">
+
+                                <div class="bendsta-framework-number bendsta-framework-number-navy-light">
+                                    07
+                                </div>
+
+                                <h3 class="bendsta-framework-card-title">
+                                    Regulation of Distribution Channels
+                                </h3>
+
+                                <p class="bendsta-framework-card-text">
+                                    Establish a registered licensing and
+                                    monitoring system for authorized
+                                    importers, wholesalers, and specialized
+                                    vape retailers to maintain accountability
+                                    and association-backed compliance.
+                                </p>
+
+                            </div>
+
+                            <div class="bendsta-framework-footer bendsta-framework-footer-navy">
+                                Licensed Commercial Chains
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- 08 -->
+                    <div class="col-md-6 col-lg-4">
+
+                        <div class="bendsta-framework-card">
+
+                            <div class="bendsta-framework-content">
+
+                                <div class="bendsta-framework-number bendsta-framework-number-green">
+                                    08
+                                </div>
+
+                                <h3 class="bendsta-framework-card-title">
+                                    Taxation Policies to Encourage
+                                    Harm Reduction
+                                </h3>
+
+                                <p class="bendsta-framework-card-text">
+                                    Implement a risk-proportionate tax
+                                    structure. Keeping excise rates on safer
+                                    alternatives lower than combustible
+                                    cigarettes financially incentivizes
+                                    smokers to transition while securing
+                                    revenue.
+                                </p>
+
+                            </div>
+
+                            <div class="bendsta-framework-footer bendsta-framework-footer-green">
+                                Risk-Proportionate Tax
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- 09 -->
+                    <div class="col-md-6 col-lg-4">
+
+                        <div class="bendsta-framework-card">
+
+                            <div class="bendsta-framework-content">
+
+                                <div class="bendsta-framework-number bendsta-framework-number-gray">
+                                    09
+                                </div>
+
+                                <h3 class="bendsta-framework-card-title">
+                                    Research &amp; Data Collection on
+                                    Health Outcomes
+                                </h3>
+
+                                <p class="bendsta-framework-card-text">
+                                    Support localized clinical and public
+                                    health data collection tracking smoking
+                                    cessation patterns and epidemiological
+                                    outcomes in Bangladesh, partnering with
+                                    medical institutions.
+                                </p>
+
+                            </div>
+
+                            <div class="bendsta-framework-footer bendsta-framework-footer-gray">
+                                Domestic Longitudinal Studies
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- 10 -->
+                    <div class="col-md-6 col-lg-4">
+
+                        <div class="bendsta-framework-card">
+
+                            <div class="bendsta-framework-content">
+
+                                <div class="bendsta-framework-number bendsta-framework-number-cyan">
+                                    10
+                                </div>
+
+                                <h3 class="bendsta-framework-card-title">
+                                    Public Awareness &amp;
+                                    Consumer Education
+                                </h3>
+
+                                <p class="bendsta-framework-card-text">
+                                    Launch responsible public health campaigns
+                                    correcting widespread misperceptions
+                                    regarding nicotine vs combustion. Clear
+                                    communication on how harm reduction aids
+                                    cessation.
+                                </p>
+
+                            </div>
+
+                            <div class="bendsta-framework-footer bendsta-framework-footer-cyan">
+                                Scientific Truth in Public Health
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- 11 -->
+                    <div class="col-md-6 col-lg-4">
+
+                        <div class="bendsta-framework-card">
+
+                            <div class="bendsta-framework-content">
+
+                                <div class="bendsta-framework-number bendsta-framework-number-final">
+                                    11
+                                </div>
+
+                                <h3 class="bendsta-framework-card-title">
+                                    Stakeholder Collaboration &amp;
+                                    Policy Review
+                                </h3>
+
+                                <p class="bendsta-framework-card-text">
+                                    Foster ongoing dialogue between government
+                                    ministries, medical leaders, BENDSTA, and
+                                    global health bodies for regular
+                                    regulatory reviews matching technological
+                                    developments.
+                                </p>
+
+                            </div>
+
+                            <div class="bendsta-framework-footer bendsta-framework-footer-teal">
+                                Adaptive Multi-Sector Dialogue
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </template>
+
+</odoo>

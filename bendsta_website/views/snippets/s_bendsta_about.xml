@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <template id="s_bendsta_about" name="BENDSTA About">
+
+        <section class="s_bendsta_about"
+                 data-snippet="s_bendsta_about"
+                 data-name="BENDSTA About">
+
+            <div class="container">
+
+                <div class="row align-items-center g-5">
+
+                    <!-- ===================================== -->
+                    <!-- Left Content -->
+                    <!-- ===================================== -->
+
+                    <div class="col-lg-6">
+
+                        <!-- Badge -->
+                        <div class="bendsta-about-badge">
+                            About BENDSTA
+                        </div>
+
+
+                        <!-- Heading -->
+                        <h2 class="bendsta-about-title">
+                            Pioneering Safe, Regulated &amp;
+                            Evidence-Based Harm Reduction.
+                        </h2>
+
+
+                        <!-- Description -->
+                        <p class="bendsta-about-description">
+
+                            The
+
+                            <strong>
+                                Bangladesh Electronic Nicotine Delivery
+                                System Traders Association (BENDSTA)
+                            </strong>
+
+                            is the premier national trade body committed
+                            to advancing public health via responsible
+                            Tobacco Harm Reduction (THR) methodologies.
+
+                        </p>
+
+
+                        <p class="bendsta-about-description">
+
+                            Formed in 2020, BENDSTA unites importers,
+                            distributors, scientific advocates, and
+                            retailers to work harmoniously with government
+                            ministries, medical bodies, and consumer groups
+                            to eliminate illicit products, establish
+                            laboratory quality benchmarks, and shield
+                            minors from access.
+
+                        </p>
+
+
+                        <!-- Core Commitment -->
+                        <div class="bendsta-about-commitment">
+
+                            <div class="bendsta-about-commitment-title">
+
+                                <svg width="18"
+                                     height="18"
+                                     viewBox="0 0 24 24"
+                                     fill="none"
+                                     stroke="currentColor"
+                                     aria-hidden="true">
+
+                                    <path stroke-linecap="round"
+                                          stroke-linejoin="round"
+                                          stroke-width="2.5"
+                                          d="M5 13l4 4L19 7"/>
+
+                                </svg>
+
+                                <span>
+                                    Our Core Commitment
+                                </span>
+
+                            </div>
+
+
+                            <p class="bendsta-about-commitment-text">
+
+                                "Let's build something exceptional together
+                                — replacing combustible smoking through
+                                regulated science, certified testing, and
+                                responsible trade governance."
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ===================================== -->
+                    <!-- Right Cards -->
+                    <!-- ===================================== -->
+
+                    <div class="col-lg-6">
+
+                        <div class="row g-3">
+
+
+                            <!-- Card 01 -->
+                            <div class="col-sm-6">
+
+                                <div class="bendsta-about-card">
+
+                                    <div class="bendsta-about-number bendsta-about-number-navy">
+                                        01
+                                    </div>
+
+                                    <h3 class="bendsta-about-card-title">
+                                        Evidence-Led Advocacy
+                                    </h3>
+
+                                    <p class="bendsta-about-card-text">
+                                        Grounding every policy proposal in
+                                        peer-reviewed clinical data,
+                                        toxicological trials, and recognized
+                                        global public health consensus.
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- Card 02 -->
+                            <div class="col-sm-6">
+
+                                <div class="bendsta-about-card">
+
+                                    <div class="bendsta-about-number bendsta-about-number-teal">
+                                        02
+                                    </div>
+
+                                    <h3 class="bendsta-about-card-title">
+                                        Age Verification Enforcement
+                                    </h3>
+
+                                    <p class="bendsta-about-card-text">
+                                        Mandating strict 18+ NID/digital age
+                                        gating across all member brick-and-
+                                        mortar stores and authorized online
+                                        touchpoints.
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- Card 03 -->
+                            <div class="col-sm-6">
+
+                                <div class="bendsta-about-card">
+
+                                    <div class="bendsta-about-number bendsta-about-number-dark-teal">
+                                        03
+                                    </div>
+
+                                    <h3 class="bendsta-about-card-title">
+                                        Quality &amp; MSDS Testing
+                                    </h3>
+
+                                    <p class="bendsta-about-card-text">
+                                        E-liquids and certified hardware must
+                                        adhere to international safety
+                                        standards, removing diacetyl, heavy
+                                        metals, and black-market adulterations.
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- Card 04 -->
+                            <div class="col-sm-6">
+
+                                <div class="bendsta-about-card">
+
+                                    <div class="bendsta-about-number bendsta-about-number-orange">
+                                        04
+                                    </div>
+
+                                    <h3 class="bendsta-about-card-title">
+                                        Economic Fair Taxation
+                                    </h3>
+
+                                    <p class="bendsta-about-card-text">
+                                        Proposing risk-proportionate tax
+                                        brackets that incentivize adult smokers
+                                        to switch while yielding substantial
+                                        national treasury revenue.
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </template>
+
+</odoo>

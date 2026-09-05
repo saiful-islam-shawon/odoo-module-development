@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <template id="s_bendsta_global_regulations"
+              name="BENDSTA Global Perspectives">
+
+        <section class="s_bendsta_global_regulations"
+                 data-snippet="s_bendsta_global_regulations"
+                 data-name="BENDSTA Global Perspectives">
+
+            <div class="container">
+
+                <!-- ========================================
+                     Heading
+                ========================================= -->
+
+                <div class="bendsta-global-heading">
+
+                    <div class="bendsta-global-badge">
+                        International Precedents
+                    </div>
+
+                    <h2 class="bendsta-global-title">
+                        Global Perspectives &amp; Regulation
+                    </h2>
+
+                    <p class="bendsta-global-subtitle">
+                        See how leading nations harness sensible regulatory
+                        frameworks instead of bans to drastically curb
+                        smoking rates.
+                    </p>
+
+                </div>
+
+
+                <!-- ========================================
+                     Country Navigation
+                ========================================= -->
+
+                <div class="bendsta-global-countries">
+
+                    <button type="button"
+                            class="bendsta-global-country is-active"
+                            data-country="uk">
+                        United Kingdom
+                    </button>
+
+                    <button type="button"
+                            class="bendsta-global-country"
+                            data-country="nz">
+                        New Zealand
+                    </button>
+
+                    <button type="button"
+                            class="bendsta-global-country"
+                            data-country="se">
+                        Sweden
+                    </button>
+
+                    <button type="button"
+                            class="bendsta-global-country"
+                            data-country="ca">
+                        Canada
+                    </button>
+
+                    <button type="button"
+                            class="bendsta-global-country"
+                            data-country="fr">
+                        France
+                    </button>
+
+                    <button type="button"
+                            class="bendsta-global-country"
+                            data-country="my">
+                        Malaysia
+                    </button>
+
+                    <button type="button"
+                            class="bendsta-global-country"
+                            data-country="id">
+                        Indonesia
+                    </button>
+
+                    <button type="button"
+                            class="bendsta-global-country"
+                            data-country="us">
+                        United States
+                    </button>
+
+                    <button type="button"
+                            class="bendsta-global-country"
+                            data-country="eu">
+                        European Union
+                    </button>
+
+                </div>
+
+
+                <!-- ========================================
+                     Country Content Card
+                ========================================= -->
+
+                <div class="bendsta-global-card">
+
+                    <!-- Card Header -->
+                    <div class="bendsta-global-card-header">
+
+                        <div>
+
+                            <div class="bendsta-global-region"
+                                 data-role="region">
+                                Europe
+                            </div>
+
+                            <h3 class="bendsta-global-country-title"
+                                data-role="title">
+                                United Kingdom (NHS &amp; PHE / UKHSA)
+                            </h3>
+
+                        </div>
+
+
+                        <div class="bendsta-global-status"
+                             data-role="status">
+                            Proactive THR Integration
+                        </div>
+
+                    </div>
+
+
+                    <!-- Card Body -->
+                    <div class="bendsta-global-card-body">
+
+                        <div class="row g-4">
+
+                            <!-- Left -->
+                            <div class="col-lg-8">
+
+                                <h4 class="bendsta-global-content-title">
+                                    Regulatory Blueprint &amp; Official Stance:
+                                </h4>
+
+
+                                <p class="bendsta-global-description"
+                                   data-role="description">
+
+                                    The UK Government launched the
+                                    groundbreaking 'Swap to Stop' scheme,
+                                    providing 1 million adult smokers with
+                                    free vape starter kits. Public Health
+                                    England (now UKHSA) has consistently
+                                    affirmed that vaping is at least 95%
+                                    less harmful than smoking.
+
+                                </p>
+
+
+                                <!-- Safeguards -->
+                                <div class="bendsta-global-safeguards">
+
+                                    <div class="bendsta-global-safeguards-title">
+                                        Policy Safeguards:
+                                    </div>
+
+                                    <div class="bendsta-global-safeguards-text"
+                                         data-role="safeguards">
+
+                                        Strict 20mg/ml nicotine caps under
+                                        TRPR, child-resistant caps, full
+                                        toxicological notification to MHRA,
+                                        and total ban on sales to minors.
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- Right Metric -->
+                            <div class="col-lg-4">
+
+                                <div class="bendsta-global-outcome">
+
+                                    <div class="bendsta-global-outcome-label">
+                                        Measured Outcome
+                                    </div>
+
+                                    <div class="bendsta-global-outcome-value"
+                                         data-role="metric">
+                                        ~11.9%
+                                    </div>
+
+                                    <p class="bendsta-global-outcome-text"
+                                       data-role="metric-text">
+
+                                        Adult smoking rates have dropped to
+                                        historic record lows across England
+                                        and Wales.
+
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </template>
+
+</odoo>

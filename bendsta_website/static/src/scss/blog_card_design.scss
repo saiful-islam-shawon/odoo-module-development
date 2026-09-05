@@ -1,0 +1,588 @@
+.c_bendsta_blog_cards {
+    background: #f6f8fb;
+    overflow: hidden;
+
+    // ==========================================
+    // design container size
+    // ==========================================
+    .bendsta_blog_container {
+        width: calc(100% - 120px);
+        max-width: 1400px;
+
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+
+    // ==========================================
+    // Slider
+    // ==========================================
+
+    .bendsta_blog_slider {
+        position: relative;
+    }
+
+
+    .bendsta_blog_viewport {
+        width: 100%;
+
+        padding: 8px 0 24px;
+
+        overflow: hidden;
+    }
+
+
+    .bendsta_blog_track {
+        display: flex;
+
+        gap: 24px;
+
+        transition: transform 0.5s ease;
+
+        will-change: transform;
+    }
+
+
+    // ==========================================
+    // Card
+    // ==========================================
+
+    .bendsta_blog_card {
+        flex: 0 0 calc((100% - 48px) / 3);
+
+        min-width: 0;
+
+        display: flex;
+        flex-direction: column;
+
+        overflow: hidden;
+
+        background: #ffffff;
+
+        border: 1px solid #e6ebf2;
+        border-radius: 24px;
+
+        box-shadow:
+            0 10px 30px
+            rgba(20, 35, 60, 0.08);
+    }
+
+
+    // ==========================================
+    // Cover
+    // ==========================================
+
+    .bendsta_blog_cover {
+        position: relative;
+
+        display: block;
+
+        height: 225px;
+
+        overflow: hidden;
+
+        background: #e8edf3;
+
+        text-decoration: none;
+    }
+
+
+    /*
+     * এখন এটা real <img> element.
+     */
+    .bendsta_blog_image {
+        position: absolute;
+
+        inset: 0;
+
+        display: block;
+
+        width: 100%;
+        height: 100%;
+
+        object-fit: cover;
+        object-position: center;
+
+        transition:
+            transform 0.4s ease;
+    }
+
+
+    .bendsta_blog_cover:hover {
+
+        .bendsta_blog_image {
+            transform: scale(1.04);
+        }
+    }
+
+
+    .bendsta_blog_no_image {
+        background-color: #e8edf3;
+    }
+
+
+    // ==========================================
+    // Tag
+    // ==========================================
+
+    .bendsta_blog_tag {
+        position: absolute;
+
+        z-index: 2;
+
+        top: 17px;
+        left: 17px;
+
+        max-width: calc(100% - 34px);
+
+        padding: 6px 13px;
+
+        overflow: hidden;
+
+        background:
+            rgba(18, 181, 161, 0.16);
+
+        border:
+            1px solid
+            rgba(0, 157, 140, 0.30);
+
+        border-radius: 30px;
+
+        color: #008f80;
+
+        font-size: 12px;
+        line-height: 1.2;
+        font-weight: 600;
+
+        text-transform: uppercase;
+
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+
+    // ==========================================
+    // Content
+    // ==========================================
+
+    .bendsta_blog_content {
+        display: flex;
+
+        flex: 1;
+        flex-direction: column;
+
+        min-height: 230px;
+
+        padding: 22px;
+    }
+
+
+    // ==========================================
+    // Date
+    // ==========================================
+
+    .bendsta_blog_date {
+        display: flex;
+
+        align-items: center;
+
+        gap: 8px;
+
+        margin-bottom: 11px;
+
+        color: #91a0bb;
+
+        font-size: 13px;
+
+
+        i {
+            color: #00a994;
+        }
+    }
+
+
+    // ==========================================
+    // Title
+    // ==========================================
+
+    .bendsta_blog_title {
+        display: -webkit-box;
+
+        margin-bottom: 11px;
+
+        overflow: hidden;
+
+        color: #071126;
+
+        font-size: 19px;
+        line-height: 1.4;
+        font-weight: 700;
+
+        text-decoration: none;
+
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+
+
+        &:hover {
+            color: #009c8d;
+        }
+    }
+
+
+    // ==========================================
+    // Description
+    // ==========================================
+
+    .bendsta_blog_description {
+        display: -webkit-box;
+
+        margin: 0 0 20px;
+
+        overflow: hidden;
+
+        color: #71809c;
+
+        font-size: 15px;
+        line-height: 1.5;
+
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 3;
+    }
+
+
+    // ==========================================
+    // Footer
+    // ==========================================
+
+    .bendsta_blog_footer {
+        display: flex;
+
+        align-items: center;
+        justify-content: space-between;
+
+        gap: 10px;
+
+        margin-top: auto;
+
+        padding-top: 16px;
+
+        border-top:
+            1px solid #edf0f4;
+    }
+
+
+    // ==========================================
+    // Author
+    // ==========================================
+
+    .bendsta_blog_author {
+        display: flex;
+
+        align-items: center;
+
+        gap: 9px;
+
+        min-width: 0;
+
+        color: #10182a;
+
+        font-size: 13px;
+        font-weight: 600;
+    }
+
+
+    .bendsta_blog_avatar {
+        flex: 0 0 36px;
+
+        width: 36px;
+        height: 36px;
+
+        object-fit: cover;
+
+        border-radius: 50%;
+    }
+
+
+    .bendsta_blog_avatar_placeholder {
+        display: flex;
+
+        align-items: center;
+        justify-content: center;
+
+        background: #4636d8;
+
+        color: #ffffff;
+    }
+
+
+    .bendsta_blog_author_name {
+        display: block;
+
+        max-width: 120px;
+
+        overflow: hidden;
+
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+
+    // ==========================================
+    // Read More
+    // ==========================================
+
+    .bendsta_blog_read_more {
+        display: inline-flex;
+
+        flex-shrink: 0;
+
+        align-items: center;
+
+        gap: 9px;
+
+        padding: 10px 14px;
+
+        background: #071126;
+
+        border-radius: 12px;
+
+        color: #ffffff;
+
+        font-size: 13px;
+        font-weight: 600;
+
+        text-decoration: none;
+
+        transition:
+            background 0.2s ease,
+            transform 0.2s ease;
+
+
+        &:hover {
+            background: #009f90;
+
+            color: #ffffff;
+
+            transform: translateY(-1px);
+        }
+    }
+
+
+    // ==========================================
+    // Arrows
+    // ==========================================
+
+    .bendsta_blog_arrow {
+        position: absolute;
+
+        z-index: 10;
+
+        top: 50%;
+
+        width: 46px;
+        height: 46px;
+
+        display: flex;
+
+        align-items: center;
+        justify-content: center;
+
+        padding: 0;
+
+        transform: translateY(-50%);
+
+        background: #ffffff;
+
+        border: 1px solid #e0e6ed;
+
+        border-radius: 50%;
+
+        box-shadow:
+            0 8px 25px
+            rgba(25, 40, 65, 0.12);
+
+        color: #63718b;
+
+        transition:
+            color 0.2s ease,
+            border-color 0.2s ease;
+
+
+        &:hover {
+            color: #00a994;
+
+            border-color: #00a994;
+        }
+    }
+
+
+    .bendsta_blog_prev {
+        left: -22px;
+    }
+
+
+    .bendsta_blog_next {
+        right: -22px;
+    }
+
+
+    // ==========================================
+    // Dots
+    // ==========================================
+
+    .bendsta_blog_dots {
+        display: flex;
+
+        align-items: center;
+        justify-content: center;
+
+        gap: 7px;
+    }
+
+
+    .bendsta_blog_dot {
+        width: 9px;
+        height: 9px;
+
+        padding: 0;
+
+        background: #cad4e1;
+
+        border: 0;
+
+        border-radius: 20px;
+
+        transition:
+            width 0.2s ease,
+            background 0.2s ease;
+
+
+        &.active {
+            width: 30px;
+
+            background: #17b6a4;
+        }
+    }
+
+
+    // ==========================================
+    // Loading / Empty
+    // ==========================================
+
+    .bendsta_blog_loading,
+    .bendsta_blog_message {
+        flex: 0 0 100%;
+
+        padding: 60px 20px;
+
+        color: #71809c;
+
+        text-align: center;
+    }
+
+
+    .bendsta_blog_loading {
+        display: flex;
+
+        align-items: center;
+        justify-content: center;
+
+        gap: 10px;
+    }
+
+
+    // ==========================================
+    // Tablet
+    // ==========================================
+
+    @media (max-width: 991.98px) {
+
+        // ==========================================
+        // designt container size
+        // ==========================================
+        .bendsta_blog_container {
+            width: calc(100% - 48px);
+        }
+
+
+        // ==========================================
+        // other design
+        // ==========================================
+        .bendsta_blog_track {
+            gap: 20px;
+        }
+
+
+        .bendsta_blog_card {
+            flex-basis:
+                calc((100% - 20px) / 2);
+        }
+
+
+        .bendsta_blog_prev {
+            left: 5px;
+        }
+
+
+        .bendsta_blog_next {
+            right: 5px;
+        }
+    }
+
+
+    // ==========================================
+    // Mobile
+    // ==========================================
+
+    @media (max-width: 767.98px) {
+
+        // ==========================================
+        // designt container size
+        // ==========================================
+        .bendsta_blog_container {
+            width: calc(100% - 30px);
+        }
+
+
+        // ==========================================
+        // other design
+        // ==========================================
+        .bendsta_blog_track {
+            gap: 0;
+        }
+
+
+        .bendsta_blog_card {
+            flex-basis: 100%;
+        }
+
+
+        .bendsta_blog_cover {
+            height: 200px;
+        }
+
+
+        .bendsta_blog_content {
+            min-height: 270px;
+
+            padding: 19px;
+        }
+
+
+        .bendsta_blog_arrow {
+            width: 40px;
+            height: 40px;
+        }
+
+
+        .bendsta_blog_prev {
+            left: 7px;
+        }
+
+
+        .bendsta_blog_next {
+            right: 7px;
+        }
+    }
+}
