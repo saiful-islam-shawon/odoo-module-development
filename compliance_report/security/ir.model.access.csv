@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_compliance_job_application,compliance.job.application,model_compliance_job_application,base.group_user,1,1,1,1
+access_compliance_appointment_letter,compliance.appointment.letter,model_compliance_appointment_letter,base.group_user,1,1,1,1
+access_compliance_joining_letter,compliance.joining.letter,model_compliance_joining_letter,base.group_user,1,1,1,1
+access_compliance_salary_increment,compliance.salary.increment,model_compliance_salary_increment,base.group_user,1,1,1,1
+access_compliance_nominee_form,compliance.nominee.form,model_compliance_nominee_form,base.group_user,1,1,1,1
+access_age_fitness_certificate,compliance.age.fitness.certificate,model_compliance_age_fitness_certificate,base.group_user,1,1,1,1

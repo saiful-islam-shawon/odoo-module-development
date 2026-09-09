@@ -1,0 +1,659 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- =====================================================
+         A4 PAPER FORMAT
+    ====================================================== -->
+
+    <record id="paperformat_age_fitness_certificate"
+            model="report.paperformat">
+
+        <field name="name">Form 15 A4</field>
+        <field name="default" eval="False"/>
+        <field name="format">A4</field>
+        <field name="orientation">Portrait</field>
+
+        <field name="margin_top">15</field>
+        <field name="margin_bottom">15</field>
+        <field name="margin_left">15</field>
+        <field name="margin_right">15</field>
+
+        <field name="header_line" eval="False"/>
+
+    </record>
+
+
+    <!-- =====================================================
+         REPORT ACTION
+    ====================================================== -->
+
+    <record id="action_report_age_fitness_certificate"
+            model="ir.actions.report">
+
+        <field name="name">Age and Fitness Certificate</field>
+        <field name="model">compliance.age.fitness.certificate</field>
+        <field name="report_type">qweb-pdf</field>
+
+        <field name="report_name">compliance_report.report_age_fitness_certificate</field>
+        <field name="report_file">compliance_report.report_age_fitness_certificate</field>
+
+        <field name="paperformat_id"
+               ref="compliance_report.paperformat_age_fitness_certificate"/>
+
+    </record>
+
+
+    <!-- =====================================================
+         QWEB REPORT
+    ====================================================== -->
+
+    <template id="report_age_fitness_certificate">
+
+        <t t-call="web.html_container">
+
+            <meta charset="UTF-8"/>
+
+            <style>
+
+                .fitness-page,
+                .fitness-page * {
+                    font-family: "Noto Sans Bengali", sans-serif !important;
+                    box-sizing: border-box;
+                }
+
+                .fitness-page {
+                    color: #000;
+                    font-size: 15px;
+                    line-height: 1.55;
+                }
+
+
+                /* =========================
+                   HEADER
+                ========================== */
+
+                .form-number {
+                    text-align: center;
+                    font-size: 21px;
+                    font-weight: 700;
+                }
+
+                .rule-reference {
+                    text-align: center;
+                    font-size: 15px;
+                    font-weight: 600;
+                    margin-top: 6px;
+                }
+
+                .certificate-main-title {
+                    text-align: center;
+                    font-size: 21px;
+                    font-weight: 700;
+                    margin-top: 8px;
+                }
+
+                .medical-note {
+                    text-align: center;
+                    font-size: 15px;
+                    margin-top: 3px;
+                    margin-bottom: 14px;
+                }
+
+
+                /* =========================
+                   MAIN TWO COLUMN TABLE
+                ========================== */
+
+                .main-form-table {
+                    width: 100%;
+                    border-collapse: collapse;
+                    table-layout: fixed;
+
+                    border-top: 1px solid #000;
+                    border-bottom: 1px solid #000;
+                    border-left: 1px solid #000;
+                    border-right: 1px solid #000;
+                }
+
+                .main-form-table > tbody > tr > td {
+                    width: 50%;
+                    vertical-align: top;
+                }
+
+                .left-column {
+                    border-right: 1px solid #000;
+                }
+
+                .column-inner {
+                    position: relative;
+                    min-height: 650px;
+                    padding: 12px 14px 15px 14px;
+                }
+
+
+                /* =========================
+                   COLUMN TITLE
+                ========================== */
+
+                .column-title {
+                    text-align: center;
+                    font-size: 17px;
+                    font-weight: 700;
+                    margin-bottom: 12px;
+                }
+
+
+                /* =========================
+                   ROWS
+                ========================== */
+
+                .form-row {
+                    margin-bottom: 9px;
+                    line-height: 1.6;
+                }
+
+                .line {
+                    display: inline-block;
+                    min-height: 20px;
+                    border-bottom: 1px solid #000;
+                    padding-left: 4px;
+                    padding-right: 4px;
+                    vertical-align: baseline;
+                }
+
+                .full-line {
+                    display: block;
+                    width: 100%;
+                    min-height: 22px;
+                    border-bottom: 1px solid #000;
+                    margin-top: 3px;
+                }
+
+
+                /* =========================
+                   RIGHT CERTIFICATE TEXT
+                ========================== */
+
+                .certificate-text {
+                    line-height: 1.8;
+                    text-align: justify;
+                    margin-bottom: 15px;
+                }
+
+
+                /* =========================
+                   SIGNATURES
+                ========================== */
+
+                .column-signature {
+                    position: absolute;
+                    left: 15px;
+                    right: 15px;
+                    bottom: 18px;
+                    text-align: center;
+                }
+
+                .signature-line {
+                    display: inline-block;
+                    width: 230px;
+                    border-bottom: 1px solid #000;
+                    min-height: 22px;
+                }
+
+                .signature-label {
+                    margin-top: 4px;
+                    line-height: 1.4;
+                }
+
+            </style>
+
+
+            <t t-foreach="docs" t-as="o">
+
+                <div class="page fitness-page">
+
+
+                    <!-- =================================================
+                         HEADER
+                    ================================================== -->
+
+                    <div class="form-number">
+                        ফরম – ১৫
+                    </div>
+
+
+                    <div class="rule-reference">
+                        [ধারা ৩৪, ৩৬, ৩৭ ও ২৭৭ এবং বিধি ৩৪(১) ও ৩৩৬(৪) দ্রষ্টব্য]
+                    </div>
+
+
+                    <div class="certificate-main-title">
+                        বয়স ও সক্ষমতার প্রত্যায়নপত্র
+                    </div>
+
+
+                    <div class="medical-note">
+                        ‘’নিবন্ধিত মেডিকেল প্র্যাকটিশনারের প্যাড-এ’’
+                    </div>
+
+
+                    <!-- =================================================
+                         MAIN TABLE
+                    ================================================== -->
+
+                    <table class="main-form-table">
+
+                        <tbody>
+
+                            <tr>
+
+
+                                <!-- =====================================
+                                     LEFT SIDE
+                                ====================================== -->
+
+                                <td class="left-column">
+
+                                    <div class="column-inner">
+
+
+                                        <div class="column-title">
+                                            বয়স এবং ফিটনেস সার্টিফিকেট
+                                        </div>
+
+
+                                        <!-- Serial -->
+
+                                        <div class="form-row">
+
+                                            ১। সিরিয়াল নং
+
+                                            <span
+                                                class="line"
+                                                style="width: 190px;"
+                                            >
+                                                <t t-esc="o.serial_no or ''"/>
+                                            </span>
+
+                                        </div>
+
+
+                                        <!-- Date -->
+
+                                        <div class="form-row">
+
+                                            ২। তারিখঃ
+
+                                            <span
+                                                class="line"
+                                                style="width: 220px;"
+                                            >
+
+                                                <t t-if="o.certificate_date">
+                                                    <span t-field="o.certificate_date"/>
+                                                </t>
+
+                                            </span>
+
+                                        </div>
+
+
+                                        <!-- Employee Name -->
+
+                                        <div class="form-row">
+
+                                            ৩। নামঃ
+
+                                            <span
+                                                class="line"
+                                                style="width: 235px;"
+                                            >
+                                                <t t-esc="
+                                                    o.employee_id.name
+                                                    if o.employee_id
+                                                    else ''
+                                                "/>
+                                            </span>
+
+                                        </div>
+
+
+                                        <!-- Father -->
+
+                                        <div class="form-row">
+
+                                            ৪। বাবার নামঃ
+
+                                            <span
+                                                class="line"
+                                                style="width: 195px;"
+                                            >
+                                                <t t-esc="o.father_name or ''"/>
+                                            </span>
+
+                                        </div>
+
+
+                                        <!-- Mother -->
+
+                                        <div class="form-row">
+
+                                            ৪। মায়ের নামঃ
+
+                                            <span
+                                                class="line"
+                                                style="width: 195px;"
+                                            >
+                                                <t t-esc="o.mother_name or ''"/>
+                                            </span>
+
+                                        </div>
+
+
+                                        <!-- Gender -->
+
+                                        <div class="form-row">
+
+                                            ৫। লিঙ্গঃ
+
+                                            <span
+                                                class="line"
+                                                style="width: 225px;"
+                                            >
+                                                <t t-esc="
+                                                    dict(o._fields['gender'].selection).get(
+                                                        o.gender,
+                                                        o.gender or ''
+                                                    )
+                                                "/>
+                                            </span>
+
+                                        </div>
+
+
+                                        <!-- Permanent Address -->
+
+                                        <div class="form-row">
+
+                                            ৬। স্থায়ী ঠিকানাঃ
+
+                                            <span
+                                                class="line"
+                                                style="width: 180px;"
+                                            >
+                                                <t t-esc="o.permanent_address or ''"/>
+                                            </span>
+
+                                        </div>
+
+
+                                        <!-- Present Address -->
+
+                                        <div class="form-row">
+
+                                            ৭। বর্তমান ঠিকানা/ মেইলিং ঠিকানাঃ
+
+                                            <span class="full-line">
+                                                <t t-esc="o.present_address or ''"/>
+                                            </span>
+
+                                        </div>
+
+
+                                        <!-- Birthday -->
+
+                                        <div class="form-row">
+
+                                            ৮। জন্ম সনদ/স্কুল সার্টিফিকেট অনুযায়ী
+                                            জন্ম তারিখঃ
+
+                                            <span class="full-line">
+
+                                                <t t-if="o.birthday">
+                                                    <span t-field="o.birthday"/>
+                                                </t>
+
+                                            </span>
+
+                                        </div>
+
+
+                                        <!-- Physical Fitness -->
+
+                                        <div class="form-row">
+
+                                            ৯। শারীরিক সুস্থতাঃ
+
+                                            <span
+                                                class="line"
+                                                style="width: 170px;"
+                                            >
+                                                <t t-esc="o.physical_fitness or ''"/>
+                                            </span>
+
+                                        </div>
+
+
+                                        <!-- Identification -->
+
+                                        <div class="form-row">
+
+                                            ১০। সনাক্তকরণ চিহ্নঃ
+
+                                            <span class="full-line">
+                                                <t t-esc="o.identification_mark or ''"/>
+                                            </span>
+
+                                        </div>
+
+
+                                        <!-- Left Signature -->
+
+                                        <div class="column-signature">
+
+                                            <span class="signature-line">
+                                                &#160;
+                                            </span>
+
+                                            <div class="signature-label">
+                                                স্বাক্ষর/বৃদ্ধাঙ্গুলের
+                                                <br/>
+                                                সংশ্লিষ্ট ব্যক্তি
+                                            </div>
+
+                                        </div>
+
+
+                                    </div>
+
+                                </td>
+
+
+                                <!-- =====================================
+                                     RIGHT SIDE
+                                ====================================== -->
+
+                                <td class="right-column">
+
+                                    <div class="column-inner">
+
+
+                                        <div class="column-title">
+                                            বয়স এবং ফিটনেস সার্টিফিকেট
+                                        </div>
+
+
+                                        <!-- Serial -->
+
+                                        <div class="form-row">
+
+                                            ১। সিরিয়াল নং
+
+                                            <span
+                                                class="line"
+                                                style="width: 180px;"
+                                            >
+                                                <t t-esc="o.serial_no or ''"/>
+                                            </span>
+
+                                        </div>
+
+
+                                        <!-- Date -->
+
+                                        <div class="form-row">
+
+                                            ২। তারিখঃ
+
+                                            <span
+                                                class="line"
+                                                style="width: 205px;"
+                                            >
+
+                                                <t t-if="o.certificate_date">
+                                                    <span t-field="o.certificate_date"/>
+                                                </t>
+
+                                            </span>
+
+                                        </div>
+
+
+                                        <!-- =================================
+                                             MEDICAL CERTIFICATION
+                                        ================================== -->
+
+                                        <div
+                                            class="certificate-text"
+                                            style="margin-top: 17px;"
+                                        >
+
+                                            এটি প্রত্যয়িত করা হচ্ছে যে
+
+                                            <span
+                                                class="line"
+                                                style="min-width: 180px;"
+                                            >
+                                                <t t-esc="
+                                                    o.employee_id.name
+                                                    if o.employee_id
+                                                    else ''
+                                                "/>
+                                            </span>
+
+                                            পিতা
+
+                                            <span
+                                                class="line"
+                                                style="min-width: 150px;"
+                                            >
+                                                <t t-esc="o.father_name or ''"/>
+                                            </span>
+
+                                            মা
+
+                                            <span
+                                                class="line"
+                                                style="min-width: 150px;"
+                                            >
+                                                <t t-esc="o.mother_name or ''"/>
+                                            </span>
+
+                                            বাসার ঠিকানা
+
+                                            <span
+                                                class="line"
+                                                style="min-width: 200px;"
+                                            >
+                                                <t t-esc="o.permanent_address or ''"/>
+                                            </span>
+
+                                            পরীক্ষা করা হয়েছে।
+
+                                        </div>
+
+
+                                        <!-- =================================
+                                             AGE / FITNESS
+                                        ================================== -->
+
+                                        <div class="certificate-text">
+
+                                            তিনি প্রতিষ্ঠানে নিযুক্ত হতে ইচ্ছুক,
+                                            এবং আমার পরীক্ষায় পাওয়া গেছে যে তার
+                                            বয়স
+
+                                            <span
+                                                class="line"
+                                                style="
+                                                    min-width: 80px;
+                                                    text-align: center;
+                                                "
+                                            >
+
+                                                <t t-if="o.age">
+                                                    <t t-esc="o.age"/>
+                                                </t>
+
+                                            </span>
+
+                                            এবং তিনি একজন প্রাপ্তবয়স্ক/কিশোর
+                                            কর্মী হিসাবে প্রতিষ্ঠানে নিযুক্ত
+                                            হওয়ার উপযুক্ত।
+
+                                        </div>
+
+
+                                        <!-- Identification -->
+
+                                        <div class="certificate-text">
+
+                                            তার শনাক্তকারী চিহ্ন হল
+
+                                            <span
+                                                class="line"
+                                                style="min-width: 220px;"
+                                            >
+                                                <t t-esc="o.identification_mark or ''"/>
+                                            </span>
+
+                                        </div>
+
+
+                                        <!-- Doctor Signature -->
+
+                                        <div class="column-signature">
+
+                                            <span class="signature-line">
+                                                &#160;
+                                            </span>
+
+                                            <div class="signature-label">
+                                                নিবন্ধিত মেডিকেল
+                                                <br/>
+                                                প্র্যাকটিশনারের স্বাক্ষর
+                                            </div>
+
+                                        </div>
+
+
+                                    </div>
+
+                                </td>
+
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </t>
+
+        </t>
+
+    </template>
+
+</odoo>

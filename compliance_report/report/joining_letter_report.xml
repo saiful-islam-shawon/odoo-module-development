@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- ==============================================
+         A4 PAPER FORMAT
+    =============================================== -->
+
+    <record id="paperformat_joining_letter"
+            model="report.paperformat">
+
+        <field name="name">Joining Letter A4</field>
+        <field name="default" eval="False"/>
+        <field name="format">A4</field>
+        <field name="orientation">Portrait</field>
+
+        <field name="margin_top">18</field>
+        <field name="margin_bottom">18</field>
+        <field name="margin_left">20</field>
+        <field name="margin_right">20</field>
+
+        <field name="header_line" eval="False"/>
+
+    </record>
+
+
+    <!-- ==============================================
+         REPORT ACTION
+    =============================================== -->
+
+    <record id="action_report_joining_letter"
+            model="ir.actions.report">
+
+        <field name="name">Joining Letter</field>
+        <field name="model">compliance.joining.letter</field>
+        <field name="report_type">qweb-pdf</field>
+
+        <field name="report_name">compliance_report.report_joining_letter</field>
+        <field name="report_file">compliance_report.report_joining_letter</field>
+
+        <field name="paperformat_id"
+               ref="compliance_report.paperformat_joining_letter"/>
+
+    </record>
+
+
+    <!-- ==============================================
+         QWEB TEMPLATE
+    =============================================== -->
+
+    <template id="report_joining_letter">
+
+        <t t-call="web.html_container">
+
+            <meta charset="UTF-8"/>
+
+            <style>
+
+                .joining-page,
+                .joining-page * {
+                    font-family: "Noto Sans Bengali", sans-serif !important;
+                    box-sizing: border-box;
+                }
+
+                .joining-page {
+                    color: #000;
+                    font-size: 17px;
+                    line-height: 1.75;
+                }
+
+                .joining-title {
+                    text-align: center;
+                    font-size: 25px;
+                    font-weight: 700;
+                    margin-bottom: 22px;
+                }
+
+                .company-info {
+                    line-height: 1.6;
+                    margin-top: 6px;
+                    margin-bottom: 18px;
+                }
+
+                .letter-paragraph {
+                    text-align: justify;
+                    line-height: 1.8;
+                    margin-top: 14px;
+                    margin-bottom: 14px;
+                }
+
+                .dotted-line {
+                    display: inline-block;
+                    border-bottom: 1px dotted #000;
+                    min-height: 22px;
+                    vertical-align: baseline;
+                    padding-left: 5px;
+                    padding-right: 5px;
+                }
+
+                .signature-area {
+                    margin-top: 25px;
+                    line-height: 2;
+                }
+
+            </style>
+
+
+            <t t-foreach="docs" t-as="o">
+
+                <div class="page joining-page">
+
+
+                    <!-- ======================================
+                         TITLE
+                    ======================================= -->
+
+                    <div class="joining-title">
+                        চাকরি যোগদান পত্র
+                    </div>
+
+
+                    <!-- ======================================
+                         RECEIVER
+                    ======================================= -->
+
+                    <div>
+                        প্রিয় স্যার,
+                    </div>
+
+
+                    <div>
+
+                        <span
+                            class="dotted-line"
+                            style="min-width: 300px;"
+                        >
+                            <t t-esc="o.receiver_name or ''"/>
+                        </span>
+
+                    </div>
+
+
+                    <!-- ======================================
+                         COMPANY
+                    ======================================= -->
+
+                    <div class="company-info">
+
+                        Khetan Trading<br/>
+
+                        Dewliabari, Konabari, Gazipur
+
+                    </div>
+
+
+                    <!-- ======================================
+                         PARAGRAPH 1
+                    ======================================= -->
+
+                    <div class="letter-paragraph">
+
+                        আমি আপনার দেওয়া প্রস্তাবটি সানন্দে গ্রহণ করছি
+                        এবং নিশ্চিত করছি যে আমি আপনার কোম্পানি
+                        Khetan Trading-এ যোগদান করতে আগ্রহী।
+                        আমাকে এই সুযোগটি দেওয়ার জন্য এবং আমার উপর
+                        বিশ্বাস রাখার জন্য আপনাকে আন্তরিক ধন্যবাদ।
+
+                    </div>
+
+
+                    <!-- ======================================
+                        PARAGRAPH 2
+                    ======================================= -->
+
+                    <div class="letter-paragraph"
+                        style="text-align: left;">
+
+                        <!-- First Line -->
+                        <div style="
+                            width: 100%;
+                            line-height: 1.8;
+                            white-space: nowrap;
+                        ">
+                            আমি আপনার কোম্পানি,
+                            Khetan Trading, Dewliabari, Konabari, Gazipur-এ
+                        </div>
+
+                        <!-- Job Position and Contract Start Date -->
+                        <div style="
+                            width: 100%;
+                            line-height: 1.9;
+                            margin-top: 3px;
+                            white-space: nowrap;
+                        ">
+
+                            <span
+                                class="dotted-line"
+                                style="
+                                    width: 230px;
+                                    text-align: center;
+                                "
+                            >
+                                <t t-esc="o.job_id.name if o.job_id else ''"/>
+                            </span>
+
+                            হিসেবে
+
+                            <span
+                                class="dotted-line"
+                                style="
+                                    width: 180px;
+                                    text-align: center;
+                                "
+                            >
+                                <t t-if="o.contract_date_start">
+                                    <span t-field="o.contract_date_start"/>
+                                </t>
+                            </span>
+
+                            তারিখে যোগদান করতে প্রস্তুত।
+
+                        </div>
+
+                        <!-- Last Line -->
+                        <div style="
+                            width: 100%;
+                            line-height: 1.8;
+                        ">
+                            আমি আমার সমস্ত প্রয়োজনীয় কাগজপত্র নিয়ে উপস্থিত থাকব।
+                        </div>
+
+                    </div>
+
+
+                    <!-- ======================================
+                         PARAGRAPH 3
+                    ======================================= -->
+
+                    <div class="letter-paragraph">
+
+                        আমি প্রতিশ্রুতি দিচ্ছি যে, আমার সম্পূর্ণ নিষ্ঠা ও
+                        সততার সাথে আমি আমার দায়িত্ব পালন করব এবং
+                        কোম্পানির উন্নয়নে আমার সর্বোচ্চ চেষ্টা করব।
+
+                    </div>
+
+
+                    <!-- ======================================
+                         SIGNATURE SECTION
+                    ======================================= -->
+
+                    <div class="signature-area">
+
+                        <div>
+                            ইতি,
+                        </div>
+
+                        <div>
+                            আপনার বিশ্বস্ত,
+                        </div>
+
+
+                        <!-- Name -->
+
+                        <div>
+
+                            নামঃ
+
+                            <span
+                                class="dotted-line"
+                                style="min-width: 300px;"
+                            >
+                                <t t-esc="
+                                    o.employee_id.name
+                                    if o.employee_id
+                                    else ''
+                                "/>
+                            </span>
+
+                        </div>
+
+
+                        <!-- Signature -->
+
+                        <div>
+
+                            সাক্ষরঃ
+
+                            <span
+                                class="dotted-line"
+                                style="min-width: 300px;"
+                            >
+                                &#160;
+                            </span>
+
+                        </div>
+
+
+                        <!-- Mobile -->
+
+                        <div>
+
+                            মোবাইলঃ
+
+                            <span
+                                class="dotted-line"
+                                style="min-width: 280px;"
+                            >
+                                <t t-esc="o.mobile or ''"/>
+                            </span>
+
+                        </div>
+
+
+                        <!-- Email -->
+
+                        <div>
+
+                            ইমেইলঃ
+
+                            <span
+                                class="dotted-line"
+                                style="min-width: 290px;"
+                            >
+                                <t t-esc="o.email or ''"/>
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </t>
+
+        </t>
+
+    </template>
+
+</odoo>

@@ -1,0 +1,424 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- A4 Paper Format -->
+    <record id="paperformat_salary_increment"
+            model="report.paperformat">
+
+        <field name="name">Salary Increment A4</field>
+        <field name="default" eval="False"/>
+        <field name="format">A4</field>
+        <field name="orientation">Portrait</field>
+
+        <field name="margin_top">18</field>
+        <field name="margin_bottom">18</field>
+        <field name="margin_left">20</field>
+        <field name="margin_right">20</field>
+
+        <field name="header_line" eval="False"/>
+
+    </record>
+
+
+    <!-- Report Action -->
+    <record id="action_report_salary_increment"
+            model="ir.actions.report">
+
+        <field name="name">Salary Increment and Revision</field>
+        <field name="model">compliance.salary.increment</field>
+        <field name="report_type">qweb-pdf</field>
+
+        <field name="report_name">compliance_report.report_salary_increment</field>
+        <field name="report_file">compliance_report.report_salary_increment</field>
+
+        <field name="paperformat_id"
+               ref="compliance_report.paperformat_salary_increment"/>
+
+    </record>
+
+
+    <!-- QWeb Template -->
+    <template id="report_salary_increment">
+
+        <t t-call="web.html_container">
+
+            <meta charset="UTF-8"/>
+
+            <style>
+
+                .salary-increment-page,
+                .salary-increment-page * {
+                    font-family: "Noto Sans Bengali", sans-serif !important;
+                    box-sizing: border-box;
+                }
+
+                .salary-increment-page {
+                    color: #000;
+                    font-size: 17px;
+                    line-height: 1.7;
+                }
+
+                .report-header {
+                    text-align: center;
+                    line-height: 1.4;
+                    margin-bottom: 20px;
+                }
+
+                .company-name {
+                    font-family: sans-serif !important;
+                    font-size: 25px;
+                    font-weight: bold;
+                }
+
+                .company-address {
+                    font-family: sans-serif !important;
+                    font-size: 17px;
+                }
+
+                .report-title {
+                    font-size: 20px;
+                    font-weight: bold;
+                }
+
+                .info-row {
+                    margin-bottom: 7px;
+                }
+
+                .dotted-line {
+                    display: inline-block;
+                    border-bottom: 1px dotted #000;
+                    min-height: 22px;
+                    vertical-align: baseline;
+                    padding-left: 5px;
+                    padding-right: 5px;
+                }
+
+                .letter-paragraph {
+                    margin-top: 15px;
+                    margin-bottom: 15px;
+                    line-height: 1.8;
+                    text-align: justify;
+                }
+
+                .salary-heading {
+                    margin-top: 16px;
+                    margin-bottom: 8px;
+                }
+
+                .salary-table {
+                    margin-left: 25px;
+                    margin-top: 8px;
+                    line-height: 1.8;
+                    border-collapse: collapse;
+                }
+
+                .salary-table td {
+                    padding: 2px 4px;
+                    vertical-align: baseline;
+                }
+
+                .signature-section {
+                    margin-top: 35px;
+                }
+
+            </style>
+
+
+            <t t-foreach="docs" t-as="o">
+
+                <div class="page salary-increment-page">
+
+
+                    <!-- Header -->
+                    <div class="report-header">
+
+                        <div class="company-name">
+                            Khetan Trading
+                        </div>
+
+                        <div class="company-address">
+                            Dewliabari, Konabari, Gazipur
+                        </div>
+
+                        <div class="report-title">
+                            Salary Increment and Revision
+                            ( বেতন বৃদ্ধি ও সংশোধনী )
+                        </div>
+
+                    </div>
+
+
+                    <!-- Employee Name -->
+                    <div class="info-row">
+
+                        নাম:
+
+                        <span
+                            class="dotted-line"
+                            style="min-width: 320px;"
+                        >
+                            <t t-esc="
+                                o.employee_id.name
+                                if o.employee_id
+                                else ''
+                            "/>
+                        </span>
+
+                    </div>
+
+
+                    <!-- Date -->
+                    <div class="info-row">
+
+                        তারিখ:
+
+                        <span
+                            class="dotted-line"
+                            style="min-width: 300px;"
+                        >
+                            <t t-if="o.letter_date">
+                                <span t-field="o.letter_date"/>
+                            </t>
+                        </span>
+
+                    </div>
+
+
+                    <!-- Present Address -->
+                    <div class="info-row">
+
+                        বর্তমান ঠিকানা:
+
+                        <span
+                            class="dotted-line"
+                            style="min-width: 500px;"
+                        >
+                            <t t-esc="o.present_address or ''"/>
+                        </span>
+
+                    </div>
+
+
+                    <!-- Subject -->
+                    <div style="margin-top: 16px;">
+
+                        <strong>বিষয়:</strong>
+                        বেতন বৃদ্ধি ও সংশোধনী সংক্রান্ত পত্র
+
+                    </div>
+
+
+                    <!-- Receiver -->
+                    <div style="margin-top: 15px;">
+
+                        প্রিয়
+
+                        <span
+                            class="dotted-line"
+                            style="min-width: 250px;"
+                        >
+                            <t t-esc="o.receiver_name or ''"/>
+                        </span>
+
+                    </div>
+
+
+                    <!-- Main Paragraph -->
+                    <div class="letter-paragraph">
+
+                        গণপ্রজাতন্ত্রী বাংলাদেশ সরকার, শ্রম ও কর্মসংস্থান
+                        মন্ত্রণালয় কর্তৃক প্রকাশিত বাংলাদেশ শ্রম আইন,
+                        ২০০৬ (২০০৬ সনের ৪২ নং আইন)-এর ধারা ১৪০ এর
+                        উপ-ধারা (১) অনুযায়ী, উক্ত আইনের ধারা ১৩৯-এর
+                        অধীনে গার্মেন্টস শিল্প সেক্টরের "নিম্ন মজুরি
+                        বোর্ড"-এর সুপারিশক্রমে শ্রমিক ও কর্মচারীদের জন্য
+                        নিম্নতম মজুরি হার পুনর্বিন্যাস করা হয়েছে।
+
+                    </div>
+
+
+                    <!-- Revision -->
+                    <div class="letter-paragraph">
+
+                        কর্তৃপক্ষ আনন্দের সাথে আপনাকে জানাচ্ছে যে,
+
+                        <span
+                            class="dotted-line"
+                            style="min-width: 160px; text-align: center;"
+                        >
+                            <t t-if="o.effective_date">
+                                <span t-field="o.effective_date"/>
+                            </t>
+                        </span>
+
+                        ইং তারিখ থেকে আপনার বেতন বৃদ্ধি করে মোট
+
+                        <span
+                            class="dotted-line"
+                            style="min-width: 140px; text-align: center;"
+                        >
+                            <t t-esc="o.revised_salary or ''"/>
+                        </span>
+
+                        টাকা নির্ধারণ করা হয়েছে।
+
+                    </div>
+
+
+                    <!-- Salary -->
+                    <div class="salary-heading">
+                        আপনার বর্তমান বেতনের বিবরণ নিচে উল্লেখ করা হলো:
+                    </div>
+
+
+                    <table class="salary-table">
+
+                        <tr>
+                            <td>•</td>
+                            <td>১। মূল বেতন:</td>
+
+                            <td>
+                                <span
+                                    class="dotted-line"
+                                    style="min-width: 150px;"
+                                >
+                                    <t t-esc="o.basic_salary or ''"/>
+                                </span>
+                            </td>
+
+                            <td>টাকা</td>
+                        </tr>
+
+
+                        <tr>
+                            <td>•</td>
+                            <td>২। বাড়ি ভাড়া:</td>
+
+                            <td>
+                                <span
+                                    class="dotted-line"
+                                    style="min-width: 150px;"
+                                >
+                                    <t t-esc="o.house_rent or ''"/>
+                                </span>
+                            </td>
+
+                            <td>টাকা</td>
+                        </tr>
+
+
+                        <tr>
+                            <td>•</td>
+                            <td>৩। অন্যান্য:</td>
+
+                            <td>
+                                <span
+                                    class="dotted-line"
+                                    style="min-width: 150px;"
+                                >
+                                    <t t-esc="o.others or ''"/>
+                                </span>
+                            </td>
+
+                            <td>টাকা</td>
+                        </tr>
+
+
+                        <tr>
+                            <td>•</td>
+                            <td>৪। ৫% বৃদ্ধিতে:</td>
+
+                            <td>
+                                <span
+                                    class="dotted-line"
+                                    style="min-width: 150px;"
+                                >
+                                    <t t-esc="o.increment_amount or ''"/>
+                                </span>
+                            </td>
+
+                            <td>টাকা</td>
+                        </tr>
+
+
+                        <tr>
+                            <td>•</td>
+                            <td><strong>মোট:</strong></td>
+
+                            <td>
+                                <span
+                                    class="dotted-line"
+                                    style="min-width: 150px;"
+                                >
+                                    <strong>
+                                        <t t-esc="o.total_salary or ''"/>
+                                    </strong>
+                                </span>
+                            </td>
+
+                            <td>টাকা</td>
+                        </tr>
+
+                    </table>
+
+
+                    <!-- Signature -->
+                    <div class="signature-section">
+
+                        <div style="margin-bottom: 35px;">
+                            স্বাক্ষর:
+                        </div>
+
+
+                        <table style="
+                            width: 100%;
+                            text-align: center;
+                        ">
+
+                            <tr>
+
+                                <td style="width: 33%;">
+                                    __________________
+                                </td>
+
+                                <td style="width: 33%;">
+                                    __________________
+                                </td>
+
+                                <td style="width: 34%;">
+                                    __________________
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>
+                                    শ্রমিক
+                                </td>
+
+                                <td>
+                                    প্রোপাইটার
+                                </td>
+
+                                <td>
+                                    এইচ আর অ্যান্ড কমপ্লায়েন্স
+                                </td>
+
+                            </tr>
+
+                        </table>
+
+                    </div>
+
+
+                </div>
+
+            </t>
+
+        </t>
+
+    </template>
+
+</odoo>

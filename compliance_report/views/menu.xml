@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+     <!-- Root Menu -->
+    <menuitem
+        id="menu_compliance_report_root"
+        name="Compliance Report"
+        sequence="10"
+    />
+
+    <!-- all report -->
+    <menuitem
+        id="all_report_menu"
+        name="All Report"
+        sequence="10"
+        parent="menu_compliance_report_root"
+    />
+
+    <!-- Child Menu -->
+    <menuitem
+        id="menu_compliance_job_application"
+        name="Job Applications"
+        parent="all_report_menu"
+        action="compliance_report.action_compliance_job_application"
+        sequence="10"
+    />
+
+    <!-- Appointment Letter -->
+    <menuitem
+        id="menu_compliance_appointment_letter"
+        name="Appointment Letter"
+        parent="all_report_menu"
+        action="compliance_report.action_compliance_appointment_letter"
+        sequence="20"
+    />
+
+    <!-- Joining Letter -->
+    <menuitem
+        id="menu_compliance_joining_letter"
+        name="Joining Letter"
+        parent="all_report_menu"
+        action="compliance_report.action_compliance_joining_letter"
+        sequence="30"
+    />
+
+    <!-- salary Increment -->
+    <menuitem
+        id="menu_compliance_salary_increment"
+        name="Salary Increment and Revision"
+        parent="all_report_menu"
+        action="compliance_report.action_compliance_salary_increment"
+        sequence="40"
+    />
+
+    <!-- nominee form -->
+    <menuitem
+        id="menu_compliance_nominee_form"
+        name="Nominee Form"
+        parent="all_report_menu"
+        action="compliance_report.action_compliance_nominee_form"
+        sequence="50"
+    />
+
+    <!-- age fitness -->
+    <menuitem
+        id="menu_age_fitness_certificate"
+        name="Form 15 - Age &amp; Fitness Certificate"
+        parent="all_report_menu"
+        action="compliance_report.action_age_fitness_certificate"
+        sequence="60"
+    />
+
+</odoo>

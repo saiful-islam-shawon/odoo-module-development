@@ -1,0 +1,573 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- =========================================================
+         A4 PAPER FORMAT
+    ========================================================== -->
+    <record id="paperformat_job_application" model="report.paperformat">
+        <field name="name">Job Application A4</field>
+        <field name="default" eval="False"/>
+        <field name="format">A4</field>
+        <field name="orientation">Portrait</field>
+
+        <field name="margin_top">14</field>
+        <field name="margin_bottom">14</field>
+        <field name="margin_left">18</field>
+        <field name="margin_right">18</field>
+
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">0</field>
+    </record>
+
+
+    <!-- =========================================================
+         REPORT ACTION
+    ========================================================== -->
+    <record id="action_report_job_application" model="ir.actions.report">
+        <field name="name">Job Application</field>
+        <field name="model">compliance.job.application</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">compliance_report.report_job_application</field>
+        <field name="report_file">compliance_report.report_job_application</field>
+        <field name="paperformat_id" ref="compliance_report.paperformat_job_application"/>
+    </record>
+
+
+    <!-- =========================================================
+         QWEB REPORT
+    ========================================================== -->
+    <template id="report_job_application">
+
+        <t t-call="web.html_container">
+
+            <!-- UTF-8 for Bengali -->
+            <meta charset="UTF-8"/>
+
+            <!-- =================================================
+                 REPORT CSS
+            ================================================== -->
+            <style>
+
+                .job-application-page {
+                    color: #000;
+                    font-size: 17px;
+                    line-height: 1.7;
+                }
+
+                .report-title {
+                    text-align: center;
+                    font-size: 25px;
+                    line-height: 1.4;
+                    font-weight: 700;
+                    margin-bottom: 20px;
+                }
+
+                .receiver {
+                    line-height: 1.7;
+                    margin-bottom: 12px;
+                }
+
+                .subject {
+                    margin-top: 10px;
+                    margin-bottom: 12px;
+                    line-height: 1.7;
+                }
+
+                .salutation {
+                    margin-top: 10px;
+                    margin-bottom: 6px;
+                }
+
+                .report-paragraph {
+                    text-align: justify;
+                    line-height: 1.75;
+                }
+
+                .qualification-intro {
+                    margin-top: 10px;
+                    margin-bottom: 7px;
+                }
+
+                .section-title {
+                    font-size: 20px;
+                    line-height: 1.6;
+                    font-weight: 700;
+                    margin-top: 14px;
+                    margin-bottom: 7px;
+                }
+
+                .field-row {
+                    min-height: 29px;
+                    line-height: 1.7;
+                    margin-bottom: 2px;
+                    white-space: nowrap;
+                }
+
+                .dotted-line {
+                    display: inline-block;
+                    vertical-align: baseline;
+                    border-bottom: 1px dotted #000;
+                    min-height: 22px;
+                    padding-left: 4px;
+                    padding-right: 4px;
+                }
+
+                .education-row {
+                    min-height: 30px;
+                    line-height: 1.7;
+                }
+
+                .declaration {
+                    margin-top: 15px;
+                    line-height: 1.75;
+                }
+
+                .request-paragraph {
+                    margin-top: 8px;
+                    line-height: 1.75;
+                }
+
+                .signature-section {
+                    margin-top: 16px;
+                    line-height: 1.7;
+                }
+
+            </style>
+
+
+            <!-- =================================================
+                 RECORD LOOP
+            ================================================== -->
+            <t t-foreach="docs" t-as="o">
+
+                <div class="page job-application-page">
+
+
+                    <!-- =========================================
+                         TITLE
+                    ========================================== -->
+
+                    <div class="report-title">
+                        চাকরির জন্য আবেদনপত্র
+                    </div>
+
+
+                    <!-- =========================================
+                         RECEIVER
+                    ========================================== -->
+
+                    <div class="receiver">
+                        বরাবর,<br/>
+                        ব্যবস্থাপনা পরিচালক<br/>
+                        Khetan trading<br/>
+                        Dewliabari, Konabari, Gazipur
+                    </div>
+
+
+                    <!-- =========================================
+                         SUBJECT
+                    ========================================== -->
+
+                    <div class="subject">
+                        <strong>বিষয়:</strong>
+
+                        <span
+                            class="dotted-line field-value-center"
+                            style="min-width: 220px;"
+                        >
+                            <t t-esc="o.job_position or ''"/>
+                        </span>
+
+                        পদে চাকরির জন্য আবেদন।
+                    </div>
+
+
+                    <!-- =========================================
+                         SALUTATION
+                    ========================================== -->
+
+                    <div class="salutation">
+                        মহোদয়,
+                    </div>
+
+
+                    <!-- =========================================
+                         INTRODUCTION
+                    ========================================== -->
+
+                    <div class="report-paragraph intro">
+
+                        আমি অত্যন্ত আগ্রহের সাথে জানতে পেরেছি যে আপনার
+                        কোম্পানিতে
+
+                        <span
+                            class="dotted-line field-value-center"
+                            style="min-width: 190px;"
+                        >
+                            <t t-esc="o.job_position or ''"/>
+                        </span>
+
+                        পদে কিছু লোক নিয়োগ করা হবে। আমি এই পদের জন্য
+                        একজন আগ্রহী প্রার্থী। আমি মনে করি, আমার শিক্ষাগত
+                        যোগ্যতা এবং পূর্ববর্তী কাজের অভিজ্ঞতা এই পদের জন্য
+                        উপযুক্ত।
+
+                    </div>
+
+
+                    <div class="qualification-intro">
+                        আমার ব্যক্তিগত এবং শিক্ষাগত যোগ্যতা সম্পর্কে
+                        বিস্তারিত নিচে দেওয়া হলো:
+                    </div>
+
+
+                    <!-- =========================================
+                         1. PERSONAL INFORMATION
+                    ========================================== -->
+
+                    <div class="section-title">
+                        ১. ব্যক্তিগত তথ্য
+                    </div>
+
+
+                    <div class="section-content">
+
+                        <!-- Name -->
+
+                        <div class="field-row">
+
+                            • নাম:
+
+                            <span
+                                class="dotted-line"
+                                style="min-width: 400px;"
+                            >
+                                <t t-esc="
+                                    o.employee_id.name
+                                    if o.employee_id
+                                    else ''
+                                "/>
+                            </span>
+
+                        </div>
+
+
+                        <!-- Father Name -->
+
+                        <div class="field-row">
+
+                            • পিতার নাম:
+
+                            <span
+                                class="dotted-line"
+                                style="min-width: 370px;"
+                            >
+                                <t t-esc="o.father_name or ''"/>
+                            </span>
+
+                        </div>
+
+
+                        <!-- Mother Name -->
+
+                        <div class="field-row">
+
+                            • মাতার নাম:
+
+                            <span
+                                class="dotted-line"
+                                style="min-width: 370px;"
+                            >
+                                <t t-esc="o.mother_name or ''"/>
+                            </span>
+
+                        </div>
+
+
+                        <!-- Permanent Address -->
+
+                        <div class="field-row">
+
+                            • স্থায়ী ঠিকানা:
+
+                            <span
+                                class="dotted-line"
+                                style="min-width: 350px;"
+                            >
+                                <t t-esc="o.permanent_address or ''"/>
+                            </span>
+
+                        </div>
+
+
+                        <!-- Present Address -->
+
+                        <div class="field-row">
+
+                            • বর্তমান ঠিকানা:
+
+                            <span
+                                class="dotted-line"
+                                style="min-width: 340px;"
+                            >
+                                <t t-esc="o.present_address or ''"/>
+                            </span>
+
+                        </div>
+
+
+                        <!-- Mobile -->
+
+                        <div class="field-row">
+
+                            • মোবাইল নং:
+
+                            <span
+                                class="dotted-line"
+                                style="min-width: 365px;"
+                            >
+                                <t t-esc="o.mobile or ''"/>
+                            </span>
+
+                        </div>
+
+
+                        <!-- Email -->
+
+                        <div class="field-row">
+
+                            • ইমেইল:
+
+                            <span
+                                class="dotted-line"
+                                style="min-width: 395px;"
+                            >
+                                <t t-esc="o.email or ''"/>
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =========================================
+                         2. EDUCATIONAL QUALIFICATION
+                    ========================================== -->
+
+                    <div class="section-title">
+                        ২. শিক্ষাগত যোগ্যতা
+                    </div>
+
+
+                    <div class="section-content">
+
+                        <div class="education-row">
+
+                            •
+
+                            <span
+                                class="dotted-line"
+                                style="width: 94%;"
+                            >
+                                <t t-esc="o.education_1 or ''"/>
+                            </span>
+
+                        </div>
+
+
+                        <div class="education-row">
+
+                            •
+
+                            <span
+                                class="dotted-line"
+                                style="width: 94%;"
+                            >
+                                <t t-esc="o.education_2 or ''"/>
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =========================================
+                         3. PREVIOUS EMPLOYMENT
+                    ========================================== -->
+
+                    <div class="section-title">
+                        ৩. পূর্ববর্তী কর্মসংস্থান এবং অভিজ্ঞতা
+                    </div>
+
+
+                    <div class="section-content">
+
+
+                        <!-- Company -->
+
+                        <div class="field-row">
+
+                            • কোম্পানির নাম:
+
+                            <span
+                                class="dotted-line"
+                                style="min-width: 330px;"
+                            >
+                                <t t-esc="o.previous_company or ''"/>
+                            </span>
+
+                        </div>
+
+
+                        <!-- Position -->
+
+                        <div class="field-row">
+
+                            • পদের নাম:
+
+                            <span
+                                class="dotted-line"
+                                style="min-width: 370px;"
+                            >
+                                <t t-esc="o.previous_job_position or ''"/>
+                            </span>
+
+                        </div>
+
+
+                        <!-- Duration -->
+
+                        <div class="field-row">
+
+                            • সময়কাল:
+
+                            <span
+                                class="dotted-line"
+                                style="min-width: 380px;"
+                            >
+                                <t t-esc="o.employment_duration or ''"/>
+                            </span>
+
+                        </div>
+
+
+                        <!-- Experience -->
+
+                        <div class="field-row">
+
+                            • অভিজ্ঞতা:
+
+                            <span
+                                class="dotted-line"
+                                style="min-width: 380px;"
+                            >
+                                <t t-esc="o.experience or ''"/>
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =========================================
+                         DECLARATION
+                    ========================================== -->
+
+                    <div class="report-paragraph declaration">
+
+                        আমি দৃঢ়তার সাথে বলছি যে আমার দেওয়া সমস্ত তথ্য
+                        সম্পূর্ণ সত্য এবং সঠিক। আপনি যদি আমাকে এই পদের জন্য
+                        একটি সুযোগ দেন, আমি আমার সর্বোচ্চ দক্ষতা ও
+                        কর্মক্ষমতা দিয়ে আপনার কোম্পানির উন্নয়নে সহায়তা
+                        করব।
+
+                    </div>
+
+
+                    <div class="report-paragraph request-paragraph">
+
+                        অতএব, আমার আবেদনটি বিবেচনা করে আমাকে এই পদে
+                        নিয়োগ করতে আপনার একান্ত মর্জি হয়।
+
+                    </div>
+
+
+                    <!-- =========================================
+                         SIGNATURE
+                    ========================================== -->
+
+                    <div class="signature-section">
+
+                        <div>
+                            ধন্যবাদান্তে,
+                        </div>
+
+                        <div>
+                            আপনার বিশ্বস্ত,
+                        </div>
+
+                        <div>
+                            (স্বাক্ষর)
+                        </div>
+
+
+                        <!-- Applicant Name -->
+
+                        <div>
+
+                            নাম:
+
+                            <span
+                                class="dotted-line"
+                                style="min-width: 250px;"
+                            >
+                                <t t-esc="
+                                    o.employee_id.name
+                                    if o.employee_id
+                                    else ''
+                                "/>
+                            </span>
+
+                        </div>
+
+
+                        <!-- Date -->
+
+                        <!-- <div>
+
+                            তারিখ:
+
+                            <span
+                                class="dotted-line"
+                                style="min-width: 160px;"
+                            >
+
+                                <t t-if="o.application_date">
+                                    <span t-field="o.application_date"/>
+                                </t>
+
+                            </span>
+
+                        </div> -->
+
+                        <div>
+                            তারিখ:
+                            <span
+                                class="dotted-line"
+                                style="min-width: 160px;"
+                            >
+                                &#160;
+                            </span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </t>
+
+        </t>
+
+    </template>
+
+</odoo>

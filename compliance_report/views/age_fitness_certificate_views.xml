@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- List -->
+    <record id="view_age_fitness_certificate_list" model="ir.ui.view">
+        <field name="name">compliance.age.fitness.certificate.list</field>
+        <field name="model">compliance.age.fitness.certificate</field>
+
+        <field name="arch" type="xml">
+            <list>
+                <field name="serial_no"/>
+                <field name="employee_id"/>
+                <field name="certificate_date"/>
+                <field name="age"/>
+            </list>
+        </field>
+    </record>
+
+
+    <!-- Form -->
+    <record id="view_age_fitness_certificate_form" model="ir.ui.view">
+        <field name="name">compliance.age.fitness.certificate.form</field>
+        <field name="model">compliance.age.fitness.certificate</field>
+
+        <field name="arch" type="xml">
+
+            <form string="বয়স ও সক্ষমতার প্রত্যায়নপত্র">
+
+                <header>
+
+                    <button
+                        name="action_print_report"
+                        string="Print"
+                        type="object"
+                        class="btn-primary"
+                    />
+
+                </header>
+
+
+                <sheet>
+
+                    <separator string="কর্মচারীর তথ্য"/>
+
+                    <group>
+
+                        <group>
+                            <field name="employee_id"/>
+                            <field name="gender"/>
+                            <field name="birthday"/>
+                            <field name="age"/>
+                        </group>
+
+                        <group>
+                            <field name="serial_no"/>
+                            <field name="certificate_date"/>
+                            <field name="father_name"/>
+                            <field name="mother_name"/>
+                        </group>
+
+                    </group>
+
+
+                    <separator string="ঠিকানা"/>
+
+                    <group>
+                        <field name="permanent_address"/>
+                        <field name="present_address"/>
+                    </group>
+
+
+                    <separator string="মেডিকেল তথ্য"/>
+
+                    <group>
+                        <field name="physical_fitness"/>
+                        <field name="identification_mark"/>
+                    </group>
+
+                </sheet>
+
+            </form>
+
+        </field>
+    </record>
+
+
+    <!-- Action -->
+    <record id="action_age_fitness_certificate"
+            model="ir.actions.act_window">
+
+        <field name="name">Form 15 - Age &amp; Fitness Certificate</field>
+        <field name="res_model">compliance.age.fitness.certificate</field>
+        <field name="view_mode">list,form</field>
+
+    </record>
+
+</odoo>

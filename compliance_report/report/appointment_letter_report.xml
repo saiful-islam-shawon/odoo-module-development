@@ -1,0 +1,776 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="paperformat_appointment_letter"
+            model="report.paperformat">
+
+        <field name="name">Appointment Letter A4</field>
+        <field name="default" eval="False"/>
+        <field name="format">A4</field>
+        <field name="orientation">Portrait</field>
+
+        <field name="margin_top">10</field>
+        <field name="margin_bottom">10</field>
+        <field name="margin_left">12</field>
+        <field name="margin_right">12</field>
+
+        <field name="header_line" eval="False"/>
+
+    </record>
+
+
+    <record id="action_report_appointment_letter"
+            model="ir.actions.report">
+
+        <field name="name">Appointment Letter</field>
+        <field name="model">compliance.appointment.letter</field>
+        <field name="report_type">qweb-pdf</field>
+
+        <field name="report_name">compliance_report.report_appointment_letter</field>
+        <field name="report_file">compliance_report.report_appointment_letter</field>
+
+        <field name="paperformat_id"
+               ref="compliance_report.paperformat_appointment_letter"/>
+
+    </record>
+
+
+    <template id="report_appointment_letter">
+
+        <t t-call="web.html_container">
+
+            <meta charset="UTF-8"/>
+
+            <style>
+
+                .appointment-page,
+                .appointment-page * {
+                    font-family: "Noto Sans Bengali", sans-serif !important;
+                    box-sizing: border-box;
+                }
+
+                .appointment-page {
+                    color: #000;
+                    font-size: 13px;
+                    line-height: 1.45;
+                }
+
+                .letter-header {
+                    text-align: center;
+                    line-height: 1.25;
+                }
+
+                .company-name {
+                    font-family: sans-serif !important;
+                    font-size: 21px;
+                    font-weight: bold;
+                }
+
+                .company-address {
+                    font-family: sans-serif !important;
+                    font-size: 13px;
+                }
+
+                .letter-title {
+                    font-size: 15px;
+                    font-weight: bold;
+                }
+
+                .header-line {
+                    border: 0;
+                    border-top: 1px solid #000;
+                    margin-top: 3px;
+                    margin-bottom: 15px;
+                }
+
+                .info-table {
+                    width: 100%;
+                    border-collapse: collapse;
+                    margin-bottom: 10px;
+                }
+
+                .info-table td {
+                    padding: 1px 0;
+                    vertical-align: top;
+                }
+
+                .dotted {
+                    display: inline-block;
+                    border-bottom: 1px dotted #000;
+                    min-height: 15px;
+                    vertical-align: baseline;
+                    padding: 0 3px;
+                }
+
+                .section-heading {
+                    font-weight: bold;
+                    text-decoration: underline;
+                    margin-top: 9px;
+                    margin-bottom: 3px;
+                }
+
+                .text-block {
+                    text-align: justify;
+                    margin-bottom: 4px;
+                }
+
+                .condition {
+                    text-align: justify;
+                    margin-bottom: 3px;
+                }
+
+                .salary-table {
+                    margin-left: 40px;
+                    margin-top: 3px;
+                    margin-bottom: 4px;
+                }
+
+                .salary-table td {
+                    padding: 1px 4px;
+                }
+
+                .signature-area {
+                    margin-top: 18px;
+                    line-height: 1.8;
+                }
+
+            </style>
+
+
+            <t t-foreach="docs" t-as="o">
+
+
+                <!-- =============================================
+                     PAGE 1
+                ============================================== -->
+
+                <div class="page appointment-page">
+
+
+                    <!-- Header -->
+
+                    <div class="letter-header">
+
+                        <div class="company-name">
+                            KhetanTradin
+                        </div>
+
+                        <div class="company-address">
+                            Dewliabari, Konabari, Gazipur
+                        </div>
+
+                        <div class="letter-title">
+                            Appointment Letter ( নিয়োগপত্র )
+                        </div>
+
+                    </div>
+
+                    <hr class="header-line"/>
+
+
+                    <!-- Employee Information -->
+
+                    <table class="info-table">
+
+                        <tr>
+
+                            <td style="width: 60%;">
+
+                                নাম:
+
+                                <span class="dotted"
+                                      style="min-width: 310px;">
+                                    <t t-esc="o.employee_id.name if o.employee_id else ''"/>
+                                </span>
+
+                            </td>
+
+                            <td>
+
+                                তারিখঃ
+
+                                <span class="dotted"
+                                      style="min-width: 150px;">
+
+                                    <t t-if="o.letter_date">
+                                        <span t-field="o.letter_date"/>
+                                    </t>
+
+                                </span>
+
+                            </td>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <td>
+
+                                পিতা/ স্বামীর নাম:
+
+                                <span class="dotted"
+                                      style="min-width: 240px;">
+                                    <t t-esc="o.father_or_husband_name or ''"/>
+                                </span>
+
+                            </td>
+
+                            <td>
+
+                                মাতার নাম:
+
+                                <span class="dotted"
+                                      style="min-width: 150px;">
+                                    <t t-esc="o.mother_name or ''"/>
+                                </span>
+
+                            </td>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <td colspan="2">
+
+                                জাতীয় পরিচয় পত্র নং:
+
+                                <span class="dotted"
+                                      style="min-width: 300px;">
+                                    <t t-esc="o.nid_number or ''"/>
+                                </span>
+
+                            </td>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <td colspan="2">
+                                স্থায়ী ঠিকানাঃ
+                                <t t-esc="o.permanent_address or ''"/>
+                            </td>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <td colspan="2">
+                                বর্তমান ঠিকানাঃ
+                                <t t-esc="o.present_address or ''"/>
+                            </td>
+
+                        </tr>
+
+                    </table>
+
+
+                    <div style="margin: 12px 0;">
+                        বিষয়ঃ নিয়োগপত্র
+                    </div>
+
+
+                    <div>
+                        জনাব/জনাবা,
+                    </div>
+
+
+                    <!-- Appointment paragraph -->
+
+                    <div class="text-block">
+
+                        আপনার গত
+
+                        <span class="dotted"
+                              style="min-width: 90px;">
+                            <t t-if="o.application_date">
+                                <span t-field="o.application_date"/>
+                            </t>
+                        </span>
+
+                        ইং তারিখের আবেদন পত্র ও পরবর্তীকালে কর্তৃপক্ষের
+                        সাথে সাক্ষাৎকার/পরীক্ষার ভিত্তিতে নিম্নলিখিত
+                        শর্তসাপেক্ষে
+
+                        <span class="dotted"
+                              style="min-width: 100px;">
+                            <t t-esc="o.department_id.name if o.department_id else ''"/>
+                        </span>
+
+                        বিভাগে
+
+                        <span class="dotted"
+                              style="min-width: 100px;">
+                            <t t-esc="o.job_id.name if o.job_id else ''"/>
+                        </span>
+
+                        পদে
+
+                        <span class="dotted"
+                              style="min-width: 60px;">
+                            <t t-esc="o.grade or ''"/>
+                        </span>
+
+                        গ্রেডে
+
+                        <span class="dotted"
+                              style="min-width: 90px;">
+                            <t t-if="o.appointment_date">
+                                <span t-field="o.appointment_date"/>
+                            </t>
+                        </span>
+
+                        ইং তারিখ হইতে আপনাকে অত্র প্রতিষ্ঠানে নিয়োগ
+                        প্রদান করা হল। আপনার আইডি নং
+
+                        <span class="dotted"
+                              style="min-width: 160px;">
+                            <t t-esc="o.employee_code or ''"/>
+                        </span>
+
+                    </div>
+
+
+                    <!-- Rules -->
+
+                    <div class="section-heading">
+                        নীতিমালা ও শর্তাবলীঃ
+                    </div>
+
+
+                    <div class="condition">
+
+                        ১। আপনার যোগদান পরবর্তী
+
+                        <span class="dotted"
+                              style="min-width: 80px;">
+                            <t t-esc="o.probation_months or ''"/>
+                        </span>
+
+                        মাস শিক্ষানবীশ কাল হিসাবে বিবেচিত হবে। এ সময়কালে
+                        আপনার কর্মদক্ষতা, কর্তব্যপরায়নতা ইত্যাদি
+                        সন্তোষজনক না হলে এ সময় আরও
+
+                        <span class="dotted"
+                              style="min-width: 60px;">
+                            <t t-esc="o.extended_probation_months or ''"/>
+                        </span>
+
+                        মাস বাড়ানো যাবে। শিক্ষানবীশকালীন সময়ে যদি কাজে
+                        প্রয়োজনীয় দক্ষতা দেখাতে না পারেন তাহলে কর্তৃপক্ষ
+                        কোন প্রকার কারণ দর্শানো ছাড়াই আপনার চাকুরীর
+                        অবসান ঘটাতে পারবেন। সাফল্যজনক ভাবে
+                        শিক্ষানবীশকালীন অতিবাহিত করবার পর একজন স্থায়ী
+                        কর্মী হিসাবে বিবেচিত হবেন, তবে এই মর্মে কোন
+                        চিঠি প্রদান করা হবে না।
+
+                    </div>
+
+
+                    <!-- Salary -->
+
+                    <div class="section-heading">
+                        মজুরী ও ভাতাদিঃ
+                    </div>
+
+
+                    <div>
+
+                        ২।
+
+                        <span class="dotted"
+                              style="min-width: 90px;">
+                            <t t-esc="o.grade or ''"/>
+                        </span>
+
+                        গ্রেডে আপনার বর্তমান মজুরী হবে নিম্নরূপঃ
+
+                    </div>
+
+
+                    <table class="salary-table">
+
+                        <tr>
+                            <td>(ক)</td>
+                            <td>মূল মজুরীঃ</td>
+                            <td>
+                                <span class="dotted"
+                                      style="min-width: 130px;">
+                                    <t t-esc="o.basic_wage or ''"/>
+                                </span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>(খ)</td>
+                            <td>বাড়ী ভাড়াঃ</td>
+                            <td>
+                                <span class="dotted"
+                                      style="min-width: 130px;">
+                                    <t t-esc="o.house_rent or ''"/>
+                                </span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>(গ)</td>
+                            <td>চিকিৎসা ভাতাঃ</td>
+                            <td>
+                                <span class="dotted"
+                                      style="min-width: 130px;">
+                                    <t t-esc="o.medical_allowance or ''"/>
+                                </span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>(ঘ)</td>
+                            <td>যাতায়াত ভাতাঃ</td>
+                            <td>
+                                <span class="dotted"
+                                      style="min-width: 130px;">
+                                    <t t-esc="o.conveyance_allowance or ''"/>
+                                </span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>(ঙ)</td>
+                            <td>খাদ্য ভাতাঃ</td>
+                            <td>
+                                <span class="dotted"
+                                      style="min-width: 130px;">
+                                    <t t-esc="o.food_allowance or ''"/>
+                                </span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td></td>
+                            <td>মোটঃ</td>
+                            <td>
+                                <span class="dotted"
+                                      style="min-width: 170px;">
+                                    <t t-esc="o.total_wage or ''"/>
+                                </span>
+                            </td>
+                        </tr>
+
+                    </table>
+
+
+                    <div>
+                        (কথায়ঃ
+                        <span class="dotted"
+                              style="min-width: 400px;">
+                            <t t-esc="o.total_wage_words or ''"/>
+                        </span>
+                        )
+                    </div>
+
+
+                    <div class="condition" style="margin-top: 6px;">
+                        ৩। মাসিক মজুরী পরবর্তী মাসের ৭ (সাত) কর্মদিবসের
+                        মধ্যে পরিশোধ করা হবে।
+                    </div>
+
+                    <div class="condition">
+                        ৪। প্রতি কর্মদিবসে আপনাকে কমপক্ষে ০৮ (আট) ঘন্টা
+                        কাজ করতে হবে। প্রতি কর্মদিবসে এক ঘন্টা মধ্যাহ্ন
+                        বিরতি প্রদান করা হবে।
+                    </div>
+
+                    <div class="condition">
+                        ৫। দৈনিক ৮ (আট) ঘন্টার বেশি এবং সপ্তাহে ৪৮
+                        (আটচল্লিশ) ঘন্টার বেশি কাজ, অতিরিক্ত কাজ হিসেবে
+                        গণ্য হবে।
+                    </div>
+
+                    <div class="condition">
+                        ৬। কর্তৃপক্ষ প্রয়োজনে আইনানুযায়ী অতিরিক্ত কাজ
+                        (ওভারটাইম) করাতে পারবেন এবং অতিরিক্ত কর্মঘন্টার
+                        জন্য আপনি ঘন্টা প্রতি মূল মজুরীর দ্বিগুন হারে
+                        {(মূল মজুরী/২০৮) * ২} প্রাপ্য হবেন।
+                    </div>
+
+                    <div class="condition">
+                        ৭। বৎসরান্তে মূল মজুরির ৫% হারে বেতন বৃদ্ধি করা
+                        হবে।
+                    </div>
+
+
+                    <div class="section-heading">
+                        অন্যান্য সুযোগ সুবিধাঃ
+                    </div>
+
+
+                    <div class="condition">
+                        ৮। (ক) হাজিরা বোনাসঃ ১০০% উপস্থিতির ভিত্তিতে
+                        হাজিরা বোনাস দেওয়া হয়। হাজিরা বোনাস এর ক্ষেত্রে
+                        লেট গ্রহণযোগ্য হবে না।
+                    </div>
+
+                    <div class="condition">
+                        (খ) উৎসব বোনাসঃ আইনের অনুযায়ী শ্রমিককে মূল
+                        মজুরির সমপরিমাণ দুই ঈদে (ঈদ-উল-ফিতর ও
+                        ঈদ-উল-আযহা) দু’টি উৎসব বোনাস দেয়ার ব্যাপারে
+                        কর্তৃপক্ষ সিদ্ধান্ত গ্রহণ করবেন যা অন্যান্য সকল
+                        ধর্মাবলম্বীদের ক্ষেত্রেও প্রযোজ্য।
+                    </div>
+
+                    <div class="condition">
+                        (গ) চিকিৎসা সুবিধাঃ কারখানার অভ্যন্তরে কর্মকালীন
+                        সময়ে আপনার স্বাস্থ্য সেবার জন্য এই প্রতিষ্ঠানের
+                        নিয়োজিত রেজিষ্টার্ড ডাক্তার এবং নার্স/প্যারামেডিকগণ
+                        বিনা পয়সায় চিকিৎসা সুবিধা প্রদান করবেন।
+                    </div>
+
+
+                    <div class="section-heading">
+                        ছুটিসমূহঃ
+                    </div>
+
+                    <div class="condition">
+                        ৯। সপ্তাহে একদিন সাপ্তাহিক ছুটি থাকবে যা শুক্রবার
+                        বা সরকারী সিদ্ধান্ত অনুযায়ী এলাকাভেদে অন্য কোন দিন
+                        হতে পারে। এছাড়া অন্যান্য সকল ছুটি আপনি পাবেন যা
+                        নিম্নরূপঃ
+                    </div>
+
+                </div>
+
+
+                <!-- =============================================
+                     PAGE 2
+                ============================================== -->
+
+                <div class="page appointment-page">
+
+
+                    <!-- <div class="letter-header">
+
+                        <div class="company-name">
+                            KhetanTradin
+                        </div>
+
+                        <div class="company-address">
+                            Dewliabari, Konabari, Gazipur
+                        </div>
+
+                        <div class="letter-title">
+                            Appointment Letter ( নিয়োগপত্র )
+                        </div>
+
+                    </div>
+
+                    <hr class="header-line"/> -->
+
+
+                    <div class="section-heading">
+                        সকল ছুটি আপনি পাবেন তা নিম্নরূপঃ
+                    </div>
+
+
+                    <div class="condition">
+                        (ক) উৎসব ছুটিঃ পূর্ণ মজুরী সহ মোট ১৩ দিন। এই ছুটি
+                        জমা রেখে পরবর্তী বছরে ভোগ করা যাবে না।
+                    </div>
+
+                    <div class="condition">
+                        (খ) নৈমিত্তিক ছুটিঃ পূর্ণ মজুরী সহ মোট ১০ দিন।
+                        এই ছুটি জমা রেখে পরবর্তী বছরে ভোগ করা যাবে না।
+                    </div>
+
+                    <div class="condition">
+                        (গ) অসুস্থতাজনিত ছুটিঃ পূর্ণ মজুরী সহ মোট ১৪ দিন।
+                        এই ছুটি জমা রেখে পরবর্তী বছরে ভোগ করা যাবে না।
+                    </div>
+
+                    <div class="condition">
+                        (ঘ) বাৎসরিক ছুটিঃ চাকুরীর মেয়াদ অবিছিন্নভাবে এক
+                        বছর পূর্ণ হলে, পূর্ববর্তী বছরের প্রতি ১৮
+                        (আঠারো) কর্মদিবসের জন্য ১ (এক) দিন করে ছুটি
+                        প্রাপ্য হবেন যা পরবর্তী বছরে ভোগ করা যাবে। তবে এ
+                        ছুটি এক সাথে চল্লিশ দিনের বেশি জমা রাখা যাবে না।
+                    </div>
+
+                    <div class="condition">
+                        (ঙ) মাতৃত্বকালীন ছুটিঃ ১২০ দিন। কোন মহিলা শ্রমিক
+                        কারখানায় অবিছিন্ন ০৬ (ছয়) মাস কাজ করলে পূর্ণ
+                        মজুরীতে মাতৃত্বকালীন ছুটি প্রাপ্য হবেন। তবে যাদের
+                        চাকুরীর বয়স ৬ (ছয়) মাস পূর্ণ হয় নাই বা বর্তমানে
+                        দুই বা ততোধিক সন্তান জীবিত আছে সে সকল মহিলা
+                        শ্রমিকগণ এই প্রসূতিকালীন সুবিধা পাবেন না।
+                    </div>
+
+
+                    <div class="section-heading">
+                        অন্যান্য শর্তসমূহঃ
+                    </div>
+
+
+                    <div class="condition">
+                        ১০। আপনার চাকুরী দেশের প্রচলিত আইন অনুযায়ী
+                        নিয়ন্ত্রিত হবে।
+                    </div>
+
+                    <div class="condition">
+                        ১১। প্রত্যেক শ্রমিককে দেয়া পরিচয়পত্র ও এপ্রোন
+                        কারখানার অভ্যন্তরে বাধ্যতামূলকভাবে পরিধান করতে হবে।
+                    </div>
+
+                    <div class="condition">
+                        ১২। আপনার বিরুদ্ধে অসদাচরণের অভিযোগ প্রমাণিত হলে
+                        প্রচলিত আইন অনুযায়ী ব্যবস্থা নেয়া হবে।
+                    </div>
+
+                    <div class="condition">
+                        ১৩। জীবন বৃত্তান্ত ফর্মে উল্লেখিত আপনার যোগাযোগের
+                        ঠিকানাসহ অন্যান্য তথ্যাদির কোন পরিবর্তন হলে আপনি
+                        তাৎক্ষনিক কারখানা কর্তৃপক্ষকে জানাতে বাধ্য থাকবেন।
+                        চাকরির আবেদনে ভুল তথ্য প্রদান করলে কর্তৃপক্ষ আপনার
+                        বিরুদ্ধে শাস্তিমূলক ব্যবস্থা গ্রহণ করতে পারবেন।
+                    </div>
+
+                    <div class="condition">
+                        ১৪। কর্তৃপক্ষ যে কোন সময় পূর্ব নোটিশ ছাড়া চাকুরির
+                        শর্তাবলী দেশের আইনের আলোকে পরিবর্তন/পরিবর্ধন করার
+                        বৈধ অধিকার সংরক্ষণ করেন। কারখানার শৃংখলা রক্ষার্থে
+                        সময়ে সময়ে প্রবর্তিত আভ্যন্তরীন নিয়ম কানুন আপনি
+                        মেনে চলতে বাধ্য থাকবেন।
+                    </div>
+
+                    <div class="condition">
+                        ১৫। অত্র কারখানায় কর্মরত থাকাকালীন আপনি অন্য
+                        কোথাও প্রত্যক্ষ বা পরোক্ষভাবে চাকুরী গ্রহণ করতে
+                        পারবেন না। আপনার চাকুরীর পরিসমাপ্তিকালে আপনার নিকট
+                        রক্ষিত কাগজপত্র, আইডি কার্ড বা অন্যান্য দ্রব্যাদি
+                        ফেরত প্রদানে বাধ্য থাকবেন। অন্যথায় কর্তৃপক্ষ
+                        আইনানুযায়ী ব্যবস্থা গ্রহণ করতে পারবেন।
+                    </div>
+
+                    <div class="condition">
+                        ১৬। কারখানার অভ্যন্তরে বিশৃঙ্খলা সৃষ্টি সম্পূর্ণভাবে
+                        নিষিদ্ধ ও শাস্তিযোগ্য অপরাধ। এছাড়াও কারখানা
+                        অভ্যন্তরে কারখানা অথবা উৎপাদিত পণ্যের জন্য ক্ষতিকারক
+                        কোন দ্রব্যাদি ব্যবহার ও বহন সম্পূর্ণভাবে নিষিদ্ধ ও
+                        শাস্তিযোগ্য অপরাধ।
+                    </div>
+
+                    <div class="condition">
+                        ১৭। স্থায়ী শ্রমিক চাকুরি ছাড়ার ক্ষেত্রে ৬০ দিনের
+                        অগ্রিম নোটিশ প্রদান করবেন। অন্যথায় নোটিশ মেয়াদের
+                        মজুরীর সমপরিমাণ অর্থ কারখানা কর্তৃপক্ষের নিকট
+                        প্রদান করবেন।
+                    </div>
+
+                    <div class="condition">
+                        ১৮। নিয়োগকারী কর্তৃপক্ষ কর্তৃক শ্রমিকের চাকুরীর
+                        অবসানের জন্য কর্তৃপক্ষ বিদ্যমান আইনের আলোকে
+                        ব্যবস্থা গ্রহণ করবেন।
+                    </div>
+
+                    <div class="condition">
+                        ১৯। চাকুরিরত অবস্থায় আপনি অত্র প্রতিষ্ঠানে
+                        ব্যবসা-সংক্রান্ত গোপনীয় তথ্যাদি কোন ব্যক্তি,
+                        ব্যবসা প্রতিষ্ঠান অথবা অন্য কারো নিকট প্রকাশ
+                        করতে পারবেন না।
+                    </div>
+
+                    <div class="condition">
+                        ২০। কর্তৃপক্ষ প্রতিষ্ঠানের প্রয়োজনে একই ব্যবস্থাপনার
+                        আওতাধীন অন্য যে কোন কারখানা/প্রতিষ্ঠানে আপনাকে
+                        বদলী করতে পারবেন।
+                    </div>
+
+
+                    <div class="text-block" style="margin-top: 8px;">
+
+                        উপরোক্ত শর্তাবলী মেনে যদি আপনি অত্র নিয়োগ প্রস্তাব
+                        গ্রহণে সম্মত থাকেন এবং আগামী
+
+                        <span class="dotted"
+                              style="min-width: 140px;">
+                            <t t-if="o.joining_date">
+                                <span t-field="o.joining_date"/>
+                            </t>
+                        </span>
+
+                        তারিখের মধ্যে কাজে যোগদানের জন্য রাজি থাকেন তাহলে
+                        অত্র পত্রের প্রতিলিপিতে স্বাক্ষর প্রদান করে তা
+                        নিম্ন স্বাক্ষরকারীর নিকট অবিলম্বে ফেরত দেয়ার জন্য
+                        আপনাকে অনুরোধ করা হল।
+
+                    </div>
+
+
+                    <div class="signature-area">
+
+                        <div>
+                            নিয়োগকারী কর্তৃপক্ষ
+                        </div>
+
+                        <div>
+                            ----------------------
+                        </div>
+
+                        <div>
+                            মানবসম্পদ বিভাগ
+                        </div>
+
+                    </div>
+
+
+                    <div class="text-block"
+                         style="margin-top: 18px;">
+
+                        আমি অত্র নিয়োগপত্রে বর্ণিত শর্তাদি সম্পূর্ণরূপে
+                        পড়ে/পড়িয়ে এবং এর মর্ম অনুধাবন করে, স্বেচ্ছায়,
+                        স্বজ্ঞানে এবং কারো কর্তৃক প্ররোচিত না হয়ে এবং
+                        বর্ণিত শর্তাদি আমার নিকট গ্রহণযোগ্য বিবেচিত হওয়ায়
+                        এই নিয়োগপত্র গ্রহণ করে স্বাক্ষর করলাম।
+
+                    </div>
+
+
+                    <div style="margin-top: 15px; line-height: 2;">
+
+                        <div>
+                            শ্রমিক/কর্মচারীর স্বাক্ষরঃ
+                            <span class="dotted"
+                                  style="min-width: 180px;">
+                                &#160;
+                            </span>
+                        </div>
+
+                        <div>
+                            তারিখঃ
+                            <span class="dotted"
+                                  style="min-width: 210px;">
+                                &#160;
+                            </span>
+                        </div>
+
+                        <div>
+                            শ্রমিক/কর্মচারীর নামঃ
+                            <span class="dotted"
+                                  style="min-width: 180px;">
+                                <t t-esc="o.employee_id.name if o.employee_id else ''"/>
+                            </span>
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </t>
+
+        </t>
+
+    </template>
+
+</odoo>

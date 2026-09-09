@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- List View -->
+    <record id="view_compliance_job_application_list" model="ir.ui.view">
+        <field name="name">compliance.job.application.list</field>
+        <field name="model">compliance.job.application</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="employee_id"/>
+                <field name="job_position"/>
+                <field name="mobile"/>
+                <field name="application_date"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="view_compliance_job_application_form" model="ir.ui.view">
+        <field name="name">compliance.job.application.form</field>
+        <field name="model">compliance.job.application</field>
+
+        <field name="arch" type="xml">
+            <form string="চাকরির জন্য আবেদনপত্র">
+
+                <header>
+                    <button
+                        name="action_print_report"
+                        string="Print"
+                        type="object"
+                        class="btn-primary"
+                    />
+                </header>
+
+                <sheet>
+
+                    <group>
+                        <field name="job_position"/>
+                        <field name="application_date"/>
+                    </group>
+
+                    <separator string="১. ব্যক্তিগত তথ্য"/>
+
+                    <group>
+                        <group>
+                            <field name="employee_id"/>
+                            <field name="father_name"/>
+                            <field name="mother_name"/>
+                            <field name="mobile"/>
+                        </group>
+
+                        <group>
+                            <field name="permanent_address"/>
+                            <field name="present_address"/>
+                            <field name="email"/>
+                        </group>
+                    </group>
+
+                    <separator string="২. শিক্ষাগত যোগ্যতা"/>
+
+                    <group>
+                        <field name="education_1"/>
+                        <field name="education_2"/>
+                    </group>
+
+                    <separator string="৩. পূর্ববর্তী কর্মসংস্থান এবং অভিজ্ঞতা"/>
+
+                    <group>
+                        <group>
+                            <field name="previous_company"/>
+                            <field name="previous_job_position"/>
+                        </group>
+
+                        <group>
+                            <field name="employment_duration"/>
+                            <field name="experience"/>
+                        </group>
+                    </group>
+
+                </sheet>
+
+            </form>
+        </field>
+    </record>
+
+    <!-- Window Action -->
+    <record id="action_compliance_job_application" model="ir.actions.act_window">
+        <field name="name">Job Applications</field>
+        <field name="res_model">compliance.job.application</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+</odoo>

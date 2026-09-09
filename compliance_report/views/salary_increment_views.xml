@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- List View -->
+    <record id="view_compliance_salary_increment_list" model="ir.ui.view">
+        <field name="name">compliance.salary.increment.list</field>
+        <field name="model">compliance.salary.increment</field>
+
+        <field name="arch" type="xml">
+            <list>
+                <field name="employee_id"/>
+                <field name="effective_date"/>
+                <field name="basic_salary"/>
+                <field name="total_salary"/>
+            </list>
+        </field>
+    </record>
+
+
+    <!-- Form View -->
+    <record id="view_compliance_salary_increment_form" model="ir.ui.view">
+        <field name="name">compliance.salary.increment.form</field>
+        <field name="model">compliance.salary.increment</field>
+
+        <field name="arch" type="xml">
+
+            <form string="Salary Increment and Revision">
+
+                <header>
+
+                    <button
+                        name="action_print_report"
+                        string="Print"
+                        type="object"
+                        class="btn-primary"
+                    />
+
+                </header>
+
+                <sheet>
+
+                    <separator string="কর্মচারীর তথ্য"/>
+
+                    <group>
+
+                        <group>
+                            <field name="employee_id"/>
+                            <field name="present_address"/>
+                            <field name="receiver_name"/>
+                        </group>
+
+                        <group>
+                            <field name="letter_date"/>
+                            <field name="effective_date"/>
+                            <field name="revised_salary"/>
+                        </group>
+
+                    </group>
+
+
+                    <separator string="বর্তমান বেতনের বিবরণ"/>
+
+                    <group>
+
+                        <group>
+                            <field name="basic_salary"/>
+                            <field name="house_rent"/>
+                        </group>
+
+                        <group>
+                            <field name="others"/>
+                            <field name="increment_amount"/>
+                            <field name="total_salary" readonly="1"/>
+                        </group>
+
+                    </group>
+
+                </sheet>
+
+            </form>
+
+        </field>
+    </record>
+
+
+    <!-- Action -->
+    <record id="action_compliance_salary_increment"
+            model="ir.actions.act_window">
+
+        <field name="name">Salary Increment and Revision</field>
+        <field name="res_model">compliance.salary.increment</field>
+        <field name="view_mode">list,form</field>
+
+    </record>
+
+</odoo>
