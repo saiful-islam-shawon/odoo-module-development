@@ -11,6 +11,8 @@
     ],
     "data": [
         "security/ir.model.access.csv",
+        
+        "views/hr_employee_views.xml",
 
         "views/job_application_views.xml",
         "views/appointment_letter_views.xml",

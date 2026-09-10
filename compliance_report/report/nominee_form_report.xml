@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
 
-    <!-- A4 Paper Format -->
     <record id="paperformat_nominee_form" model="report.paperformat">
         <field name="name">Nominee Form A4</field>
         <field name="default" eval="False"/>
@@ -15,7 +14,6 @@
     </record>
 
 
-    <!-- Report Action -->
     <record id="action_report_nominee_form" model="ir.actions.report">
         <field name="name">Nominee Form</field>
         <field name="model">compliance.nominee.form</field>
@@ -27,7 +25,6 @@
     </record>
 
 
-    <!-- QWeb Template -->
     <template id="report_nominee_form">
 
         <t t-call="web.html_container">
@@ -46,17 +43,6 @@
                     color: #000;
                     font-size: 16px;
                     line-height: 1.65;
-                }
-
-
-                /* =========================
-                   HEADER
-                ========================== */
-
-                .page-header-area {
-                    position: relative;
-                    width: 100%;
-                    min-height: 145px;
                 }
 
                 .report-header {
@@ -86,43 +72,9 @@
                     font-weight: bold;
                 }
 
-
-                /* =========================
-                   NOMINEE PHOTO
-                ========================== */
-
-                .top-right-photo {
-                    position: absolute;
-                    top: 0px;
-                    right: 0;
-                    width: 115px;
-                    height: 135px;
-                    border: 1px solid #000;
-                    text-align: center;
-                    overflow: hidden;
-                    background: #fff;
-                }
-
-                .top-right-photo img {
-                    width: 100%;
-                    height: 100%;
-                    object-fit: contain;
-                }
-
-                .photo-placeholder {
-                    padding-top: 45px;
-                    text-align: center;
-                    line-height: 1.5;
-                }
-
-
-                /* =========================
-                   FORM CONTENT
-                ========================== */
-
                 .form-date {
                     text-align: right;
-                    margin-top: 6px;
+                    margin-top: 12px;
                     margin-bottom: 10px;
                 }
 
@@ -130,36 +82,60 @@
                     margin-top: 6px;
                 }
 
-                .dotted {
+                .line {
                     display: inline-block;
-                    border-bottom: 1px solid #000;
                     min-height: 21px;
-                    vertical-align: baseline;
+                    border-bottom: 1px solid #000;
                     padding: 0 4px;
+                    vertical-align: baseline;
                 }
 
                 .section-title {
                     font-weight: bold;
+                    margin-top: 14px;
+                    margin-bottom: 8px;
+                }
+
+                .nominee-card {
+                    position: relative;
+                    min-height: 190px;
                     margin-top: 12px;
-                    margin-bottom: 5px;
+                    padding-right: 135px;
+                    page-break-inside: avoid;
                 }
 
-                .nominee-block {
-                    margin-left: 15px;
+                .nominee-photo {
+                    position: absolute;
+                    top: 5px;
+                    right: 0;
+                    width: 110px;
+                    height: 130px;
+                    border: 1px solid #000;
+                    text-align: center;
+                    overflow: hidden;
                 }
 
+                .nominee-photo img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: contain;
+                }
 
-                /* =========================
-                   SIGNATURE
-                ========================== */
+                .photo-placeholder {
+                    padding-top: 43px;
+                    line-height: 1.5;
+                }
 
-                .signature-space {
-                    height: 55px;
+                .nominee-separator {
+                    border: 0;
+                    border-top: 1px solid #999;
+                    margin-top: 12px;
                 }
 
                 .signature-line {
                     display: inline-block;
                     width: 210px;
+                    min-height: 22px;
                     border-bottom: 1px solid #000;
                 }
 
@@ -168,477 +144,323 @@
 
             <t t-foreach="docs" t-as="o">
 
-
-                <!-- ==================================================
-                     PAGE 1
-                =================================================== -->
-
                 <div class="page nominee-page">
 
 
-                    <!-- Header Area -->
+                    <!-- Header -->
 
-                    <div class="page-header-area">
+                    <div class="report-header">
 
-
-                        <!-- Center Header -->
-
-                        <div class="report-header">
-
-                            <div class="company-name">
-                                Khetan Trading
-                            </div>
-
-                            <div class="company-address">
-                                Dewliabari, Konabari, Gazipur
-                            </div>
-
-                            <div class="report-title">
-                                Nominee Form
-                            </div>
-
-                            <div class="report-subtitle">
-                                প্রতিষ্ঠানের কর্মকর্তা ও কর্মচারীদের নোমিনি আবেদন ফর্ম
-                            </div>
-
+                        <div class="company-name">
+                            Khetan Trading
                         </div>
 
+                        <div class="company-address">
+                            Dewliabari, Konabari, Gazipur
+                        </div>
 
-                        <!-- Nominee Photo -->
+                        <div class="report-title">
+                            Nominee Form
+                        </div>
 
-                        <div class="top-right-photo">
-
-                            <t t-if="o.nominee_photo">
-
-                                <img
-                                    t-att-src="image_data_uri(o.nominee_photo)"
-                                    alt="Nominee Photo"
-                                />
-
-                            </t>
-
-                            <t t-else="">
-
-                                <div class="photo-placeholder">
-                                    নোমিনি
-                                    <br/>
-                                    ছবি
-                                </div>
-
-                            </t>
-
+                        <div class="report-subtitle">
+                            প্রতিষ্ঠানের কর্মকর্তা ও কর্মচারীদের নোমিনি আবেদন ফর্ম
                         </div>
 
                     </div>
 
 
-                    <!-- =========================
-                         DATE
-                    ========================== -->
+                    <!-- Date -->
 
                     <div class="form-date">
 
                         তারিখঃ
 
-                        <span
-                            class="dotted"
-                            style="min-width: 170px;"
-                        >
-
+                        <span class="line" style="min-width: 170px;">
                             <t t-if="o.form_date">
                                 <span t-field="o.form_date"/>
                             </t>
-
                         </span>
 
                     </div>
 
 
-                    <!-- =========================
-                         EMPLOYEE NAME
-                    ========================== -->
+                    <!-- Employee -->
 
                     <div class="report-row">
 
-                        ১। কর্মকর্তা/ কর্মচারীর নামঃ
+                        ১। কর্মকর্তা/কর্মচারীর নামঃ
 
-                        <span
-                            class="dotted"
-                            style="min-width: 410px;"
-                        >
-                            <t t-esc="
-                                o.employee_id.name
-                                if o.employee_id
-                                else ''
-                            "/>
+                        <span class="line" style="min-width: 410px;">
+                            <t t-esc="o.employee_id.name if o.employee_id else ''"/>
                         </span>
 
                     </div>
 
-
-                    <!-- =========================
-                         JOB POSITION
-                    ========================== -->
 
                     <div class="report-row">
 
                         ২। পদবীঃ
 
-                        <span
-                            class="dotted"
-                            style="min-width: 560px;"
-                        >
-                            <t t-esc="
-                                o.job_id.name
-                                if o.job_id
-                                else ''
-                            "/>
+                        <span class="line" style="min-width: 560px;">
+                            <t t-esc="o.job_id.name if o.job_id else ''"/>
                         </span>
 
                     </div>
 
-
-                    <!-- =========================
-                         JOINING DATE
-                    ========================== -->
 
                     <div class="report-row">
 
                         ৩। যোগদানের তারিখঃ
 
-                        <span
-                            class="dotted"
-                            style="min-width: 470px;"
-                        >
-
+                        <span class="line" style="min-width: 470px;">
                             <t t-if="o.joining_date">
                                 <span t-field="o.joining_date"/>
                             </t>
-
                         </span>
 
                     </div>
 
 
-                    <!-- =========================
-                         SALARY ACCOUNT
-                    ========================== -->
-
                     <div class="report-row">
 
                         ৪। বেতনের হিসাব নং-
 
-                        <span
-                            class="dotted"
-                            style="min-width: 470px;"
-                        >
+                        <span class="line" style="min-width: 470px;">
                             <t t-esc="o.salary_account_no or ''"/>
                         </span>
 
                     </div>
 
 
-                    <!-- =========================
-                         CHILDREN
-                    ========================== -->
-
                     <div class="report-row">
 
                         ৫। সন্তান সংখ্যাঃ
 
-                        <span
-                            class="dotted"
-                            style="min-width: 90px;"
-                        >
+                        <span class="line" style="min-width: 70px;">
                             <t t-esc="o.total_children or ''"/>
                         </span>
 
-                        জন।
+                        জন। মেয়েঃ
 
-                        মেয়েঃ
-
-                        <span
-                            class="dotted"
-                            style="min-width: 90px;"
-                        >
+                        <span class="line" style="min-width: 70px;">
                             <t t-esc="o.daughter_count or ''"/>
                         </span>
 
-                        জন।
+                        জন। ছেলেঃ
 
-                        ছেলেঃ
-
-                        <span
-                            class="dotted"
-                            style="min-width: 90px;"
-                        >
+                        <span class="line" style="min-width: 70px;">
                             <t t-esc="o.son_count or ''"/>
                         </span>
 
                     </div>
 
 
-                    <!-- =========================
-                         NOMINEE SECTION
-                    ========================== -->
+                    <!-- Nominee Section -->
 
                     <div class="section-title">
-                        নোমিনি (মনোনীত প্রার্থীর) পূর্ণবৃত্তান্তঃ
+                        ৬। নোমিনি (মনোনীত প্রার্থীর) পূর্ণবৃত্তান্তঃ
                     </div>
 
 
-                    <div>
-                        ৬। নোমিনির পূর্ণনামঃ
-                    </div>
+                    <t t-if="o.employee_id">
 
+                        <t t-foreach="o.employee_id.nominee_ids"
+                           t-as="nominee">
 
-                    <!-- ==================================================
-                         NOMINEE A
-                    =================================================== -->
+                            <div class="nominee-card">
 
-                    <div class="nominee-block">
 
+                                <!-- Serial -->
 
-                        <!-- Name -->
+                                <div style="font-weight: bold;">
 
-                        <div class="report-row">
+                                    নোমিনি
 
-                            ক) নামঃ
+                                    <t t-esc="nominee_index + 1"/>
 
-                            <span
-                                class="dotted"
-                                style="min-width: 560px;"
-                            >
-                                <t t-esc="o.nominee_a_name or ''"/>
-                            </span>
+                                </div>
 
-                        </div>
 
+                                <!-- Name -->
 
-                        <!-- Age + Relation -->
+                                <div class="report-row">
 
-                        <div class="report-row">
+                                    নামঃ
 
-                            বয়সঃ
+                                    <span class="line"
+                                          style="min-width: 420px;">
+                                        <t t-esc="nominee.name or ''"/>
+                                    </span>
 
-                            <span
-                                class="dotted"
-                                style="min-width: 180px;"
-                            >
-                                <t t-esc="o.nominee_a_age or ''"/>
-                            </span>
+                                </div>
 
-                            সম্পর্কঃ
 
-                            <span
-                                class="dotted"
-                                style="min-width: 280px;"
-                            >
-                                <t t-esc="o.nominee_a_relation or ''"/>
-                            </span>
+                                <!-- NID -->
 
-                        </div>
+                                <div class="report-row">
 
+                                    জাতীয় পরিচয়পত্র নংঃ
 
-                        <!-- Permanent Address -->
+                                    <span class="line"
+                                          style="min-width: 310px;">
+                                        <t t-esc="nominee.nid or ''"/>
+                                    </span>
 
-                        <div class="report-row">
+                                </div>
 
-                            স্থায়ী ঠিকানাঃ
 
-                            <span
-                                class="dotted"
-                                style="min-width: 520px;"
-                            >
-                                <t t-esc="o.nominee_a_address or ''"/>
-                            </span>
+                                <!-- Age / Gender -->
 
-                        </div>
+                                <div class="report-row">
 
+                                    বয়সঃ
 
-                        <!-- Manual Signature -->
+                                    <span class="line"
+                                          style="min-width: 90px;">
+                                        <t t-esc="nominee.age or ''"/>
+                                    </span>
 
-                        <div class="report-row">
+                                    লিঙ্গঃ
 
-                            নমুনা স্বাক্ষরঃ
+                                    <span class="line"
+                                          style="min-width: 100px;">
 
-                            ১।
+                                        <t t-if="nominee.gender == 'male'">
+                                            পুরুষ
+                                        </t>
 
-                            <span
-                                class="dotted"
-                                style="min-width: 180px;"
-                            >
-                                &#160;
-                            </span>
+                                        <t t-elif="nominee.gender == 'female'">
+                                            মহিলা
+                                        </t>
 
-                            ২।
+                                        <t t-elif="nominee.gender == 'other'">
+                                            অন্যান্য
+                                        </t>
 
-                            <span
-                                class="dotted"
-                                style="min-width: 180px;"
-                            >
-                                &#160;
-                            </span>
+                                    </span>
 
-                        </div>
+                                </div>
 
-                    </div>
 
+                                <!-- Relation -->
 
-                    <!-- ==================================================
-                         NOMINEE B
-                    =================================================== -->
+                                <div class="report-row">
 
-                    <div
-                        class="nominee-block"
-                        style="margin-top: 8px;"
-                    >
+                                    সম্পর্কঃ
 
+                                    <span class="line"
+                                          style="min-width: 350px;">
+                                        <t t-esc="nominee.relation or ''"/>
+                                    </span>
 
-                        <!-- Name -->
+                                </div>
 
-                        <div class="report-row">
 
-                            খ) নামঃ
+                                <!-- Permanent Address -->
 
-                            <span
-                                class="dotted"
-                                style="min-width: 560px;"
-                            >
-                                <t t-esc="o.nominee_b_name or ''"/>
-                            </span>
+                                <div class="report-row">
 
-                        </div>
+                                    স্থায়ী ঠিকানাঃ
 
+                                    <span class="line"
+                                          style="min-width: 350px;">
+                                        <t t-esc="nominee.permanent_address or ''"/>
+                                    </span>
 
-                        <!-- Age + Relation -->
+                                </div>
 
-                        <div class="report-row">
 
-                            বয়সঃ
+                                <!-- Signature -->
 
-                            <span
-                                class="dotted"
-                                style="min-width: 180px;"
-                            >
-                                <t t-esc="o.nominee_b_age or ''"/>
-                            </span>
+                                <div class="report-row">
 
-                            সম্পর্কঃ
+                                    নমুনা স্বাক্ষরঃ
 
-                            <span
-                                class="dotted"
-                                style="min-width: 280px;"
-                            >
-                                <t t-esc="o.nominee_b_relation or ''"/>
-                            </span>
+                                    ১।
 
-                        </div>
+                                    <span class="line"
+                                          style="min-width: 130px;">
+                                        &#160;
+                                    </span>
 
+                                    ২।
 
-                        <!-- Permanent Address -->
+                                    <span class="line"
+                                          style="min-width: 130px;">
+                                        &#160;
+                                    </span>
 
-                        <div class="report-row">
+                                </div>
 
-                            স্থায়ী ঠিকানাঃ
 
-                            <span
-                                class="dotted"
-                                style="min-width: 520px;"
-                            >
-                                <t t-esc="o.nominee_b_address or ''"/>
-                            </span>
+                                <!-- Percentage -->
 
-                        </div>
+                                <div class="report-row">
 
+                                    অর্থপ্রাপ্তির শতকরা হারঃ
 
-                        <!-- Manual Signature -->
+                                    <span class="line"
+                                          style="min-width: 100px;">
+                                        <t t-esc="nominee.share_percentage or ''"/>
+                                    </span>
 
-                        <div class="report-row">
+                                    %
 
-                            নমুনা স্বাক্ষরঃ
+                                </div>
 
-                            ১।
 
-                            <span
-                                class="dotted"
-                                style="min-width: 180px;"
-                            >
-                                &#160;
-                            </span>
+                                <!-- Photo -->
 
-                            ২।
+                                <div class="nominee-photo">
 
-                            <span
-                                class="dotted"
-                                style="min-width: 180px;"
-                            >
-                                &#160;
-                            </span>
+                                    <t t-if="nominee.photo">
 
-                        </div>
+                                        <img
+                                            t-att-src="image_data_uri(nominee.photo)"
+                                            alt="Nominee Photo"
+                                        />
 
-                    </div>
+                                    </t>
 
+                                    <t t-else="">
 
-                    <!-- =========================
-                         PERCENTAGE
-                    ========================== -->
+                                        <div class="photo-placeholder">
+                                            নোমিনি
+                                            <br/>
+                                            ছবি
+                                        </div>
 
-                    <div
-                        class="report-row"
-                        style="margin-top: 12px;"
-                    >
+                                    </t>
 
-                        নোমিনি হিসেবে অর্থপ্রাপ্তির শতকার হারঃ
+                                </div>
 
-                        ক)
+                            </div>
 
-                        <span
-                            class="dotted"
-                            style="min-width: 120px;"
-                        >
-                            <t t-esc="o.nominee_a_percentage or ''"/>
-                        </span>
 
-                        খ)
+                            <hr class="nominee-separator"/>
 
-                        <span
-                            class="dotted"
-                            style="min-width: 120px;"
-                        >
-                            <t t-esc="o.nominee_b_percentage or ''"/>
-                        </span>
+                        </t>
 
-                    </div>
+                    </t>
 
 
-                    <!-- ==================================================
-                         APPLICANT + HR SIGNATURE
-                    =================================================== -->
+                    <!-- Signatures -->
 
-                    <table
-                        style="
-                            width: 100%;
-                            margin-top: 30px;
-                            border-collapse: collapse;
-                        "
-                    >
+                    <table style="
+                        width: 100%;
+                        margin-top: 35px;
+                        border-collapse: collapse;
+                    ">
 
                         <tr>
 
+                            <td style="
+                                width: 50%;
+                                text-align: center;
+                            ">
 
-                            <!-- Applicant Signature -->
-
-                            <td
-                                style="
-                                    width: 50%;
-                                    text-align: center;
-                                    vertical-align: bottom;
-                                "
-                            >
-
-                                <div class="signature-space">
+                                <div style="height: 45px;">
                                     &#160;
                                 </div>
 
@@ -653,17 +475,12 @@
                             </td>
 
 
-                            <!-- HR Signature -->
+                            <td style="
+                                width: 50%;
+                                text-align: center;
+                            ">
 
-                            <td
-                                style="
-                                    width: 50%;
-                                    text-align: center;
-                                    vertical-align: bottom;
-                                "
-                            >
-
-                                <div class="signature-space">
+                                <div style="height: 45px;">
                                     &#160;
                                 </div>
 
@@ -681,37 +498,22 @@
 
                     </table>
 
-                </div>
-
-
-                <!-- ==================================================
-                     PAGE 2
-                =================================================== -->
-
-                <div class="page nominee-page">
-
 
                     <!-- Owner Approval -->
 
-                    <div
-                        style="
-                            margin-top: 35px;
-                            font-weight: bold;
-                        "
-                    >
+                    <div style="
+                        margin-top: 35px;
+                        font-weight: bold;
+                    ">
                         প্রতিষ্ঠান মালিকের অনুমোদনঃ
                     </div>
 
 
-                    <!-- Owner Signature -->
-
-                    <div
-                        style="
-                            margin-top: 25px;
-                            width: 280px;
-                            text-align: center;
-                        "
-                    >
+                    <div style="
+                        margin-top: 25px;
+                        width: 280px;
+                        text-align: center;
+                    ">
 
                         <div style="height: 30px;">
                             &#160;

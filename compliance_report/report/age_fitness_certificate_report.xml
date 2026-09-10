@@ -360,12 +360,17 @@
                                                 class="line"
                                                 style="width: 225px;"
                                             >
-                                                <t t-esc="
-                                                    dict(o._fields['gender'].selection).get(
-                                                        o.gender,
-                                                        o.gender or ''
-                                                    )
-                                                "/>
+                                                <t t-if="o.gender == 'male'">
+                                                    পুরুষ
+                                                </t>
+
+                                                <t t-elif="o.gender == 'female'">
+                                                    মহিলা
+                                                </t>
+
+                                                <t t-elif="o.gender == 'other'">
+                                                    অন্যান্য
+                                                </t>
                                             </span>
 
                                         </div>

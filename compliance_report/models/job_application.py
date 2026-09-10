@@ -6,22 +6,41 @@ class JobApplication(models.Model):
     _description = "Job Application"
     _order = "id desc"
 
+    # ---------------------------------------------------------
+    # Employee
+    # ---------------------------------------------------------
+
     employee_id = fields.Many2one(
         "hr.employee",
         string="নাম",
     )
 
-    father_name = fields.Char(string="পিতার নাম")
-    mother_name = fields.Char(string="মাতার নাম")
+    # ---------------------------------------------------------
+    # Employee Related Information
+    # ---------------------------------------------------------
 
-    permanent_address = fields.Char(
-        string="স্থায়ী ঠিকানা",
-        compute="_compute_permanent_address",
+    father_name = fields.Char(
+        string="পিতার নাম",
+        related="employee_id.father_name",
+        readonly=True,
     )
 
-    present_address = fields.Char(
+    mother_name = fields.Char(
+        string="মাতার নাম",
+        related="employee_id.mother_name",
+        readonly=True,
+    )
+
+    present_address = fields.Text(
         string="বর্তমান ঠিকানা",
-        compute="_compute_present_address",
+        related="employee_id.present_address",
+        readonly=True,
+    )
+
+    experience = fields.Char(
+        string="অভিজ্ঞতা",
+        related="employee_id.experience",
+        readonly=True,
     )
 
     mobile = fields.Char(
@@ -42,17 +61,14 @@ class JobApplication(models.Model):
         readonly=True,
     )
 
-    education_1 = fields.Char(string="শিক্ষাগত যোগ্যতা ১")
-    education_2 = fields.Char(string="শিক্ষাগত যোগ্যতা ২")
+    # ---------------------------------------------------------
+    # Permanent Address
+    # Employee Private Address
+    # ---------------------------------------------------------
 
-    previous_company = fields.Char(string="কোম্পানির নাম")
-    previous_job_position = fields.Char(string="পদের নাম")
-    employment_duration = fields.Char(string="সময়কাল")
-    experience = fields.Char(string="অভিজ্ঞতা")
-
-    application_date = fields.Date(
-        string="তারিখ",
-        default=fields.Date.context_today,
+    permanent_address = fields.Char(
+        string="স্থায়ী ঠিকানা",
+        compute="_compute_permanent_address",
     )
 
     @api.depends(
@@ -65,6 +81,7 @@ class JobApplication(models.Model):
     )
     def _compute_permanent_address(self):
         for record in self:
+
             employee = record.employee_id
 
             if not employee:
@@ -84,40 +101,38 @@ class JobApplication(models.Model):
                 part for part in address_parts if part
             )
 
-    @api.depends(
-        "employee_id.work_location_id",
-        "employee_id.work_contact_id",
+    # ---------------------------------------------------------
+    # Manual Job Application Information
+    # ---------------------------------------------------------
+
+    education_1 = fields.Char(
+        string="শিক্ষাগত যোগ্যতা ১",
     )
-    def _compute_present_address(self):
-        for record in self:
-            employee = record.employee_id
 
-            if not employee:
-                record.present_address = False
-                continue
+    education_2 = fields.Char(
+        string="শিক্ষাগত যোগ্যতা ২",
+    )
 
-            address_parts = []
+    previous_company = fields.Char(
+        string="কোম্পানির নাম",
+    )
 
-            # Work Location
-            if employee.work_location_id:
-                address_parts.append(employee.work_location_id.name)
+    previous_job_position = fields.Char(
+        string="পদের নাম",
+    )
 
-            # Work Address
-            work_address = employee.work_contact_id
+    employment_duration = fields.Char(
+        string="সময়কাল",
+    )
 
-            if work_address:
-                address_parts.extend([
-                    work_address.street,
-                    work_address.street2,
-                    work_address.city,
-                    work_address.state_id.name,
-                    work_address.zip,
-                    work_address.country_id.name,
-                ])
+    application_date = fields.Date(
+        string="তারিখ",
+        default=fields.Date.context_today,
+    )
 
-            record.present_address = ", ".join(
-                part for part in address_parts if part
-            )
+    # ---------------------------------------------------------
+    # Print
+    # ---------------------------------------------------------
 
     def action_print_report(self):
         self.ensure_one()

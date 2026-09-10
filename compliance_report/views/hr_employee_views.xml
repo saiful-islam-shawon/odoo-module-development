@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="view_employee_form_inherit_compliance_report"
+            model="ir.ui.view">
+
+        <field name="name">
+            hr.employee.form.inherit.compliance.report
+        </field>
+
+        <field name="model">hr.employee</field>
+
+        <field name="inherit_id"
+               ref="hr.view_employee_form"/>
+
+        <field name="arch" type="xml">
+
+
+            <!-- =================================================
+                 PERSONAL TAB
+                 Add Others group after Documents
+            ================================================== -->
+
+            <xpath
+                expr="//group[@name='hr_document_group']"
+                position="after"
+            >
+
+                <group
+                    name="compliance_others_group"
+                    string="Others"
+                >
+
+                    <field name="father_name"/>
+
+                    <field name="mother_name"/>
+
+                    <field name="present_address"/>
+
+                    <field name="experience"/>
+
+                    <field
+                        name="employee_signature"
+                        widget="image"
+                        class="oe_avatar"
+                        options="{'size': [180, 100]}"
+                    />
+
+                </group>
+
+            </xpath>
+
+
+            <!-- =================================================
+                 NEW COMPLIANCE INFORMATION TAB
+            ================================================== -->
+
+            <xpath
+                expr="//page[@name='hr_settings']"
+                position="after"
+            >
+
+                <page
+                    name="compliance_information"
+                    string="Compliance Information"
+                >
+
+                    <group>
+
+                        <group
+                            name="compliance_money_provided"
+                            string="Money Provided"
+                        >
+                        
+                            <field name="basic"/>
+                            <field name="compliance_house_rent"/>
+                            <field name="medical_allowance"/>
+                            <field name="transport_allowance"/>
+                            <field name="other_allowance"/>
+                            <field name="gro"/>
+                            <field name="deduction"/>
+                            <field name="net_salary"/>
+                            <field name="increment_amount"/>
+                            <field name="revision_date"/>
+
+                        </group>
+
+                    </group>
+
+                </page>
+
+
+                <!-- Nominee Form Tab -->
+                <page
+                    name="employee_nominee_form"
+                    string="Nominee Form"
+                >
+
+                    <separator string="Nominee Information"/>
+
+                    <field name="nominee_ids" nolabel="1">
+
+                        <list>
+                            <field name="name"/>
+                            <field name="nid"/>
+                            <field name="date_of_birth"/>
+                            <field name="age"/>
+                            <field name="gender"/>
+                            <field name="relation"/>
+                            <field name="share_percentage" string="Share %"/>
+                        </list>
+
+
+                        <form string="Nominee Information">
+
+                            <sheet>
+
+                                <div class="oe_title">
+                                    <h2>Nominee Information</h2>
+                                </div>
+
+                                <group>
+
+                                    <group string="Personal Information">
+
+                                        <field name="name"/>
+                                        <field name="nid"/>
+                                        <field name="date_of_birth"/>
+                                        <field name="age" readonly="1"/>
+                                        <field name="gender"/>
+                                        <field name="permanent_address"/>
+
+                                    </group>
+
+                                    <group string="Nominee Details">
+
+                                        <field name="relation"/>
+                                        <field name="share_percentage"/>
+
+                                        <field
+                                            name="photo"
+                                            widget="image"
+                                            class="oe_avatar"
+                                        />
+
+                                        <field name="document"/>
+
+                                    </group>
+
+                                </group>
+
+                            </sheet>
+
+                        </form>
+
+                    </field>
+
+                </page>
+
+            </xpath>
+
+
+        </field>
+
+    </record>
+
+</odoo>
