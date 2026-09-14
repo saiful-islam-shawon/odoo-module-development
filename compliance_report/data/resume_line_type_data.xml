@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="resume_line_type_work_experience"
+            model="hr.resume.line.type">
+
+        <field name="name">Work Experience</field>
+
+    </record>
+
+</odoo>

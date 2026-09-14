@@ -63,6 +63,7 @@
                             <field name="letter_date"/>
                             <field name="application_date"/>
                             <field name="appointment_date"/>
+                            <field name="signature_date"/>
                         </group>
 
                         <group>

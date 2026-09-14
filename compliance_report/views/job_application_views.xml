@@ -37,6 +37,7 @@
                     <group>
                         <field name="job_position"/>
                         <field name="application_date"/>
+                        <field name="signature_date"/>
                     </group>
 
                     <separator string="১. ব্যক্তিগত তথ্য"/>
@@ -58,24 +59,58 @@
 
                     <separator string="২. শিক্ষাগত যোগ্যতা"/>
 
-                    <group>
-                        <field name="education_1"/>
-                        <field name="education_2"/>
-                    </group>
+                    <field
+                        name="education_ids"
+                        nolabel="1"
+                        readonly="1"
+                    >
+                        <list
+                            create="0"
+                            edit="0"
+                            delete="0"
+                        >
+                            <field name="name" string="শিক্ষাগত যোগ্যতা"/>
+                        </list>
+                    </field>
 
                     <separator string="৩. পূর্ববর্তী কর্মসংস্থান এবং অভিজ্ঞতা"/>
 
-                    <group>
-                        <group>
-                            <field name="previous_company"/>
-                            <field name="previous_job_position"/>
-                        </group>
+                    <field
+                        name="work_experience_ids"
+                        nolabel="1"
+                        readonly="1"
+                    >
+                        <list
+                            create="0"
+                            edit="0"
+                            delete="0"
+                        >
+                            <field
+                                name="company_name"
+                                string="কোম্পানির নাম"
+                            />
 
-                        <group>
-                            <field name="employment_duration"/>
-                            <field name="experience"/>
-                        </group>
-                    </group>
+                            <field
+                                name="job_position"
+                                string="পদের নাম"
+                            />
+
+                            <field
+                                name="date_start"
+                                string="শুরুর তারিখ"
+                            />
+
+                            <field
+                                name="date_end"
+                                string="শেষের তারিখ"
+                            />
+
+                            <field
+                                name="work_duration"
+                                string="সময়কাল"
+                            />
+                        </list>
+                    </field>
 
                 </sheet>
 

@@ -139,6 +139,20 @@
                     border-bottom: 1px solid #000;
                 }
 
+                /* =========================
+                NON-BREAKABLE SIGNATURE GROUPS
+                ========================= */
+
+                .signature-group {
+                    page-break-inside: avoid !important;
+                    break-inside: avoid !important;
+                }
+
+                .owner-approval-group {
+                    page-break-inside: avoid !important;
+                    break-inside: avoid !important;
+                }
+
             </style>
 
 
@@ -324,18 +338,16 @@
                                     লিঙ্গঃ
 
                                     <span class="line"
-                                          style="min-width: 100px;">
+                                        style="min-width: 100px;">
 
-                                        <t t-if="nominee.gender == 'male'">
-                                            পুরুষ
-                                        </t>
-
-                                        <t t-elif="nominee.gender == 'female'">
-                                            মহিলা
-                                        </t>
-
-                                        <t t-elif="nominee.gender == 'other'">
-                                            অন্যান্য
+                                        <t t-if="nominee.gender">
+                                            <t t-esc="
+                                                dict(
+                                                    nominee._fields['gender']._description_selection(
+                                                        nominee.env
+                                                    )
+                                                ).get(nominee.gender, '')
+                                            "/>
                                         </t>
 
                                     </span>
@@ -445,86 +457,119 @@
                     </t>
 
 
-                    <!-- Signatures -->
+                    <!-- =================================================
+                        GROUP 1
+                        Applicant + HR Signature
+                        Never split between pages
+                    ================================================== -->
 
-                    <table style="
-                        width: 100%;
-                        margin-top: 35px;
-                        border-collapse: collapse;
-                    ">
+                    <div class="signature-group">
 
-                        <tr>
+                        <table style="
+                            width: 100%;
+                            margin-top: 35px;
+                            border-collapse: collapse;
+                            page-break-inside: avoid;
+                        ">
 
-                            <td style="
-                                width: 50%;
-                                text-align: center;
-                            ">
+                            <tr>
 
-                                <div style="height: 45px;">
-                                    &#160;
-                                </div>
+                                <!-- Applicant Signature -->
 
-                                <span class="signature-line">
-                                    &#160;
-                                </span>
+                                <td style="
+                                    width: 50%;
+                                    text-align: center;
+                                    vertical-align: bottom;
+                                ">
 
-                                <br/>
+                                    <div style="height: 45px;">
+                                        &#160;
+                                    </div>
 
-                                আবেদনকারীর স্বাক্ষর
+                                    <span class="signature-line">
+                                        &#160;
+                                    </span>
 
-                            </td>
+                                    <br/>
 
+                                    আবেদনকারীর স্বাক্ষর
 
-                            <td style="
-                                width: 50%;
-                                text-align: center;
-                            ">
-
-                                <div style="height: 45px;">
-                                    &#160;
-                                </div>
-
-                                <span class="signature-line">
-                                    &#160;
-                                </span>
-
-                                <br/>
-
-                                মানব সম্পদ বিভাগের স্বাক্ষর
-
-                            </td>
-
-                        </tr>
-
-                    </table>
+                                </td>
 
 
-                    <!-- Owner Approval -->
+                                <!-- HR Signature -->
 
-                    <div style="
-                        margin-top: 35px;
-                        font-weight: bold;
-                    ">
-                        প্রতিষ্ঠান মালিকের অনুমোদনঃ
+                                <td style="
+                                    width: 50%;
+                                    text-align: center;
+                                    vertical-align: bottom;
+                                ">
+
+                                    <div style="height: 45px;">
+                                        &#160;
+                                    </div>
+
+                                    <span class="signature-line">
+                                        &#160;
+                                    </span>
+
+                                    <br/>
+
+                                    মানব সম্পদ বিভাগের স্বাক্ষর
+
+                                </td>
+
+                            </tr>
+
+                        </table>
+
                     </div>
 
 
-                    <div style="
-                        margin-top: 25px;
-                        width: 280px;
-                        text-align: center;
-                    ">
+                    <!-- =================================================
+                        GROUP 2
+                        Owner Approval + Signature
+                        Never split between pages
+                    ================================================== -->
 
-                        <div style="height: 30px;">
-                            &#160;
+                    <div
+                        class="owner-approval-group"
+                        style="
+                            margin-top: 35px;
+                            page-break-inside: avoid;
+                        "
+                    >
+
+                        <!-- Owner Approval Title -->
+
+                        <div style="
+                            font-weight: bold;
+                        ">
+                            প্রতিষ্ঠান মালিকের অনুমোদনঃ
                         </div>
 
-                        <span
-                            class="signature-line"
-                            style="width: 250px;"
-                        >
-                            &#160;
-                        </span>
+
+                        <!-- Owner Signature -->
+
+                        <div style="
+                            margin-top: 25px;
+                            width: 280px;
+                            text-align: center;
+                            page-break-inside: avoid;
+                        ">
+
+                            <div style="height: 30px;">
+                                &#160;
+                            </div>
+
+                            <span
+                                class="signature-line"
+                                style="width: 250px;"
+                            >
+                                &#160;
+                            </span>
+
+                        </div>
 
                     </div>
 

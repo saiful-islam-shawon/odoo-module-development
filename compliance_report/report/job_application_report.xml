@@ -358,41 +358,30 @@
                         ২. শিক্ষাগত যোগ্যতা
                     </div>
 
-
                     <div class="section-content">
 
-                        <div class="education-row">
+                        <t t-foreach="o.education_ids" t-as="education">
 
-                            •
+                            <div class="education-row">
 
-                            <span
-                                class="dotted-line"
-                                style="width: 94%;"
-                            >
-                                <t t-esc="o.education_1 or ''"/>
-                            </span>
+                                •
 
-                        </div>
+                                <span
+                                    class="dotted-line"
+                                    style="width: 94%;"
+                                >
+                                    <t t-esc="education.name or ''"/>
+                                </span>
 
+                            </div>
 
-                        <div class="education-row">
-
-                            •
-
-                            <span
-                                class="dotted-line"
-                                style="width: 94%;"
-                            >
-                                <t t-esc="o.education_2 or ''"/>
-                            </span>
-
-                        </div>
+                        </t>
 
                     </div>
 
 
                     <!-- =========================================
-                         3. PREVIOUS EMPLOYMENT
+                        3. WORK EXPERIENCE
                     ========================================== -->
 
                     <div class="section-title">
@@ -402,69 +391,74 @@
 
                     <div class="section-content">
 
+                        <t t-if="o.work_experience_ids">
 
-                        <!-- Company -->
+                            <t t-foreach="o.work_experience_ids"
+                            t-as="work">
 
-                        <div class="field-row">
+                                <!-- Company -->
 
-                            • কোম্পানির নাম:
+                                <div class="field-row">
 
-                            <span
-                                class="dotted-line"
-                                style="min-width: 330px;"
-                            >
-                                <t t-esc="o.previous_company or ''"/>
-                            </span>
+                                    • কোম্পানির নাম:
 
-                        </div>
+                                    <span
+                                        class="dotted-line"
+                                        style="min-width: 330px;"
+                                    >
+                                        <t t-esc="work.company_name or ''"/>
+                                    </span>
 
-
-                        <!-- Position -->
-
-                        <div class="field-row">
-
-                            • পদের নাম:
-
-                            <span
-                                class="dotted-line"
-                                style="min-width: 370px;"
-                            >
-                                <t t-esc="o.previous_job_position or ''"/>
-                            </span>
-
-                        </div>
+                                </div>
 
 
-                        <!-- Duration -->
+                                <!-- Position -->
 
-                        <div class="field-row">
+                                <div class="field-row">
 
-                            • সময়কাল:
+                                    • পদের নাম:
 
-                            <span
-                                class="dotted-line"
-                                style="min-width: 380px;"
-                            >
-                                <t t-esc="o.employment_duration or ''"/>
-                            </span>
+                                    <span
+                                        class="dotted-line"
+                                        style="min-width: 370px;"
+                                    >
+                                        <t t-esc="work.job_position or ''"/>
+                                    </span>
 
-                        </div>
+                                </div>
 
 
-                        <!-- Experience -->
+                                <!-- Duration -->
 
-                        <div class="field-row">
+                                <div class="field-row">
 
-                            • অভিজ্ঞতা:
+                                    • সময়কাল:
 
-                            <span
-                                class="dotted-line"
-                                style="min-width: 380px;"
-                            >
-                                <t t-esc="o.experience or ''"/>
-                            </span>
+                                    <span
+                                        class="dotted-line"
+                                        style="min-width: 380px;"
+                                    >
+                                        <t t-esc="work.work_duration or ''"/>
+                                    </span>
 
-                        </div>
+                                </div>
+
+
+                                <div style="height: 10px;">
+                                    &#160;
+                                </div>
+
+                            </t>
+
+                        </t>
+
+                        <t t-else="">
+
+                            <div class="field-row">
+                                • কোনো পূর্ববর্তী কর্মসংস্থানের তথ্য নেই।
+                            </div>
+
+                        </t>
 
                     </div>
 
@@ -551,13 +545,24 @@
                         </div> -->
 
                         <div>
+
                             তারিখ:
+
                             <span
                                 class="dotted-line"
                                 style="min-width: 160px;"
                             >
-                                &#160;
+
+                                <t t-if="o.signature_date">
+                                    <span t-field="o.signature_date"/>
+                                </t>
+
+                                <t t-else="">
+                                    &#160;
+                                </t>
+
                             </span>
+
                         </div>
 
                     </div>

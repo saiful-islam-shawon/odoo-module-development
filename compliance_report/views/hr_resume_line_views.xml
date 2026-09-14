@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="view_hr_resume_line_form_work_experience"
+            model="ir.ui.view">
+
+        <field name="name">
+            hr.resume.line.form.work.experience
+        </field>
+
+        <field name="model">hr.resume.line</field>
+
+        <field name="inherit_id"
+               ref="hr_skills.resume_line_view_form"/>
+
+        <field name="arch" type="xml">
+
+
+            <!-- ==================================================
+                 TECHNICAL HELPER FIELDS
+            =================================================== -->
+
+            <xpath expr="//sheet" position="inside">
+
+                <field
+                    name="is_work_experience"
+                    invisible="1"
+                />
+
+                <field
+                    name="is_education"
+                    invisible="1"
+                />
+
+            </xpath>
+
+
+            <!-- ==================================================
+                 STANDARD TITLE
+
+                 Hide only for Work Experience
+            =================================================== -->
+
+            <xpath expr="//div[contains(@class, 'oe_title')]"
+                   position="attributes">
+
+                <attribute name="invisible">
+                    is_work_experience
+                </attribute>
+
+            </xpath>
+
+
+            <!-- ==================================================
+                 WORK EXPERIENCE FIELDS
+            =================================================== -->
+
+            <xpath expr="//field[@name='line_type_id']"
+                   position="after">
+
+                <group invisible="not is_work_experience">
+
+                    <group>
+
+                        <field
+                            name="company_name"
+                            string="Company Name"
+                        />
+
+                        <field
+                            name="job_position"
+                            string="Job Position"
+                        />
+
+                    </group>
+
+                </group>
+
+            </xpath>
+
+
+            <!-- ==================================================
+                 CERTIFICATE
+
+                 Hide only for Work Experience
+            =================================================== -->
+
+            <xpath expr="//field[@name='certificate_file']"
+                   position="attributes">
+
+                <attribute name="invisible">
+                    is_work_experience
+                </attribute>
+
+            </xpath>
+
+
+            <!-- ==================================================
+                 RESUME PROPERTIES
+
+                 Hide only for Work Experience
+            =================================================== -->
+
+            <xpath expr="//field[@name='resume_line_properties']"
+                   position="attributes">
+
+                <attribute name="invisible">
+                    is_work_experience
+                </attribute>
+
+            </xpath>
+
+
+            <!-- ==================================================
+                 DESCRIPTION
+
+                 Hide only for Work Experience
+            =================================================== -->
+
+            <xpath expr="//field[@name='description']"
+                   position="attributes">
+
+                <attribute name="invisible">
+                    is_work_experience
+                </attribute>
+
+            </xpath>
+
+
+            <!-- ==================================================
+                 WORK EXPERIENCE
+                 CALCULATED DURATION
+            =================================================== -->
+
+            <xpath expr="//group[@id='resume_line_dates']"
+                   position="after">
+
+                <group invisible="not is_work_experience">
+
+                    <field
+                        name="work_duration"
+                        string="Calculated Duration"
+                        readonly="1"
+                    />
+
+                </group>
+
+            </xpath>
+
+
+            <!-- ==================================================
+                 EDUCATION INFORMATION
+
+                 Show only for Education
+                 Position: After Description
+            =================================================== -->
+
+            <xpath expr="//field[@name='description']"
+                   position="after">
+
+                <div invisible="not is_education">
+
+                    <!-- Separator -->
+
+                    <separator string="Education Information"/>
+
+
+                    <!-- Education Fields -->
+
+                    <group>
+
+                        <!-- Institution Name -->
+
+                        <field
+                            name="institution_name"
+                            string="Institution Name"
+                        />
+
+
+                        <!-- Result -->
+
+                        <label
+                            for="education_result"
+                            string="Result"
+                        />
+
+                        <div class="o_row">
+
+                            <field
+                                name="education_result"
+                                nolabel="1"
+                            />
+
+                            <span class="mx-2">
+                                out of
+                            </span>
+
+                            <field
+                                name="education_result_out_of"
+                                nolabel="1"
+                            />
+
+                        </div>
+
+
+                        <!-- Passing Year -->
+
+                        <field
+                            name="passing_year"
+                            string="Passing Year"
+                        />
+
+                    </group>
+
+                </div>
+
+            </xpath>
+
+
+        </field>
+
+    </record>
+
+</odoo>

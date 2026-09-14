@@ -747,11 +747,24 @@
                         </div>
 
                         <div>
+
                             তারিখঃ
-                            <span class="dotted"
-                                  style="min-width: 210px;">
-                                &#160;
+
+                            <span
+                                class="dotted"
+                                style="min-width: 210px;"
+                            >
+
+                                <t t-if="o.signature_date">
+                                    <span t-field="o.signature_date"/>
+                                </t>
+
+                                <t t-else="">
+                                    &#160;
+                                </t>
+
                             </span>
+
                         </div>
 
                         <div>

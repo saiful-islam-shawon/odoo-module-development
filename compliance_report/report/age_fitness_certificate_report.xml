@@ -108,11 +108,7 @@
                     width: 100%;
                     border-collapse: collapse;
                     table-layout: fixed;
-
-                    border-top: 1px solid #000;
-                    border-bottom: 1px solid #000;
-                    border-left: 1px solid #000;
-                    border-right: 1px solid #000;
+                    border: 1px solid #000;
                 }
 
                 .main-form-table > tbody > tr > td {
@@ -144,7 +140,7 @@
 
 
                 /* =========================
-                   ROWS
+                   STANDARD ROWS
                 ========================== */
 
                 .form-row {
@@ -167,6 +163,29 @@
                     min-height: 22px;
                     border-bottom: 1px solid #000;
                     margin-top: 3px;
+                }
+
+
+                /* =========================
+                   DYNAMIC VALUES
+                ========================== */
+
+                .dynamic-short-line {
+                    display: inline-block;
+                    width: auto;
+                    border-bottom: 1px solid #000;
+                    padding: 0 4px 1px 4px;
+                    vertical-align: baseline;
+                    min-height: 20px;
+                }
+
+                .dynamic-wrap-line {
+                    display: inline;
+                    border-bottom: 1px solid #000;
+                    padding: 0 3px 1px 3px;
+                    line-height: 1.9;
+                    overflow-wrap: break-word;
+                    word-wrap: break-word;
                 }
 
 
@@ -221,16 +240,13 @@
                         ফরম – ১৫
                     </div>
 
-
                     <div class="rule-reference">
                         [ধারা ৩৪, ৩৬, ৩৭ ও ২৭৭ এবং বিধি ৩৪(১) ও ৩৩৬(৪) দ্রষ্টব্য]
                     </div>
 
-
                     <div class="certificate-main-title">
                         বয়স ও সক্ষমতার প্রত্যায়নপত্র
                     </div>
-
 
                     <div class="medical-note">
                         ‘’নিবন্ধিত মেডিকেল প্র্যাকটিশনারের প্যাড-এ’’
@@ -255,7 +271,6 @@
                                 <td class="left-column">
 
                                     <div class="column-inner">
-
 
                                         <div class="column-title">
                                             বয়স এবং ফিটনেস সার্টিফিকেট
@@ -360,17 +375,19 @@
                                                 class="line"
                                                 style="width: 225px;"
                                             >
-                                                <t t-if="o.gender == 'male'">
-                                                    পুরুষ
+
+                                                <t t-if="o.gender">
+
+                                                    <t t-esc="
+                                                        dict(
+                                                            o._fields['gender']._description_selection(
+                                                                o.env
+                                                            )
+                                                        ).get(o.gender, '')
+                                                    "/>
+
                                                 </t>
 
-                                                <t t-elif="o.gender == 'female'">
-                                                    মহিলা
-                                                </t>
-
-                                                <t t-elif="o.gender == 'other'">
-                                                    অন্যান্য
-                                                </t>
                                             </span>
 
                                         </div>
@@ -468,7 +485,6 @@
 
                                         </div>
 
-
                                     </div>
 
                                 </td>
@@ -481,7 +497,6 @@
                                 <td class="right-column">
 
                                     <div class="column-inner">
-
 
                                         <div class="column-title">
                                             বয়স এবং ফিটনেস সার্টিফিকেট
@@ -526,6 +541,7 @@
 
                                         <!-- =================================
                                              MEDICAL CERTIFICATION
+                                             Dynamic width
                                         ================================== -->
 
                                         <div
@@ -535,10 +551,7 @@
 
                                             এটি প্রত্যয়িত করা হচ্ছে যে
 
-                                            <span
-                                                class="line"
-                                                style="min-width: 180px;"
-                                            >
+                                            <span class="dynamic-short-line">
                                                 <t t-esc="
                                                     o.employee_id.name
                                                     if o.employee_id
@@ -548,28 +561,19 @@
 
                                             পিতা
 
-                                            <span
-                                                class="line"
-                                                style="min-width: 150px;"
-                                            >
+                                            <span class="dynamic-short-line">
                                                 <t t-esc="o.father_name or ''"/>
                                             </span>
 
                                             মা
 
-                                            <span
-                                                class="line"
-                                                style="min-width: 150px;"
-                                            >
+                                            <span class="dynamic-short-line">
                                                 <t t-esc="o.mother_name or ''"/>
                                             </span>
 
                                             বাসার ঠিকানা
 
-                                            <span
-                                                class="line"
-                                                style="min-width: 200px;"
-                                            >
+                                            <span class="dynamic-wrap-line">
                                                 <t t-esc="o.permanent_address or ''"/>
                                             </span>
 
@@ -588,13 +592,7 @@
                                             এবং আমার পরীক্ষায় পাওয়া গেছে যে তার
                                             বয়স
 
-                                            <span
-                                                class="line"
-                                                style="
-                                                    min-width: 80px;
-                                                    text-align: center;
-                                                "
-                                            >
+                                            <span class="dynamic-short-line">
 
                                                 <t t-if="o.age">
                                                     <t t-esc="o.age"/>
@@ -609,16 +607,15 @@
                                         </div>
 
 
-                                        <!-- Identification -->
+                                        <!-- =================================
+                                             IDENTIFICATION
+                                        ================================== -->
 
                                         <div class="certificate-text">
 
                                             তার শনাক্তকারী চিহ্ন হল
 
-                                            <span
-                                                class="line"
-                                                style="min-width: 220px;"
-                                            >
+                                            <span class="dynamic-wrap-line">
                                                 <t t-esc="o.identification_mark or ''"/>
                                             </span>
 
@@ -641,11 +638,9 @@
 
                                         </div>
 
-
                                     </div>
 
                                 </td>
-
 
                             </tr>
 

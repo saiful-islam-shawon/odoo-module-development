@@ -70,7 +70,7 @@ class HrEmployee(models.Model):
     )
     
     gro = fields.Monetary(
-        string="Gro",
+        string="Gross Salary",
         currency_field="currency_id",
     )
     
@@ -84,6 +84,11 @@ class HrEmployee(models.Model):
         currency_field="currency_id",
     )
     
+    food_allowance = fields.Monetary(
+        string="Food Allowance",
+        currency_field="currency_id",
+    )
+    
     
     
     # -----------------------------------------------------------------
@@ -94,4 +99,77 @@ class HrEmployee(models.Model):
         "hr.employee.nominee",
         "employee_id",
         string="Nominee Information",
+    )
+    
+    
+    # ---------------------------------------------------------
+    # Nominee / Personal Information
+    # ---------------------------------------------------------
+
+    nominee_form_date = fields.Date(
+        string="Date",
+        default=fields.Date.context_today,
+    )
+
+    salary_account_no = fields.Char(
+        string="Salary Account No",
+    )
+
+    total_children = fields.Integer(
+        string="Total Children",
+    )
+
+    daughter_count = fields.Integer(
+        string="Daughter",
+    )
+
+    son_count = fields.Integer(
+        string="Son",
+    )
+    
+    
+    # ---------------------------------------------------------
+    # Appointment Information
+    # ---------------------------------------------------------
+
+    appointment_letter_date = fields.Date(
+        string="Appointment Letter Date",
+    )
+
+    job_application_date = fields.Date(
+        string="Job Application Date",
+    )
+
+    joining_date = fields.Date(
+        string="Joining Date",
+    )
+
+    compliance_grade = fields.Char(
+        string="Grade",
+    )
+
+    probation_months = fields.Integer(
+        string="Probation Period (Months)",
+    )
+
+    extended_probation_months = fields.Integer(
+        string="Extended Probation Period (Months)",
+    )
+    
+    
+    # ---------------------------------------------------------
+    # Age & Fitness Information
+    # ---------------------------------------------------------
+
+    fitness_certificate_date = fields.Date(
+        string="Certificate Date",
+        default=fields.Date.context_today,
+    )
+
+    physical_fitness = fields.Char(
+        string="Physical Fitness",
+    )
+
+    identification_mark = fields.Char(
+        string="Identification Mark",
     )

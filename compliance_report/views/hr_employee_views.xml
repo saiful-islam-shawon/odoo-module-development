@@ -46,6 +46,36 @@
                         options="{'size': [180, 100]}"
                     />
 
+                    <field name="nominee_form_date"/>
+                    <field name="salary_account_no"/>
+                    <field name="total_children"/>
+                    <field name="daughter_count"/>
+                    <field name="son_count"/>
+
+                    <field name="fitness_certificate_date"/>
+                    <field name="physical_fitness"/>
+                    <field name="identification_mark"/>
+
+                </group>
+
+
+                <group
+                    name="compliance_appointment_information"
+                    string="Appointment Information"
+                >
+
+                    <field name="appointment_letter_date"/>
+
+                    <field name="job_application_date"/>
+
+                    <field name="joining_date"/>
+
+                    <field name="compliance_grade"/>
+
+                    <field name="probation_months"/>
+
+                    <field name="extended_probation_months"/>
+
                 </group>
 
             </xpath>
@@ -77,6 +107,7 @@
                             <field name="medical_allowance"/>
                             <field name="transport_allowance"/>
                             <field name="other_allowance"/>
+                            <field name="food_allowance"/>
                             <field name="gro"/>
                             <field name="deduction"/>
                             <field name="net_salary"/>

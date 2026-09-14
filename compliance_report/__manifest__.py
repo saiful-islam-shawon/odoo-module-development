@@ -8,10 +8,14 @@
     "depends": [
         "base",
         "hr",
+        "hr_skills",
     ],
     "data": [
         "security/ir.model.access.csv",
         
+        "data/resume_line_type_data.xml",
+        
+        "views/hr_resume_line_views.xml",
         "views/hr_employee_views.xml",
 
         "views/job_application_views.xml",

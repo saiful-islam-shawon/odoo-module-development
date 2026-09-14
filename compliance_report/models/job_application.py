@@ -37,12 +37,6 @@ class JobApplication(models.Model):
         readonly=True,
     )
 
-    experience = fields.Char(
-        string="অভিজ্ঞতা",
-        related="employee_id.experience",
-        readonly=True,
-    )
-
     mobile = fields.Char(
         string="মোবাইল নং",
         related="employee_id.mobile_phone",
@@ -105,30 +99,79 @@ class JobApplication(models.Model):
     # Manual Job Application Information
     # ---------------------------------------------------------
 
-    education_1 = fields.Char(
-        string="শিক্ষাগত যোগ্যতা ১",
-    )
-
-    education_2 = fields.Char(
-        string="শিক্ষাগত যোগ্যতা ২",
-    )
-
-    previous_company = fields.Char(
-        string="কোম্পানির নাম",
-    )
-
-    previous_job_position = fields.Char(
-        string="পদের নাম",
-    )
-
-    employment_duration = fields.Char(
-        string="সময়কাল",
-    )
-
     application_date = fields.Date(
         string="তারিখ",
         default=fields.Date.context_today,
     )
+    
+    signature_date = fields.Date(
+        string="স্বাক্ষরের তারিখ",
+    )
+    
+    
+    # ---------------------------------------------------------
+    # education
+    # ---------------------------------------------------------
+    
+    education_ids = fields.Many2many(
+        "hr.resume.line",
+        string="শিক্ষাগত যোগ্যতা",
+        compute="_compute_education_ids",
+    )
+    
+    
+    @api.depends("employee_id")
+    def _compute_education_ids(self):
+        ResumeLine = self.env["hr.resume.line"]
+        ResumeType = self.env["hr.resume.line.type"]
+
+        education_type = ResumeType.search(
+            [("name", "=", "Education")],
+            limit=1,
+        )
+
+        for record in self:
+            if not record.employee_id or not education_type:
+                record.education_ids = False
+                continue
+
+            record.education_ids = ResumeLine.search([
+                ("employee_id", "=", record.employee_id.id),
+                ("line_type_id", "=", education_type.id),
+            ])
+            
+            
+    # ---------------------------------------------------------
+    # Work Experience
+    # ---------------------------------------------------------
+
+    work_experience_ids = fields.Many2many(
+        "hr.resume.line",
+        string="পূর্ববর্তী কর্মসংস্থান এবং অভিজ্ঞতা",
+        compute="_compute_work_experience_ids",
+    )
+
+
+    @api.depends("employee_id")
+    def _compute_work_experience_ids(self):
+        ResumeLine = self.env["hr.resume.line"]
+
+        work_experience_type = self.env.ref(
+            "compliance_report.resume_line_type_work_experience",
+            raise_if_not_found=False,
+        )
+
+        for record in self:
+            if not record.employee_id or not work_experience_type:
+                record.work_experience_ids = False
+                continue
+
+            record.work_experience_ids = ResumeLine.search([
+                ("employee_id", "=", record.employee_id.id),
+                ("line_type_id", "=", work_experience_type.id),
+            ])
+
+
 
     # ---------------------------------------------------------
     # Print

@@ -69,15 +69,23 @@ class AppointmentLetter(models.Model):
     )
 
     # ---------------------------------------------------------
-    # Appointment Information
+    # Appointment Information - Employee Related
     # ---------------------------------------------------------
 
     letter_date = fields.Date(
         string="নিয়োগপত্রের তারিখ",
+        related="employee_id.appointment_letter_date",
+        readonly=True,
+    )
+    
+    signature_date = fields.Date(
+        string="স্বাক্ষরের তারিখ",
     )
 
     application_date = fields.Date(
         string="আবেদনের তারিখ",
+        related="employee_id.job_application_date",
+        readonly=True,
     )
 
     appointment_date = fields.Date(
@@ -88,23 +96,38 @@ class AppointmentLetter(models.Model):
 
     joining_date = fields.Date(
         string="যোগদানের তারিখ",
+        related="employee_id.joining_date",
+        readonly=True,
     )
 
     grade = fields.Char(
         string="গ্রেড",
+        related="employee_id.compliance_grade",
+        readonly=True,
     )
 
     probation_months = fields.Integer(
         string="শিক্ষানবীশকাল (মাস)",
+        related="employee_id.probation_months",
+        readonly=True,
     )
 
     extended_probation_months = fields.Integer(
         string="বর্ধিত শিক্ষানবীশকাল (মাস)",
+        related="employee_id.extended_probation_months",
+        readonly=True,
     )
 
     # ---------------------------------------------------------
     # Salary - Employee Compliance Information
     # ---------------------------------------------------------
+
+    currency_id = fields.Many2one(
+        "res.currency",
+        string="Currency",
+        related="employee_id.currency_id",
+        readonly=True,
+    )
 
     basic_wage = fields.Monetary(
         string="মূল মজুরী",
@@ -134,17 +157,10 @@ class AppointmentLetter(models.Model):
         readonly=True,
     )
 
-    # Food allowance remains manual
     food_allowance = fields.Monetary(
         string="খাদ্য ভাতা",
+        related="employee_id.food_allowance",
         currency_field="currency_id",
-    )
-
-    # Currency used by Monetary fields
-    currency_id = fields.Many2one(
-        "res.currency",
-        string="Currency",
-        related="employee_id.currency_id",
         readonly=True,
     )
 

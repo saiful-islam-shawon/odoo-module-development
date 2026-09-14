@@ -126,18 +126,26 @@ class AgeFitnessCertificate(models.Model):
 
     serial_no = fields.Char(
         string="সিরিয়াল নং",
+        related="employee_id.barcode",
+        readonly=True,
     )
 
     certificate_date = fields.Date(
         string="তারিখ",
+        related="employee_id.fitness_certificate_date",
+        readonly=True,
     )
 
     physical_fitness = fields.Char(
         string="শারীরিক সুস্থতা",
+        related="employee_id.physical_fitness",
+        readonly=True,
     )
 
     identification_mark = fields.Char(
         string="সনাক্তকরণ চিহ্ন",
+        related="employee_id.identification_mark",
+        readonly=True,
     )
 
     # ---------------------------------------------------------
