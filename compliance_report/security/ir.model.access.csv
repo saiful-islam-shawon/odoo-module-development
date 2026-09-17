@@ -6,3 +6,6 @@ access_compliance_salary_increment,compliance.salary.increment,model_compliance_
 access_compliance_nominee_form,compliance.nominee.form,model_compliance_nominee_form,base.group_user,1,1,1,1
 access_age_fitness_certificate,compliance.age.fitness.certificate,model_compliance_age_fitness_certificate,base.group_user,1,1,1,1
 access_hr_employee_nominee,hr.employee.nominee,model_hr_employee_nominee,base.group_user,1,1,1,1
+access_compliance_bulk_report_wizard,compliance.bulk.report.wizard,model_compliance_bulk_report_wizard,base.group_user,1,1,1,1
+access_compliance_monthly_salary_wizard,compliance.monthly.salary.wizard,model_compliance_monthly_salary_wizard,base.group_user,1,1,1,1
+access_compliance_monthly_salary_wizard_line,compliance.monthly.salary.wizard.line,model_compliance_monthly_salary_wizard_line,base.group_user,1,1,1,1

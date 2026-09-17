@@ -1,29 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
 
-    <record id="paperformat_nominee_form" model="report.paperformat">
+    <!-- =====================================================
+         PAPER FORMAT
+    ====================================================== -->
+
+    <record id="paperformat_nominee_form"
+            model="report.paperformat">
+
         <field name="name">Nominee Form A4</field>
         <field name="default" eval="False"/>
         <field name="format">A4</field>
         <field name="orientation">Portrait</field>
+
         <field name="margin_top">15</field>
         <field name="margin_bottom">15</field>
         <field name="margin_left">18</field>
         <field name="margin_right">18</field>
+
         <field name="header_line" eval="False"/>
+
     </record>
 
 
-    <record id="action_report_nominee_form" model="ir.actions.report">
+    <!-- =====================================================
+         REPORT ACTION
+    ====================================================== -->
+
+    <record id="action_report_nominee_form"
+            model="ir.actions.report">
+
         <field name="name">Nominee Form</field>
         <field name="model">compliance.nominee.form</field>
         <field name="report_type">qweb-pdf</field>
+
         <field name="report_name">compliance_report.report_nominee_form</field>
+
         <field name="report_file">compliance_report.report_nominee_form</field>
-        <field name="paperformat_id"
-               ref="compliance_report.paperformat_nominee_form"/>
+
+        <field
+            name="paperformat_id"
+            ref="compliance_report.paperformat_nominee_form"
+        />
+
     </record>
 
+
+    <!-- =====================================================
+         QWEB REPORT
+    ====================================================== -->
 
     <template id="report_nominee_form">
 
@@ -44,6 +69,11 @@
                     font-size: 16px;
                     line-height: 1.65;
                 }
+
+
+                /* =========================
+                   HEADER
+                ========================== */
 
                 .report-header {
                     text-align: center;
@@ -78,6 +108,11 @@
                     margin-bottom: 10px;
                 }
 
+
+                /* =========================
+                   ROWS
+                ========================== */
+
                 .report-row {
                     margin-top: 6px;
                 }
@@ -95,6 +130,11 @@
                     margin-top: 14px;
                     margin-bottom: 8px;
                 }
+
+
+                /* =========================
+                   NOMINEE
+                ========================== */
 
                 .nominee-card {
                     position: relative;
@@ -132,6 +172,11 @@
                     margin-top: 12px;
                 }
 
+
+                /* =========================
+                   SIGNATURE
+                ========================== */
+
                 .signature-line {
                     display: inline-block;
                     width: 210px;
@@ -139,9 +184,11 @@
                     border-bottom: 1px solid #000;
                 }
 
+
                 /* =========================
-                NON-BREAKABLE SIGNATURE GROUPS
-                ========================= */
+                   NON-BREAKABLE
+                   SIGNATURE GROUPS
+                ========================== */
 
                 .signature-group {
                     page-break-inside: avoid !important;
@@ -153,15 +200,53 @@
                     break-inside: avoid !important;
                 }
 
+
+                /* =========================
+                   BULK PRINT
+
+                   Employee 2+ starts from
+                   a new physical PDF page.
+                ========================== */
+
+                .bulk-new-page {
+                    page-break-before: always;
+                    break-before: page;
+                }
+
             </style>
 
 
+            <!-- =================================================
+                 RECORD LOOP
+            ================================================== -->
+
             <t t-foreach="docs" t-as="o">
+
+
+                <!-- =================================================
+                     BULK EMPLOYEE SEPARATOR
+
+                     First employee -> no break
+                     Employee 2+ -> start on new page
+                ================================================== -->
+
+                <div
+                    t-if="o_index != 0"
+                    class="bulk-new-page"
+                >
+                </div>
+
+
+                <!-- =================================================
+                     CURRENT EMPLOYEE NOMINEE FORM
+                ================================================== -->
 
                 <div class="page nominee-page">
 
 
-                    <!-- Header -->
+                    <!-- =================================================
+                         HEADER
+                    ================================================== -->
 
                     <div class="report-header">
 
@@ -184,29 +269,47 @@
                     </div>
 
 
-                    <!-- Date -->
+                    <!-- =================================================
+                         DATE
+                    ================================================== -->
 
                     <div class="form-date">
 
                         তারিখঃ
 
-                        <span class="line" style="min-width: 170px;">
+                        <span
+                            class="line"
+                            style="min-width: 170px;"
+                        >
+
                             <t t-if="o.form_date">
                                 <span t-field="o.form_date"/>
                             </t>
+
                         </span>
 
                     </div>
 
 
-                    <!-- Employee -->
+                    <!-- =================================================
+                         EMPLOYEE
+                    ================================================== -->
 
                     <div class="report-row">
 
                         ১। কর্মকর্তা/কর্মচারীর নামঃ
 
-                        <span class="line" style="min-width: 410px;">
-                            <t t-esc="o.employee_id.name if o.employee_id else ''"/>
+                        <span
+                            class="line"
+                            style="min-width: 410px;"
+                        >
+
+                            <t t-esc="
+                                o.employee_id.name
+                                if o.employee_id
+                                else ''
+                            "/>
+
                         </span>
 
                     </div>
@@ -216,8 +319,17 @@
 
                         ২। পদবীঃ
 
-                        <span class="line" style="min-width: 560px;">
-                            <t t-esc="o.job_id.name if o.job_id else ''"/>
+                        <span
+                            class="line"
+                            style="min-width: 560px;"
+                        >
+
+                            <t t-esc="
+                                o.job_id.name
+                                if o.job_id
+                                else ''
+                            "/>
+
                         </span>
 
                     </div>
@@ -227,10 +339,15 @@
 
                         ৩। যোগদানের তারিখঃ
 
-                        <span class="line" style="min-width: 470px;">
+                        <span
+                            class="line"
+                            style="min-width: 470px;"
+                        >
+
                             <t t-if="o.joining_date">
                                 <span t-field="o.joining_date"/>
                             </t>
+
                         </span>
 
                     </div>
@@ -240,8 +357,13 @@
 
                         ৪। বেতনের হিসাব নং-
 
-                        <span class="line" style="min-width: 470px;">
+                        <span
+                            class="line"
+                            style="min-width: 470px;"
+                        >
+
                             <t t-esc="o.salary_account_no or ''"/>
+
                         </span>
 
                     </div>
@@ -251,26 +373,37 @@
 
                         ৫। সন্তান সংখ্যাঃ
 
-                        <span class="line" style="min-width: 70px;">
+                        <span
+                            class="line"
+                            style="min-width: 70px;"
+                        >
                             <t t-esc="o.total_children or ''"/>
                         </span>
 
                         জন। মেয়েঃ
 
-                        <span class="line" style="min-width: 70px;">
+                        <span
+                            class="line"
+                            style="min-width: 70px;"
+                        >
                             <t t-esc="o.daughter_count or ''"/>
                         </span>
 
                         জন। ছেলেঃ
 
-                        <span class="line" style="min-width: 70px;">
+                        <span
+                            class="line"
+                            style="min-width: 70px;"
+                        >
                             <t t-esc="o.son_count or ''"/>
                         </span>
 
                     </div>
 
 
-                    <!-- Nominee Section -->
+                    <!-- =================================================
+                         NOMINEE SECTION
+                    ================================================== -->
 
                     <div class="section-title">
                         ৬। নোমিনি (মনোনীত প্রার্থীর) পূর্ণবৃত্তান্তঃ
@@ -279,8 +412,10 @@
 
                     <t t-if="o.employee_id">
 
-                        <t t-foreach="o.employee_id.nominee_ids"
-                           t-as="nominee">
+                        <t
+                            t-foreach="o.employee_id.nominee_ids"
+                            t-as="nominee"
+                        >
 
                             <div class="nominee-card">
 
@@ -302,8 +437,10 @@
 
                                     নামঃ
 
-                                    <span class="line"
-                                          style="min-width: 420px;">
+                                    <span
+                                        class="line"
+                                        style="min-width: 420px;"
+                                    >
                                         <t t-esc="nominee.name or ''"/>
                                     </span>
 
@@ -316,8 +453,10 @@
 
                                     জাতীয় পরিচয়পত্র নংঃ
 
-                                    <span class="line"
-                                          style="min-width: 310px;">
+                                    <span
+                                        class="line"
+                                        style="min-width: 310px;"
+                                    >
                                         <t t-esc="nominee.nid or ''"/>
                                     </span>
 
@@ -330,24 +469,33 @@
 
                                     বয়সঃ
 
-                                    <span class="line"
-                                          style="min-width: 90px;">
+                                    <span
+                                        class="line"
+                                        style="min-width: 90px;"
+                                    >
                                         <t t-esc="nominee.age or ''"/>
                                     </span>
 
                                     লিঙ্গঃ
 
-                                    <span class="line"
-                                        style="min-width: 100px;">
+                                    <span
+                                        class="line"
+                                        style="min-width: 100px;"
+                                    >
 
                                         <t t-if="nominee.gender">
+
                                             <t t-esc="
                                                 dict(
                                                     nominee._fields['gender']._description_selection(
                                                         nominee.env
                                                     )
-                                                ).get(nominee.gender, '')
+                                                ).get(
+                                                    nominee.gender,
+                                                    ''
+                                                )
                                             "/>
+
                                         </t>
 
                                     </span>
@@ -361,8 +509,10 @@
 
                                     সম্পর্কঃ
 
-                                    <span class="line"
-                                          style="min-width: 350px;">
+                                    <span
+                                        class="line"
+                                        style="min-width: 350px;"
+                                    >
                                         <t t-esc="nominee.relation or ''"/>
                                     </span>
 
@@ -375,15 +525,17 @@
 
                                     স্থায়ী ঠিকানাঃ
 
-                                    <span class="line"
-                                          style="min-width: 350px;">
+                                    <span
+                                        class="line"
+                                        style="min-width: 350px;"
+                                    >
                                         <t t-esc="nominee.permanent_address or ''"/>
                                     </span>
 
                                 </div>
 
 
-                                <!-- Signature -->
+                                <!-- Sample Signatures -->
 
                                 <div class="report-row">
 
@@ -391,15 +543,19 @@
 
                                     ১।
 
-                                    <span class="line"
-                                          style="min-width: 130px;">
+                                    <span
+                                        class="line"
+                                        style="min-width: 130px;"
+                                    >
                                         &#160;
                                     </span>
 
                                     ২।
 
-                                    <span class="line"
-                                          style="min-width: 130px;">
+                                    <span
+                                        class="line"
+                                        style="min-width: 130px;"
+                                    >
                                         &#160;
                                     </span>
 
@@ -412,8 +568,10 @@
 
                                     অর্থপ্রাপ্তির শতকরা হারঃ
 
-                                    <span class="line"
-                                          style="min-width: 100px;">
+                                    <span
+                                        class="line"
+                                        style="min-width: 100px;"
+                                    >
                                         <t t-esc="nominee.share_percentage or ''"/>
                                     </span>
 
@@ -447,10 +605,12 @@
 
                                 </div>
 
+
                             </div>
 
 
                             <hr class="nominee-separator"/>
+
 
                         </t>
 
@@ -458,29 +618,34 @@
 
 
                     <!-- =================================================
-                        GROUP 1
-                        Applicant + HR Signature
-                        Never split between pages
+                         GROUP 1
+                         Applicant + HR Signature
+                         Never split between pages
                     ================================================== -->
 
                     <div class="signature-group">
 
-                        <table style="
-                            width: 100%;
-                            margin-top: 35px;
-                            border-collapse: collapse;
-                            page-break-inside: avoid;
-                        ">
+                        <table
+                            style="
+                                width: 100%;
+                                margin-top: 35px;
+                                border-collapse: collapse;
+                                page-break-inside: avoid;
+                            "
+                        >
 
                             <tr>
 
+
                                 <!-- Applicant Signature -->
 
-                                <td style="
-                                    width: 50%;
-                                    text-align: center;
-                                    vertical-align: bottom;
-                                ">
+                                <td
+                                    style="
+                                        width: 50%;
+                                        text-align: center;
+                                        vertical-align: bottom;
+                                    "
+                                >
 
                                     <div style="height: 45px;">
                                         &#160;
@@ -499,11 +664,13 @@
 
                                 <!-- HR Signature -->
 
-                                <td style="
-                                    width: 50%;
-                                    text-align: center;
-                                    vertical-align: bottom;
-                                ">
+                                <td
+                                    style="
+                                        width: 50%;
+                                        text-align: center;
+                                        vertical-align: bottom;
+                                    "
+                                >
 
                                     <div style="height: 45px;">
                                         &#160;
@@ -519,6 +686,7 @@
 
                                 </td>
 
+
                             </tr>
 
                         </table>
@@ -527,9 +695,9 @@
 
 
                     <!-- =================================================
-                        GROUP 2
-                        Owner Approval + Signature
-                        Never split between pages
+                         GROUP 2
+                         Owner Approval + Signature
+                         Never split between pages
                     ================================================== -->
 
                     <div
@@ -540,23 +708,24 @@
                         "
                     >
 
+
                         <!-- Owner Approval Title -->
 
-                        <div style="
-                            font-weight: bold;
-                        ">
+                        <div style="font-weight: bold;">
                             প্রতিষ্ঠান মালিকের অনুমোদনঃ
                         </div>
 
 
                         <!-- Owner Signature -->
 
-                        <div style="
-                            margin-top: 25px;
-                            width: 280px;
-                            text-align: center;
-                            page-break-inside: avoid;
-                        ">
+                        <div
+                            style="
+                                margin-top: 25px;
+                                width: 280px;
+                                text-align: center;
+                                page-break-inside: avoid;
+                            "
+                        >
 
                             <div style="height: 30px;">
                                 &#160;
@@ -571,9 +740,12 @@
 
                         </div>
 
+
                     </div>
 
+
                 </div>
+
 
             </t>
 

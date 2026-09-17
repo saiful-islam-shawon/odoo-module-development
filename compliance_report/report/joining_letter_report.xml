@@ -35,10 +35,13 @@
         <field name="report_type">qweb-pdf</field>
 
         <field name="report_name">compliance_report.report_joining_letter</field>
+
         <field name="report_file">compliance_report.report_joining_letter</field>
 
-        <field name="paperformat_id"
-               ref="compliance_report.paperformat_joining_letter"/>
+        <field
+            name="paperformat_id"
+            ref="compliance_report.paperformat_joining_letter"
+        />
 
     </record>
 
@@ -101,10 +104,46 @@
                     line-height: 2;
                 }
 
+
+                /* ======================================
+                   BULK PRINT
+
+                   Every employee after the first starts
+                   from a new physical PDF page.
+                ======================================= */
+
+                .bulk-new-page {
+                    page-break-before: always;
+                    break-before: page;
+                }
+
             </style>
 
 
+            <!-- ==============================================
+                 RECORD LOOP
+            =============================================== -->
+
             <t t-foreach="docs" t-as="o">
+
+
+                <!-- ==========================================
+                     BULK EMPLOYEE SEPARATOR
+
+                     First employee -> no extra break
+                     Employee 2+ -> new page
+                =========================================== -->
+
+                <div
+                    t-if="o_index != 0"
+                    class="bulk-new-page"
+                >
+                </div>
+
+
+                <!-- ==========================================
+                     CURRENT EMPLOYEE JOINING LETTER
+                =========================================== -->
 
                 <div class="page joining-page">
 
@@ -145,7 +184,8 @@
 
                     <div class="company-info">
 
-                        Khetan Trading<br/>
+                        Khetan Trading
+                        <br/>
 
                         Dewliabari, Konabari, Gazipur
 
@@ -168,29 +208,41 @@
 
 
                     <!-- ======================================
-                        PARAGRAPH 2
+                         PARAGRAPH 2
                     ======================================= -->
 
-                    <div class="letter-paragraph"
-                        style="text-align: left;">
+                    <div
+                        class="letter-paragraph"
+                        style="text-align: left;"
+                    >
+
 
                         <!-- First Line -->
-                        <div style="
-                            width: 100%;
-                            line-height: 1.8;
-                            white-space: nowrap;
-                        ">
+
+                        <div
+                            style="
+                                width: 100%;
+                                line-height: 1.8;
+                                white-space: nowrap;
+                            "
+                        >
+
                             আমি আপনার কোম্পানি,
                             Khetan Trading, Dewliabari, Konabari, Gazipur-এ
+
                         </div>
 
-                        <!-- Job Position and Contract Start Date -->
-                        <div style="
-                            width: 100%;
-                            line-height: 1.9;
-                            margin-top: 3px;
-                            white-space: nowrap;
-                        ">
+
+                        <!-- Job Position and Joining Date -->
+
+                        <div
+                            style="
+                                width: 100%;
+                                line-height: 1.9;
+                                margin-top: 3px;
+                                white-space: nowrap;
+                            "
+                        >
 
                             <span
                                 class="dotted-line"
@@ -199,7 +251,13 @@
                                     text-align: center;
                                 "
                             >
-                                <t t-esc="o.job_id.name if o.job_id else ''"/>
+
+                                <t t-esc="
+                                    o.job_id.name
+                                    if o.job_id
+                                    else ''
+                                "/>
+
                             </span>
 
                             হিসেবে
@@ -211,22 +269,32 @@
                                     text-align: center;
                                 "
                             >
+
                                 <t t-if="o.contract_date_start">
                                     <span t-field="o.contract_date_start"/>
                                 </t>
+
                             </span>
 
                             তারিখে যোগদান করতে প্রস্তুত।
 
                         </div>
 
+
                         <!-- Last Line -->
-                        <div style="
-                            width: 100%;
-                            line-height: 1.8;
-                        ">
-                            আমি আমার সমস্ত প্রয়োজনীয় কাগজপত্র নিয়ে উপস্থিত থাকব।
+
+                        <div
+                            style="
+                                width: 100%;
+                                line-height: 1.8;
+                            "
+                        >
+
+                            আমি আমার সমস্ত প্রয়োজনীয় কাগজপত্র নিয়ে
+                            উপস্থিত থাকব।
+
                         </div>
+
 
                     </div>
 
@@ -250,9 +318,11 @@
 
                     <div class="signature-area">
 
+
                         <div>
                             ইতি,
                         </div>
+
 
                         <div>
                             আপনার বিশ্বস্ত,
@@ -269,11 +339,13 @@
                                 class="dotted-line"
                                 style="min-width: 300px;"
                             >
+
                                 <t t-esc="
                                     o.employee_id.name
                                     if o.employee_id
                                     else ''
                                 "/>
+
                             </span>
 
                         </div>
@@ -305,7 +377,9 @@
                                 class="dotted-line"
                                 style="min-width: 280px;"
                             >
+
                                 <t t-esc="o.mobile or ''"/>
+
                             </span>
 
                         </div>
@@ -321,14 +395,19 @@
                                 class="dotted-line"
                                 style="min-width: 290px;"
                             >
+
                                 <t t-esc="o.email or ''"/>
+
                             </span>
 
                         </div>
 
+
                     </div>
 
+
                 </div>
+
 
             </t>
 

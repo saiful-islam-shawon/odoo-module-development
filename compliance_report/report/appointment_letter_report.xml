@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
 
+    <!-- =====================================================
+         PAPER FORMAT
+    ====================================================== -->
+
     <record id="paperformat_appointment_letter"
             model="report.paperformat">
 
@@ -19,6 +23,10 @@
     </record>
 
 
+    <!-- =====================================================
+         REPORT ACTION
+    ====================================================== -->
+
     <record id="action_report_appointment_letter"
             model="ir.actions.report">
 
@@ -27,13 +35,20 @@
         <field name="report_type">qweb-pdf</field>
 
         <field name="report_name">compliance_report.report_appointment_letter</field>
+
         <field name="report_file">compliance_report.report_appointment_letter</field>
 
-        <field name="paperformat_id"
-               ref="compliance_report.paperformat_appointment_letter"/>
+        <field
+            name="paperformat_id"
+            ref="compliance_report.paperformat_appointment_letter"
+        />
 
     </record>
 
+
+    <!-- =====================================================
+         QWEB REPORT
+    ====================================================== -->
 
     <template id="report_appointment_letter">
 
@@ -134,10 +149,44 @@
                     line-height: 1.8;
                 }
 
+
+                /* =========================================
+                   BULK PRINT
+
+                   Employee 2, 3, 4... will start
+                   from a fresh physical PDF page.
+                ========================================== */
+
+                .bulk-new-page {
+                    page-break-before: always;
+                    break-before: page;
+                }
+
             </style>
 
 
+            <!-- =================================================
+                 RECORD LOOP
+            ================================================== -->
+
             <t t-foreach="docs" t-as="o">
+
+
+                <!-- =================================================
+                     BULK EMPLOYEE SEPARATOR
+
+                     First employee:
+                         no extra break
+
+                     Next employee:
+                         start on new physical page
+                ================================================== -->
+
+                <div
+                    t-if="o_index != 0"
+                    class="bulk-new-page"
+                >
+                </div>
 
 
                 <!-- =============================================
@@ -178,9 +227,15 @@
 
                                 নাম:
 
-                                <span class="dotted"
-                                      style="min-width: 310px;">
-                                    <t t-esc="o.employee_id.name if o.employee_id else ''"/>
+                                <span
+                                    class="dotted"
+                                    style="min-width: 310px;"
+                                >
+                                    <t t-esc="
+                                        o.employee_id.name
+                                        if o.employee_id
+                                        else ''
+                                    "/>
                                 </span>
 
                             </td>
@@ -189,8 +244,10 @@
 
                                 তারিখঃ
 
-                                <span class="dotted"
-                                      style="min-width: 150px;">
+                                <span
+                                    class="dotted"
+                                    style="min-width: 150px;"
+                                >
 
                                     <t t-if="o.letter_date">
                                         <span t-field="o.letter_date"/>
@@ -209,8 +266,10 @@
 
                                 পিতা/ স্বামীর নাম:
 
-                                <span class="dotted"
-                                      style="min-width: 240px;">
+                                <span
+                                    class="dotted"
+                                    style="min-width: 240px;"
+                                >
                                     <t t-esc="o.father_or_husband_name or ''"/>
                                 </span>
 
@@ -220,8 +279,10 @@
 
                                 মাতার নাম:
 
-                                <span class="dotted"
-                                      style="min-width: 150px;">
+                                <span
+                                    class="dotted"
+                                    style="min-width: 150px;"
+                                >
                                     <t t-esc="o.mother_name or ''"/>
                                 </span>
 
@@ -236,8 +297,10 @@
 
                                 জাতীয় পরিচয় পত্র নং:
 
-                                <span class="dotted"
-                                      style="min-width: 300px;">
+                                <span
+                                    class="dotted"
+                                    style="min-width: 300px;"
+                                >
                                     <t t-esc="o.nid_number or ''"/>
                                 </span>
 
@@ -278,14 +341,16 @@
                     </div>
 
 
-                    <!-- Appointment paragraph -->
+                    <!-- Appointment Paragraph -->
 
                     <div class="text-block">
 
                         আপনার গত
 
-                        <span class="dotted"
-                              style="min-width: 90px;">
+                        <span
+                            class="dotted"
+                            style="min-width: 90px;"
+                        >
                             <t t-if="o.application_date">
                                 <span t-field="o.application_date"/>
                             </t>
@@ -295,29 +360,45 @@
                         সাথে সাক্ষাৎকার/পরীক্ষার ভিত্তিতে নিম্নলিখিত
                         শর্তসাপেক্ষে
 
-                        <span class="dotted"
-                              style="min-width: 100px;">
-                            <t t-esc="o.department_id.name if o.department_id else ''"/>
+                        <span
+                            class="dotted"
+                            style="min-width: 100px;"
+                        >
+                            <t t-esc="
+                                o.department_id.name
+                                if o.department_id
+                                else ''
+                            "/>
                         </span>
 
                         বিভাগে
 
-                        <span class="dotted"
-                              style="min-width: 100px;">
-                            <t t-esc="o.job_id.name if o.job_id else ''"/>
+                        <span
+                            class="dotted"
+                            style="min-width: 100px;"
+                        >
+                            <t t-esc="
+                                o.job_id.name
+                                if o.job_id
+                                else ''
+                            "/>
                         </span>
 
                         পদে
 
-                        <span class="dotted"
-                              style="min-width: 60px;">
+                        <span
+                            class="dotted"
+                            style="min-width: 60px;"
+                        >
                             <t t-esc="o.grade or ''"/>
                         </span>
 
                         গ্রেডে
 
-                        <span class="dotted"
-                              style="min-width: 90px;">
+                        <span
+                            class="dotted"
+                            style="min-width: 90px;"
+                        >
                             <t t-if="o.appointment_date">
                                 <span t-field="o.appointment_date"/>
                             </t>
@@ -326,8 +407,10 @@
                         ইং তারিখ হইতে আপনাকে অত্র প্রতিষ্ঠানে নিয়োগ
                         প্রদান করা হল। আপনার আইডি নং
 
-                        <span class="dotted"
-                              style="min-width: 160px;">
+                        <span
+                            class="dotted"
+                            style="min-width: 160px;"
+                        >
                             <t t-esc="o.employee_code or ''"/>
                         </span>
 
@@ -345,8 +428,10 @@
 
                         ১। আপনার যোগদান পরবর্তী
 
-                        <span class="dotted"
-                              style="min-width: 80px;">
+                        <span
+                            class="dotted"
+                            style="min-width: 80px;"
+                        >
                             <t t-esc="o.probation_months or ''"/>
                         </span>
 
@@ -354,8 +439,10 @@
                         আপনার কর্মদক্ষতা, কর্তব্যপরায়নতা ইত্যাদি
                         সন্তোষজনক না হলে এ সময় আরও
 
-                        <span class="dotted"
-                              style="min-width: 60px;">
+                        <span
+                            class="dotted"
+                            style="min-width: 60px;"
+                        >
                             <t t-esc="o.extended_probation_months or ''"/>
                         </span>
 
@@ -381,8 +468,10 @@
 
                         ২।
 
-                        <span class="dotted"
-                              style="min-width: 90px;">
+                        <span
+                            class="dotted"
+                            style="min-width: 90px;"
+                        >
                             <t t-esc="o.grade or ''"/>
                         </span>
 
@@ -396,64 +485,87 @@
                         <tr>
                             <td>(ক)</td>
                             <td>মূল মজুরীঃ</td>
+
                             <td>
-                                <span class="dotted"
-                                      style="min-width: 130px;">
+                                <span
+                                    class="dotted"
+                                    style="min-width: 130px;"
+                                >
                                     <t t-esc="o.basic_wage or ''"/>
                                 </span>
                             </td>
                         </tr>
 
+
                         <tr>
                             <td>(খ)</td>
                             <td>বাড়ী ভাড়াঃ</td>
+
                             <td>
-                                <span class="dotted"
-                                      style="min-width: 130px;">
+                                <span
+                                    class="dotted"
+                                    style="min-width: 130px;"
+                                >
                                     <t t-esc="o.house_rent or ''"/>
                                 </span>
                             </td>
                         </tr>
 
+
                         <tr>
                             <td>(গ)</td>
                             <td>চিকিৎসা ভাতাঃ</td>
+
                             <td>
-                                <span class="dotted"
-                                      style="min-width: 130px;">
+                                <span
+                                    class="dotted"
+                                    style="min-width: 130px;"
+                                >
                                     <t t-esc="o.medical_allowance or ''"/>
                                 </span>
                             </td>
                         </tr>
 
+
                         <tr>
                             <td>(ঘ)</td>
                             <td>যাতায়াত ভাতাঃ</td>
+
                             <td>
-                                <span class="dotted"
-                                      style="min-width: 130px;">
+                                <span
+                                    class="dotted"
+                                    style="min-width: 130px;"
+                                >
                                     <t t-esc="o.conveyance_allowance or ''"/>
                                 </span>
                             </td>
                         </tr>
 
+
                         <tr>
                             <td>(ঙ)</td>
                             <td>খাদ্য ভাতাঃ</td>
+
                             <td>
-                                <span class="dotted"
-                                      style="min-width: 130px;">
+                                <span
+                                    class="dotted"
+                                    style="min-width: 130px;"
+                                >
                                     <t t-esc="o.food_allowance or ''"/>
                                 </span>
                             </td>
                         </tr>
 
+
                         <tr>
                             <td></td>
                             <td>মোটঃ</td>
+
                             <td>
-                                <span class="dotted"
-                                      style="min-width: 170px;">
+                                <span
+                                    class="dotted"
+                                    style="min-width: 170px;"
+                                >
                                     <t t-esc="o.total_wage or ''"/>
                                 </span>
                             </td>
@@ -463,19 +575,29 @@
 
 
                     <div>
+
                         (কথায়ঃ
-                        <span class="dotted"
-                              style="min-width: 400px;">
+
+                        <span
+                            class="dotted"
+                            style="min-width: 400px;"
+                        >
                             <t t-esc="o.total_wage_words or ''"/>
                         </span>
+
                         )
+
                     </div>
 
 
-                    <div class="condition" style="margin-top: 6px;">
+                    <div
+                        class="condition"
+                        style="margin-top: 6px;"
+                    >
                         ৩। মাসিক মজুরী পরবর্তী মাসের ৭ (সাত) কর্মদিবসের
                         মধ্যে পরিশোধ করা হবে।
                     </div>
+
 
                     <div class="condition">
                         ৪। প্রতি কর্মদিবসে আপনাকে কমপক্ষে ০৮ (আট) ঘন্টা
@@ -483,11 +605,13 @@
                         বিরতি প্রদান করা হবে।
                     </div>
 
+
                     <div class="condition">
                         ৫। দৈনিক ৮ (আট) ঘন্টার বেশি এবং সপ্তাহে ৪৮
                         (আটচল্লিশ) ঘন্টার বেশি কাজ, অতিরিক্ত কাজ হিসেবে
                         গণ্য হবে।
                     </div>
+
 
                     <div class="condition">
                         ৬। কর্তৃপক্ষ প্রয়োজনে আইনানুযায়ী অতিরিক্ত কাজ
@@ -495,6 +619,7 @@
                         জন্য আপনি ঘন্টা প্রতি মূল মজুরীর দ্বিগুন হারে
                         {(মূল মজুরী/২০৮) * ২} প্রাপ্য হবেন।
                     </div>
+
 
                     <div class="condition">
                         ৭। বৎসরান্তে মূল মজুরির ৫% হারে বেতন বৃদ্ধি করা
@@ -513,6 +638,7 @@
                         লেট গ্রহণযোগ্য হবে না।
                     </div>
 
+
                     <div class="condition">
                         (খ) উৎসব বোনাসঃ আইনের অনুযায়ী শ্রমিককে মূল
                         মজুরির সমপরিমাণ দুই ঈদে (ঈদ-উল-ফিতর ও
@@ -520,6 +646,7 @@
                         কর্তৃপক্ষ সিদ্ধান্ত গ্রহণ করবেন যা অন্যান্য সকল
                         ধর্মাবলম্বীদের ক্ষেত্রেও প্রযোজ্য।
                     </div>
+
 
                     <div class="condition">
                         (গ) চিকিৎসা সুবিধাঃ কারখানার অভ্যন্তরে কর্মকালীন
@@ -532,6 +659,7 @@
                     <div class="section-heading">
                         ছুটিসমূহঃ
                     </div>
+
 
                     <div class="condition">
                         ৯। সপ্তাহে একদিন সাপ্তাহিক ছুটি থাকবে যা শুক্রবার
@@ -550,25 +678,6 @@
                 <div class="page appointment-page">
 
 
-                    <!-- <div class="letter-header">
-
-                        <div class="company-name">
-                            KhetanTradin
-                        </div>
-
-                        <div class="company-address">
-                            Dewliabari, Konabari, Gazipur
-                        </div>
-
-                        <div class="letter-title">
-                            Appointment Letter ( নিয়োগপত্র )
-                        </div>
-
-                    </div>
-
-                    <hr class="header-line"/> -->
-
-
                     <div class="section-heading">
                         সকল ছুটি আপনি পাবেন তা নিম্নরূপঃ
                     </div>
@@ -579,15 +688,18 @@
                         জমা রেখে পরবর্তী বছরে ভোগ করা যাবে না।
                     </div>
 
+
                     <div class="condition">
                         (খ) নৈমিত্তিক ছুটিঃ পূর্ণ মজুরী সহ মোট ১০ দিন।
                         এই ছুটি জমা রেখে পরবর্তী বছরে ভোগ করা যাবে না।
                     </div>
 
+
                     <div class="condition">
                         (গ) অসুস্থতাজনিত ছুটিঃ পূর্ণ মজুরী সহ মোট ১৪ দিন।
                         এই ছুটি জমা রেখে পরবর্তী বছরে ভোগ করা যাবে না।
                     </div>
+
 
                     <div class="condition">
                         (ঘ) বাৎসরিক ছুটিঃ চাকুরীর মেয়াদ অবিছিন্নভাবে এক
@@ -596,6 +708,7 @@
                         প্রাপ্য হবেন যা পরবর্তী বছরে ভোগ করা যাবে। তবে এ
                         ছুটি এক সাথে চল্লিশ দিনের বেশি জমা রাখা যাবে না।
                     </div>
+
 
                     <div class="condition">
                         (ঙ) মাতৃত্বকালীন ছুটিঃ ১২০ দিন। কোন মহিলা শ্রমিক
@@ -617,15 +730,18 @@
                         নিয়ন্ত্রিত হবে।
                     </div>
 
+
                     <div class="condition">
                         ১১। প্রত্যেক শ্রমিককে দেয়া পরিচয়পত্র ও এপ্রোন
                         কারখানার অভ্যন্তরে বাধ্যতামূলকভাবে পরিধান করতে হবে।
                     </div>
 
+
                     <div class="condition">
                         ১২। আপনার বিরুদ্ধে অসদাচরণের অভিযোগ প্রমাণিত হলে
                         প্রচলিত আইন অনুযায়ী ব্যবস্থা নেয়া হবে।
                     </div>
+
 
                     <div class="condition">
                         ১৩। জীবন বৃত্তান্ত ফর্মে উল্লেখিত আপনার যোগাযোগের
@@ -635,6 +751,7 @@
                         বিরুদ্ধে শাস্তিমূলক ব্যবস্থা গ্রহণ করতে পারবেন।
                     </div>
 
+
                     <div class="condition">
                         ১৪। কর্তৃপক্ষ যে কোন সময় পূর্ব নোটিশ ছাড়া চাকুরির
                         শর্তাবলী দেশের আইনের আলোকে পরিবর্তন/পরিবর্ধন করার
@@ -642,6 +759,7 @@
                         সময়ে সময়ে প্রবর্তিত আভ্যন্তরীন নিয়ম কানুন আপনি
                         মেনে চলতে বাধ্য থাকবেন।
                     </div>
+
 
                     <div class="condition">
                         ১৫। অত্র কারখানায় কর্মরত থাকাকালীন আপনি অন্য
@@ -652,6 +770,7 @@
                         আইনানুযায়ী ব্যবস্থা গ্রহণ করতে পারবেন।
                     </div>
 
+
                     <div class="condition">
                         ১৬। কারখানার অভ্যন্তরে বিশৃঙ্খলা সৃষ্টি সম্পূর্ণভাবে
                         নিষিদ্ধ ও শাস্তিযোগ্য অপরাধ। এছাড়াও কারখানা
@@ -660,6 +779,7 @@
                         শাস্তিযোগ্য অপরাধ।
                     </div>
 
+
                     <div class="condition">
                         ১৭। স্থায়ী শ্রমিক চাকুরি ছাড়ার ক্ষেত্রে ৬০ দিনের
                         অগ্রিম নোটিশ প্রদান করবেন। অন্যথায় নোটিশ মেয়াদের
@@ -667,11 +787,13 @@
                         প্রদান করবেন।
                     </div>
 
+
                     <div class="condition">
                         ১৮। নিয়োগকারী কর্তৃপক্ষ কর্তৃক শ্রমিকের চাকুরীর
                         অবসানের জন্য কর্তৃপক্ষ বিদ্যমান আইনের আলোকে
                         ব্যবস্থা গ্রহণ করবেন।
                     </div>
+
 
                     <div class="condition">
                         ১৯। চাকুরিরত অবস্থায় আপনি অত্র প্রতিষ্ঠানে
@@ -680,6 +802,7 @@
                         করতে পারবেন না।
                     </div>
 
+
                     <div class="condition">
                         ২০। কর্তৃপক্ষ প্রতিষ্ঠানের প্রয়োজনে একই ব্যবস্থাপনার
                         আওতাধীন অন্য যে কোন কারখানা/প্রতিষ্ঠানে আপনাকে
@@ -687,16 +810,23 @@
                     </div>
 
 
-                    <div class="text-block" style="margin-top: 8px;">
+                    <div
+                        class="text-block"
+                        style="margin-top: 8px;"
+                    >
 
                         উপরোক্ত শর্তাবলী মেনে যদি আপনি অত্র নিয়োগ প্রস্তাব
                         গ্রহণে সম্মত থাকেন এবং আগামী
 
-                        <span class="dotted"
-                              style="min-width: 140px;">
+                        <span
+                            class="dotted"
+                            style="min-width: 140px;"
+                        >
+
                             <t t-if="o.joining_date">
                                 <span t-field="o.joining_date"/>
                             </t>
+
                         </span>
 
                         তারিখের মধ্যে কাজে যোগদানের জন্য রাজি থাকেন তাহলে
@@ -706,6 +836,8 @@
 
                     </div>
 
+
+                    <!-- Employer Signature -->
 
                     <div class="signature-area">
 
@@ -724,8 +856,12 @@
                     </div>
 
 
-                    <div class="text-block"
-                         style="margin-top: 18px;">
+                    <!-- Employee Declaration -->
+
+                    <div
+                        class="text-block"
+                        style="margin-top: 18px;"
+                    >
 
                         আমি অত্র নিয়োগপত্রে বর্ণিত শর্তাদি সম্পূর্ণরূপে
                         পড়ে/পড়িয়ে এবং এর মর্ম অনুধাবন করে, স্বেচ্ছায়,
@@ -736,15 +872,30 @@
                     </div>
 
 
-                    <div style="margin-top: 15px; line-height: 2;">
+                    <!-- Employee Signature -->
+
+                    <div
+                        style="
+                            margin-top: 15px;
+                            line-height: 2;
+                        "
+                    >
 
                         <div>
+
                             শ্রমিক/কর্মচারীর স্বাক্ষরঃ
-                            <span class="dotted"
-                                  style="min-width: 180px;">
+
+                            <span
+                                class="dotted"
+                                style="min-width: 180px;"
+                            >
                                 &#160;
                             </span>
+
                         </div>
+
+
+                        <!-- Signature Date -->
 
                         <div>
 
@@ -767,18 +918,31 @@
 
                         </div>
 
+
+                        <!-- Employee Name -->
+
                         <div>
+
                             শ্রমিক/কর্মচারীর নামঃ
-                            <span class="dotted"
-                                  style="min-width: 180px;">
-                                <t t-esc="o.employee_id.name if o.employee_id else ''"/>
+
+                            <span
+                                class="dotted"
+                                style="min-width: 180px;"
+                            >
+                                <t t-esc="
+                                    o.employee_id.name
+                                    if o.employee_id
+                                    else ''
+                                "/>
                             </span>
+
                         </div>
 
                     </div>
 
 
                 </div>
+
 
             </t>
 

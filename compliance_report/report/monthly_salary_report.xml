@@ -1,0 +1,1291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- =====================================================
+         A4 LANDSCAPE PAPER FORMAT
+    ====================================================== -->
+
+    <record id="paperformat_monthly_salary"
+            model="report.paperformat">
+
+        <field name="name">Monthly Salary A4 Landscape</field>
+        <field name="default" eval="False"/>
+        <field name="format">A4</field>
+        <field name="orientation">Landscape</field>
+
+        <field name="margin_top">5</field>
+        <field name="margin_bottom">5</field>
+        <field name="margin_left">4</field>
+        <field name="margin_right">4</field>
+
+        <field name="header_line" eval="False"/>
+
+    </record>
+
+
+    <!-- =====================================================
+         REPORT ACTION
+    ====================================================== -->
+
+    <record id="action_report_monthly_salary"
+            model="ir.actions.report">
+
+        <field name="name">Monthly Salary Report</field>
+        <field name="model">compliance.monthly.salary.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+
+        <field name="report_name">compliance_report.report_monthly_salary</field>
+        <field name="report_file">compliance_report.report_monthly_salary</field>
+
+        <field
+            name="paperformat_id"
+            ref="compliance_report.paperformat_monthly_salary"
+        />
+
+    </record>
+
+
+    <!-- =====================================================
+         QWEB REPORT
+    ====================================================== -->
+
+    <template id="report_monthly_salary">
+
+        <t t-call="web.html_container">
+
+            <style>
+
+                /* =====================================================
+                   BASE
+                ====================================================== */
+
+                .monthly-salary-page,
+                .monthly-salary-page * {
+                    font-family: Arial, "Noto Sans Bengali", sans-serif !important;
+                    box-sizing: border-box;
+                }
+
+                .monthly-salary-page {
+                    position: relative;
+                    min-height: 750px;
+
+                    color: #000;
+
+                    font-size: 10px;
+                    line-height: 1.2;
+                }
+
+
+                /* =====================================================
+                   REPORT HEADER
+                ====================================================== */
+
+                .salary-report-header {
+                    width: 100%;
+
+                    text-align: center;
+
+                    line-height: 1.15;
+
+                    margin-top: 3px;
+                    margin-bottom: 8px;
+                }
+
+                .salary-company-name {
+                    margin: 0;
+                    padding: 0;
+
+                    font-size: 25px;
+                    line-height: 1.1;
+                    font-weight: 700;
+                }
+
+                .salary-company-address {
+                    margin-top: 2px;
+
+                    font-size: 13px;
+                    line-height: 1.15;
+                    font-weight: 600;
+                }
+
+                .salary-report-title {
+                    margin-top: 2px;
+
+                    font-size: 15px;
+                    line-height: 1.15;
+                    font-weight: 700;
+                }
+
+
+                /* =====================================================
+                   MAIN TABLE
+
+                   IMPORTANT:
+                   Integer 1px borders are used because wkhtmltopdf
+                   can drop fractional borders.
+                ====================================================== */
+
+                .salary-report-table {
+                    width: 100%;
+
+                    margin: 0 auto;
+
+                    border-collapse: collapse !important;
+                    border-spacing: 0 !important;
+
+                    table-layout: fixed;
+
+                    border: 1px solid #000 !important;
+
+                    color: #000;
+                }
+
+
+                /* =====================================================
+                   ALL CELLS
+                ====================================================== */
+
+                .salary-report-table th,
+                .salary-report-table td {
+
+                    border-top: 1px solid #000 !important;
+                    border-right: 1px solid #000 !important;
+                    border-bottom: 1px solid #000 !important;
+                    border-left: 1px solid #000 !important;
+
+                    padding: 2px 1px;
+
+                    color: #000;
+
+                    text-align: center !important;
+                    vertical-align: middle !important;
+
+                    word-wrap: break-word;
+                    overflow-wrap: break-word;
+                }
+
+
+                /* =====================================================
+                   TABLE HEADER
+                ====================================================== */
+
+                .salary-report-table thead {
+                    display: table-header-group;
+                }
+
+                .salary-report-table thead th {
+                    border: 1px solid #000 !important;
+                }
+
+                .salary-report-table th {
+                    font-size: 10px;
+                    line-height: 1.1;
+                    font-weight: 500;
+                }
+
+
+                /* =====================================================
+                   GROUP HEADERS
+                ====================================================== */
+
+                .group-header {
+                    height: 22px;
+
+                    background-color: #e9ecef;
+
+                    font-size: 11px !important;
+                    line-height: 1.1 !important;
+                    font-weight: 700 !important;
+
+                    border: 1px solid #000 !important;
+                }
+
+
+                /* =====================================================
+                   SECONDARY HEADERS
+                ====================================================== */
+
+                .secondary-header th {
+                    background-color: #f6f6f6;
+
+                    border: 1px solid #000 !important;
+                }
+
+
+                /* =====================================================
+                   BODY
+                ====================================================== */
+
+                .salary-report-table tbody td {
+                    border: 1px solid #000 !important;
+
+                    font-size: 10px;
+                    line-height: 1.2;
+                    font-weight: 400;
+                }
+
+
+                /* =====================================================
+                   EMPLOYEE ROW
+                ====================================================== */
+
+                .employee-salary-row {
+                    height: 68px;
+
+                    page-break-inside: avoid !important;
+                }
+
+                .employee-salary-row td {
+                    height: 68px;
+
+                    border: 1px solid #000 !important;
+                }
+
+
+                /* =====================================================
+                   NO WRAP
+                ====================================================== */
+
+                .nowrap {
+                    white-space: nowrap !important;
+                }
+
+
+                /* =====================================================
+                   STANDARD VERTICAL HEADER
+                ====================================================== */
+
+                .vertical-cell {
+                    position: relative;
+
+                    width: 100%;
+                    height: 88px;
+                    min-height: 88px;
+
+                    padding: 0;
+                    margin: 0;
+
+                    overflow: hidden;
+                }
+
+                .vertical-text {
+                    position: absolute;
+
+                    left: 50%;
+                    top: 50%;
+
+                    display: block;
+
+                    margin: 0;
+                    padding: 0;
+
+                    white-space: nowrap;
+
+                    color: #000;
+
+                    font-size: 8.5px;
+                    line-height: 1;
+                    font-weight: 500;
+
+                    transform:
+                        translate(-50%, -50%)
+                        rotate(-90deg);
+
+                    -webkit-transform:
+                        translate(-50%, -50%)
+                        rotate(-90deg);
+
+                    transform-origin: center center;
+                    -webkit-transform-origin: center center;
+                }
+
+
+                /* =====================================================
+                   LONG VERTICAL HEADER
+                ====================================================== */
+
+                .vertical-cell-long {
+                    position: relative;
+
+                    width: 100%;
+                    height: 108px;
+                    min-height: 108px;
+
+                    padding: 0;
+                    margin: 0;
+
+                    overflow: hidden;
+                }
+
+                .vertical-text-long {
+                    position: absolute;
+
+                    left: 50%;
+                    top: 50%;
+
+                    display: block;
+
+                    margin: 0;
+                    padding: 0;
+
+                    white-space: nowrap;
+
+                    color: #000;
+
+                    font-size: 8px;
+                    line-height: 1;
+                    font-weight: 500;
+
+                    transform:
+                        translate(-50%, -50%)
+                        rotate(-90deg);
+
+                    -webkit-transform:
+                        translate(-50%, -50%)
+                        rotate(-90deg);
+
+                    transform-origin: center center;
+                    -webkit-transform-origin: center center;
+                }
+
+
+                /* =====================================================
+                   JOINING DATE VALUE
+                ====================================================== */
+
+                .joining-date-cell {
+                    position: relative;
+
+                    width: 100%;
+                    height: 64px;
+
+                    padding: 0;
+                    margin: 0;
+
+                    overflow: hidden;
+                }
+
+                .joining-date-text {
+                    position: absolute;
+
+                    left: 50%;
+                    top: 50%;
+
+                    display: block;
+
+                    margin: 0;
+                    padding: 0;
+
+                    white-space: nowrap;
+
+                    color: #000;
+
+                    font-size: 9px;
+                    line-height: 1;
+                    font-weight: 400;
+
+                    transform:
+                        translate(-50%, -50%)
+                        rotate(-90deg);
+
+                    -webkit-transform:
+                        translate(-50%, -50%)
+                        rotate(-90deg);
+
+                    transform-origin: center center;
+                    -webkit-transform-origin: center center;
+                }
+
+
+                /* =====================================================
+                   TOTAL ROW
+                ====================================================== */
+
+                .total-row {
+                    height: 23px;
+                }
+
+                .total-row td {
+                    height: 23px;
+
+                    background-color: #f2f2f2;
+
+                    border: 1px solid #000 !important;
+
+                    padding: 2px 1px;
+
+                    font-size: 10px;
+                    line-height: 1;
+                    font-weight: 700;
+
+                    text-align: center !important;
+                    vertical-align: middle !important;
+                }
+
+                .total-label {
+                    text-align: right !important;
+
+                    padding-right: 6px !important;
+
+                    font-weight: 700 !important;
+                }
+
+
+                /* =====================================================
+                   SIGNATURE AREA
+                ====================================================== */
+
+                .signature-space {
+                    height: 205px;
+                }
+
+                .salary-signatures {
+                    width: 100%;
+
+                    border-collapse: collapse;
+                    border-spacing: 0;
+
+                    table-layout: fixed;
+
+                    page-break-inside: avoid !important;
+                }
+
+                .salary-signatures td {
+                    width: 25%;
+
+                    border: 0 !important;
+
+                    padding: 0 25px;
+
+                    color: #000;
+
+                    text-align: center !important;
+                    vertical-align: bottom !important;
+
+                    font-size: 11px;
+                    line-height: 1.2;
+                    font-weight: 400;
+                }
+
+                .salary-signature-line {
+                    display: inline-block;
+
+                    width: 100%;
+
+                    border-top: 1px solid #000;
+
+                    padding-top: 4px;
+
+                    color: #000;
+
+                    text-align: center;
+
+                    font-size: 11px;
+                    font-weight: 400;
+                }
+
+
+                /* =====================================================
+                   PRINT CONTROL
+                ====================================================== */
+
+                .salary-report-table tr {
+                    page-break-inside: avoid !important;
+                }
+
+            </style>
+
+
+            <!-- =====================================================
+                 WIZARD
+            ====================================================== -->
+
+            <t t-foreach="docs" t-as="wizard">
+
+
+                <!-- Month Name -->
+
+                <t
+                    t-set="month_name"
+                    t-value="
+                        dict(
+                            wizard._fields['month']._description_selection(
+                                wizard.env
+                            )
+                        ).get(wizard.month, '')
+                    "
+                />
+
+
+                <div class="page monthly-salary-page">
+
+
+                    <!-- =================================================
+                         HEADER
+                    ================================================== -->
+
+                    <div class="salary-report-header">
+
+                        <div class="salary-company-name">
+                            Khetan Trading
+                        </div>
+
+                        <div class="salary-company-address">
+                            Thakurpara
+                        </div>
+
+                        <div class="salary-report-title">
+
+                            Monthly Salary Report For The Month Of
+
+                            <t t-esc="month_name"/>
+
+                            -
+
+                            <t t-esc="wizard.year"/>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =================================================
+                         SALARY TABLE
+                    ================================================== -->
+
+                    <table
+                        class="salary-report-table"
+                        cellspacing="0"
+                        cellpadding="0"
+                        border="1"
+                    >
+
+                        <thead>
+
+
+                            <!-- =========================================
+                                 ROW 1
+                            ========================================== -->
+
+                            <tr>
+
+
+                                <th rowspan="3"
+                                    style="width: 2.2%;">
+                                    SL
+                                    <br/>
+                                    NO
+                                </th>
+
+
+                                <th rowspan="3"
+                                    style="width: 4.6%;">
+                                    Emp. ID
+                                </th>
+
+
+                                <th rowspan="3"
+                                    style="width: 5.7%;">
+                                    Name
+                                </th>
+
+
+                                <th rowspan="3"
+                                    style="width: 6.4%;">
+                                    Designation
+                                </th>
+
+
+                                <!-- Grade -->
+
+                                <th rowspan="3"
+                                    style="width: 2.4%;">
+
+                                    <div class="vertical-cell">
+
+                                        <span class="vertical-text">
+                                            Grade
+                                        </span>
+
+                                    </div>
+
+                                </th>
+
+
+                                <!-- Joining Date -->
+
+                                <th rowspan="3"
+                                    style="width: 2.8%;">
+
+                                    <div class="vertical-cell">
+
+                                        <span class="vertical-text">
+                                            Joining Date
+                                        </span>
+
+                                    </div>
+
+                                </th>
+
+
+                                <!-- Attendance -->
+
+                                <th colspan="8"
+                                    class="group-header">
+                                    Attendance
+                                </th>
+
+
+                                <!-- Total Payable -->
+
+                                <th rowspan="3"
+                                    style="width: 4.5%;">
+
+                                    Total
+                                    <br/>
+                                    Payable
+                                    <br/>
+                                    Days
+
+                                </th>
+
+
+                                <!-- Wages -->
+
+                                <th colspan="6"
+                                    class="group-header">
+                                    Wages
+                                </th>
+
+
+                                <!-- Attendance Bonus -->
+
+                                <th rowspan="3"
+                                    style="width: 3.7%;">
+
+                                    <div class="vertical-cell-long">
+
+                                        <span class="vertical-text-long">
+                                            Attendance Bonus
+                                        </span>
+
+                                    </div>
+
+                                </th>
+
+
+                                <!-- Earn Salary -->
+
+                                <th rowspan="3"
+                                    style="width: 4.8%;">
+
+                                    Earn
+                                    <br/>
+                                    Salary
+
+                                </th>
+
+
+                                <!-- Deduction -->
+
+                                <th colspan="2"
+                                    class="group-header">
+                                    Deduction
+                                </th>
+
+
+                                <!-- Stamp -->
+
+                                <th rowspan="3"
+                                    style="width: 3%;">
+
+                                    <div class="vertical-cell">
+
+                                        <span class="vertical-text">
+                                            Stamp
+                                        </span>
+
+                                    </div>
+
+                                </th>
+
+
+                                <!-- Net Salary -->
+
+                                <th rowspan="3"
+                                    style="width: 4.8%;">
+
+                                    Net
+                                    <br/>
+                                    Salary
+
+                                </th>
+
+
+                                <!-- Signature -->
+
+                                <th rowspan="3"
+                                    style="width: 9%;">
+
+                                    Signature
+
+                                </th>
+
+
+                            </tr>
+
+
+                            <!-- =========================================
+                                 ROW 2
+                            ========================================== -->
+
+                            <tr class="secondary-header">
+
+
+                                <!-- Present Days -->
+
+                                <th rowspan="2"
+                                    style="width: 2.8%;">
+
+                                    Pr.
+                                    <br/>
+                                    Days
+
+                                </th>
+
+
+                                <!-- Leave -->
+
+                                <th colspan="6">
+                                    Leave
+                                </th>
+
+
+                                <!-- Absent Days -->
+
+                                <th rowspan="2"
+                                    style="width: 3%;">
+
+                                    <div class="vertical-cell">
+
+                                        <span class="vertical-text">
+                                            Absent Days
+                                        </span>
+
+                                    </div>
+
+                                </th>
+
+
+                                <!-- Basic -->
+
+                                <th rowspan="2"
+                                    style="width: 4.2%;">
+
+                                    <div class="vertical-cell">
+
+                                        <span class="vertical-text">
+                                            Basic
+                                        </span>
+
+                                    </div>
+
+                                </th>
+
+
+                                <!-- House Rent -->
+
+                                <th rowspan="2"
+                                    style="width: 4.2%;">
+
+                                    <div class="vertical-cell">
+
+                                        <span class="vertical-text">
+                                            House Rent
+                                        </span>
+
+                                    </div>
+
+                                </th>
+
+
+                                <!-- Medical -->
+
+                                <th rowspan="2"
+                                    style="width: 3.6%;">
+
+                                    <div class="vertical-cell-long">
+
+                                        <span class="vertical-text-long">
+                                            Medical Allowance
+                                        </span>
+
+                                    </div>
+
+                                </th>
+
+
+                                <!-- Conveyance -->
+
+                                <th rowspan="2"
+                                    style="width: 3.6%;">
+
+                                    <div class="vertical-cell-long">
+
+                                        <span class="vertical-text-long">
+                                            Conveyance Allowance
+                                        </span>
+
+                                    </div>
+
+                                </th>
+
+
+                                <!-- Food -->
+
+                                <th rowspan="2"
+                                    style="width: 3.6%;">
+
+                                    <div class="vertical-cell-long">
+
+                                        <span class="vertical-text-long">
+                                            Food Allowance
+                                        </span>
+
+                                    </div>
+
+                                </th>
+
+
+                                <!-- Gross -->
+
+                                <th rowspan="2"
+                                    style="width: 4.5%;">
+
+                                    Gross
+                                    <br/>
+                                    Salary
+
+                                </th>
+
+
+                                <!-- Absent Amount -->
+
+                                <th rowspan="2"
+                                    style="width: 4.2%;">
+
+                                    <div class="vertical-cell-long">
+
+                                        <span class="vertical-text-long">
+                                            Absent Amount
+                                        </span>
+
+                                    </div>
+
+                                </th>
+
+
+                                <!-- Tax -->
+
+                                <th rowspan="2"
+                                    style="width: 3.5%;">
+
+                                    <div class="vertical-cell">
+
+                                        <span class="vertical-text">
+                                            Tax Amount
+                                        </span>
+
+                                    </div>
+
+                                </th>
+
+
+                            </tr>
+
+
+                            <!-- =========================================
+                                 ROW 3
+                            ========================================== -->
+
+                            <tr class="secondary-header">
+
+                                <th>WD</th>
+                                <th>G.H</th>
+                                <th>EL</th>
+                                <th>CL</th>
+                                <th>SL</th>
+                                <th>ML</th>
+
+                            </tr>
+
+
+                        </thead>
+
+
+                        <!-- =================================================
+                             BODY
+                        ================================================== -->
+
+                        <tbody>
+
+
+                            <t
+                                t-foreach="wizard.line_ids"
+                                t-as="line"
+                            >
+
+                                <tr class="employee-salary-row">
+
+
+                                    <!-- SL -->
+
+                                    <td>
+                                        <t t-esc="line_index + 1"/>
+                                    </td>
+
+
+                                    <!-- ID -->
+
+                                    <td class="nowrap">
+                                        <t t-esc="line.employee_code or ''"/>
+                                    </td>
+
+
+                                    <!-- Name -->
+
+                                    <td>
+                                        <t t-esc="line.employee_name or ''"/>
+                                    </td>
+
+
+                                    <!-- Designation -->
+
+                                    <td>
+
+                                        <t t-esc="
+                                            line.job_id.name
+                                            if line.job_id
+                                            else ''
+                                        "/>
+
+                                    </td>
+
+
+                                    <!-- Grade -->
+
+                                    <td>
+                                        <t t-esc="line.grade or ''"/>
+                                    </td>
+
+
+                                    <!-- Joining Date Vertical -->
+
+                                    <td>
+
+                                        <div class="joining-date-cell">
+
+                                            <span class="joining-date-text">
+
+                                                <t t-if="line.joining_date">
+                                                    <span t-field="line.joining_date"/>
+                                                </t>
+
+                                            </span>
+
+                                        </div>
+
+                                    </td>
+
+
+                                    <!-- Attendance -->
+
+                                    <td>
+                                        <t t-esc="line.present_days or 0"/>
+                                    </td>
+
+                                    <td>
+                                        <t t-esc="line.weekly_holiday or 0"/>
+                                    </td>
+
+                                    <td>
+                                        <t t-esc="line.general_holiday or 0"/>
+                                    </td>
+
+                                    <td>
+                                        <t t-esc="line.earned_leave or 0"/>
+                                    </td>
+
+                                    <td>
+                                        <t t-esc="line.casual_leave or 0"/>
+                                    </td>
+
+                                    <td>
+                                        <t t-esc="line.sick_leave or 0"/>
+                                    </td>
+
+                                    <td>
+                                        <t t-esc="line.maternity_leave or 0"/>
+                                    </td>
+
+                                    <td>
+                                        <t t-esc="line.absent_days or 0"/>
+                                    </td>
+
+
+                                    <!-- Total -->
+
+                                    <td>
+                                        <t t-esc="line.total_payable_days or 0"/>
+                                    </td>
+
+
+                                    <!-- Wages -->
+
+                                    <td>
+                                        <t t-esc="'{:,.0f}'.format(line.basic or 0)"/>
+                                    </td>
+
+                                    <td>
+                                        <t t-esc="'{:,.0f}'.format(line.house_rent or 0)"/>
+                                    </td>
+
+                                    <td>
+                                        <t t-esc="'{:,.0f}'.format(line.medical_allowance or 0)"/>
+                                    </td>
+
+                                    <td>
+                                        <t t-esc="'{:,.0f}'.format(line.conveyance_allowance or 0)"/>
+                                    </td>
+
+                                    <td>
+                                        <t t-esc="'{:,.0f}'.format(line.food_allowance or 0)"/>
+                                    </td>
+
+                                    <td>
+                                        <t t-esc="'{:,.0f}'.format(line.gross_salary or 0)"/>
+                                    </td>
+
+
+                                    <!-- Bonus -->
+
+                                    <td>
+                                        <t t-esc="'{:,.0f}'.format(line.attendance_bonus or 0)"/>
+                                    </td>
+
+
+                                    <!-- Earn -->
+
+                                    <td>
+                                        <t t-esc="'{:,.0f}'.format(line.earn_salary or 0)"/>
+                                    </td>
+
+
+                                    <!-- Deduction -->
+
+                                    <td>
+                                        <t t-esc="'{:,.0f}'.format(line.absent_amount or 0)"/>
+                                    </td>
+
+                                    <td>
+                                        <t t-esc="'{:,.0f}'.format(line.tax or 0)"/>
+                                    </td>
+
+
+                                    <!-- Stamp -->
+
+                                    <td>
+                                        <t t-esc="'{:,.0f}'.format(line.stamp_charge or 0)"/>
+                                    </td>
+
+
+                                    <!-- Net -->
+
+                                    <td>
+                                        <t t-esc="'{:,.0f}'.format(line.net_salary or 0)"/>
+                                    </td>
+
+
+                                    <!-- Signature -->
+
+                                    <td>
+                                        &#160;
+                                    </td>
+
+
+                                </tr>
+
+                            </t>
+
+
+                            <!-- =================================================
+                                 TOTAL ROW
+                            ================================================== -->
+
+                            <tr class="total-row">
+
+                                <td
+                                    colspan="6"
+                                    class="total-label"
+                                >
+                                    Total
+                                </td>
+
+
+                                <!-- Attendance Totals -->
+
+                                <td>
+                                    <t t-esc="sum(wizard.line_ids.mapped('present_days'))"/>
+                                </td>
+
+                                <td>
+                                    <t t-esc="sum(wizard.line_ids.mapped('weekly_holiday'))"/>
+                                </td>
+
+                                <td>
+                                    <t t-esc="sum(wizard.line_ids.mapped('general_holiday'))"/>
+                                </td>
+
+                                <td>
+                                    <t t-esc="sum(wizard.line_ids.mapped('earned_leave'))"/>
+                                </td>
+
+                                <td>
+                                    <t t-esc="sum(wizard.line_ids.mapped('casual_leave'))"/>
+                                </td>
+
+                                <td>
+                                    <t t-esc="sum(wizard.line_ids.mapped('sick_leave'))"/>
+                                </td>
+
+                                <td>
+                                    <t t-esc="sum(wizard.line_ids.mapped('maternity_leave'))"/>
+                                </td>
+
+                                <td>
+                                    <t t-esc="sum(wizard.line_ids.mapped('absent_days'))"/>
+                                </td>
+
+                                <td>
+                                    <t t-esc="sum(wizard.line_ids.mapped('total_payable_days'))"/>
+                                </td>
+
+
+                                <!-- Monetary Totals -->
+
+                                <td>
+                                    <t t-esc="'{:,.0f}'.format(sum(wizard.line_ids.mapped('basic')))"/>
+                                </td>
+
+                                <td>
+                                    <t t-esc="'{:,.0f}'.format(sum(wizard.line_ids.mapped('house_rent')))"/>
+                                </td>
+
+                                <td>
+                                    <t t-esc="'{:,.0f}'.format(sum(wizard.line_ids.mapped('medical_allowance')))"/>
+                                </td>
+
+                                <td>
+                                    <t t-esc="'{:,.0f}'.format(sum(wizard.line_ids.mapped('conveyance_allowance')))"/>
+                                </td>
+
+                                <td>
+                                    <t t-esc="'{:,.0f}'.format(sum(wizard.line_ids.mapped('food_allowance')))"/>
+                                </td>
+
+                                <td>
+                                    <t t-esc="'{:,.0f}'.format(sum(wizard.line_ids.mapped('gross_salary')))"/>
+                                </td>
+
+                                <td>
+                                    <t t-esc="'{:,.0f}'.format(sum(wizard.line_ids.mapped('attendance_bonus')))"/>
+                                </td>
+
+                                <td>
+                                    <t t-esc="'{:,.0f}'.format(sum(wizard.line_ids.mapped('earn_salary')))"/>
+                                </td>
+
+                                <td>
+                                    <t t-esc="'{:,.0f}'.format(sum(wizard.line_ids.mapped('absent_amount')))"/>
+                                </td>
+
+                                <td>
+                                    <t t-esc="'{:,.0f}'.format(sum(wizard.line_ids.mapped('tax')))"/>
+                                </td>
+
+                                <td>
+                                    <t t-esc="'{:,.0f}'.format(sum(wizard.line_ids.mapped('stamp_charge')))"/>
+                                </td>
+
+                                <td>
+                                    <t t-esc="'{:,.0f}'.format(sum(wizard.line_ids.mapped('net_salary')))"/>
+                                </td>
+
+
+                                <td>
+                                    &#160;
+                                </td>
+
+                            </tr>
+
+
+                        </tbody>
+
+                    </table>
+
+
+                    <!-- =================================================
+                         SIGNATURE SPACE
+                    ================================================== -->
+
+                    <div class="signature-space">
+                        &#160;
+                    </div>
+
+
+                    <!-- =================================================
+                         SIGNATURES
+                    ================================================== -->
+
+                    <table class="salary-signatures">
+
+                        <tr>
+
+                            <td>
+                                <span class="salary-signature-line">
+                                    Payroll Officer
+                                </span>
+                            </td>
+
+                            <td>
+                                <span class="salary-signature-line">
+                                    Accounts
+                                </span>
+                            </td>
+
+                            <td>
+                                <span class="salary-signature-line">
+                                    Factory Manager / GM
+                                </span>
+                            </td>
+
+                            <td>
+                                <span class="salary-signature-line">
+                                    Managing Director
+                                </span>
+                            </td>
+
+                        </tr>
+
+                    </table>
+
+
+                </div>
+
+            </t>
+
+        </t>
+
+    </template>
+
+</odoo>

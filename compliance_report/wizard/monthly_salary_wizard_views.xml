@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="view_monthly_salary_wizard_form"
+            model="ir.ui.view">
+
+        <field name="name">compliance.monthly.salary.wizard.form</field>
+        <field name="model">compliance.monthly.salary.wizard</field>
+
+        <field name="arch" type="xml">
+
+            <form string="Monthly Salary Report">
+
+                <sheet>
+
+                    <div class="oe_title">
+                        <h2>Monthly Salary Report</h2>
+                    </div>
+
+
+                    <!-- =====================================
+                         Period
+                    ====================================== -->
+
+                    <group string="Report Period">
+
+                        <group>
+                            <field name="month"/>
+                        </group>
+
+                        <group>
+                            <field name="year"/>
+                        </group>
+
+                    </group>
+
+
+                    <!-- =====================================
+                         Selected Employees
+                    ====================================== -->
+
+                    <group string="Selected Employees">
+
+                        <field
+                            name="employee_ids"
+                            widget="many2many_tags"
+                            readonly="1"
+                            nolabel="1"
+                        />
+
+                    </group>
+
+
+                    <!-- =====================================
+                         Salary Preview
+                    ====================================== -->
+
+                    <separator string="Salary Preview"/>
+
+                    <field
+                        name="line_ids"
+                        nolabel="1"
+                        readonly="1"
+                    >
+
+                        <list
+                            create="0"
+                            edit="0"
+                            delete="0"
+                        >
+
+                            <field name="employee_code"/>
+                            <field name="employee_name"/>
+                            <field name="job_id"/>
+                            <field name="grade"/>
+                            <field name="joining_date"/>
+
+                            <field name="present_days"/>
+                            <field name="weekly_holiday"/>
+                            <field name="general_holiday"/>
+                            <field name="earned_leave"/>
+                            <field name="casual_leave"/>
+                            <field name="sick_leave"/>
+                            <field name="maternity_leave"/>
+                            <field name="absent_days"/>
+                            <field name="total_payable_days"/>
+
+                            <field name="basic"/>
+                            <field name="house_rent"/>
+                            <field name="medical_allowance"/>
+                            <field name="conveyance_allowance"/>
+                            <field name="food_allowance"/>
+                            <field name="gross_salary"/>
+
+                            <field name="attendance_bonus"/>
+                            <field name="earn_salary"/>
+
+                            <field name="absent_amount"/>
+                            <field name="tax"/>
+                            <field name="stamp_charge"/>
+                            <field name="net_salary"/>
+
+                        </list>
+
+                    </field>
+
+                </sheet>
+
+
+                <!-- =====================================
+                     Footer
+                ====================================== -->
+
+                <footer>
+
+                    <button
+                        name="action_print_report"
+                        string="Print"
+                        type="object"
+                        class="btn-primary"
+                    />
+
+                    <button
+                        string="Cancel"
+                        special="cancel"
+                        class="btn-secondary"
+                    />
+
+                </footer>
+
+            </form>
+
+        </field>
+
+    </record>
+
+</odoo>

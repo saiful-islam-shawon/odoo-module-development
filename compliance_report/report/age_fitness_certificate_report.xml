@@ -35,10 +35,13 @@
         <field name="report_type">qweb-pdf</field>
 
         <field name="report_name">compliance_report.report_age_fitness_certificate</field>
+
         <field name="report_file">compliance_report.report_age_fitness_certificate</field>
 
-        <field name="paperformat_id"
-               ref="compliance_report.paperformat_age_fitness_certificate"/>
+        <field
+            name="paperformat_id"
+            ref="compliance_report.paperformat_age_fitness_certificate"
+        />
 
     </record>
 
@@ -224,10 +227,44 @@
                     line-height: 1.4;
                 }
 
+
+                /* =========================
+                   BULK PRINT
+
+                   Every employee starts
+                   on a fresh PDF page.
+                ========================== */
+
+                .bulk-new-page {
+                    page-break-before: always;
+                    break-before: page;
+                }
+
             </style>
 
 
+            <!-- =================================================
+                 RECORD LOOP
+            ================================================== -->
+
             <t t-foreach="docs" t-as="o">
+
+
+                <!-- =============================================
+                     Start a NEW physical page before every
+                     employee except the first employee.
+                ============================================== -->
+
+                <div
+                    t-if="o_index != 0"
+                    class="bulk-new-page"
+                >
+                </div>
+
+
+                <!-- =================================================
+                     CURRENT EMPLOYEE CERTIFICATE
+                ================================================== -->
 
                 <div class="page fitness-page">
 
@@ -240,13 +277,16 @@
                         ফরম – ১৫
                     </div>
 
+
                     <div class="rule-reference">
                         [ধারা ৩৪, ৩৬, ৩৭ ও ২৭৭ এবং বিধি ৩৪(১) ও ৩৩৬(৪) দ্রষ্টব্য]
                     </div>
 
+
                     <div class="certificate-main-title">
                         বয়স ও সক্ষমতার প্রত্যায়নপত্র
                     </div>
+
 
                     <div class="medical-note">
                         ‘’নিবন্ধিত মেডিকেল প্র্যাকটিশনারের প্যাড-এ’’
@@ -271,6 +311,7 @@
                                 <td class="left-column">
 
                                     <div class="column-inner">
+
 
                                         <div class="column-title">
                                             বয়স এবং ফিটনেস সার্টিফিকেট
@@ -323,11 +364,13 @@
                                                 class="line"
                                                 style="width: 235px;"
                                             >
+
                                                 <t t-esc="
                                                     o.employee_id.name
                                                     if o.employee_id
                                                     else ''
                                                 "/>
+
                                             </span>
 
                                         </div>
@@ -383,7 +426,10 @@
                                                             o._fields['gender']._description_selection(
                                                                 o.env
                                                             )
-                                                        ).get(o.gender, '')
+                                                        ).get(
+                                                            o.gender,
+                                                            ''
+                                                        )
                                                     "/>
 
                                                 </t>
@@ -485,6 +531,7 @@
 
                                         </div>
 
+
                                     </div>
 
                                 </td>
@@ -497,6 +544,7 @@
                                 <td class="right-column">
 
                                     <div class="column-inner">
+
 
                                         <div class="column-title">
                                             বয়স এবং ফিটনেস সার্টিফিকেট
@@ -541,7 +589,6 @@
 
                                         <!-- =================================
                                              MEDICAL CERTIFICATION
-                                             Dynamic width
                                         ================================== -->
 
                                         <div
@@ -552,11 +599,13 @@
                                             এটি প্রত্যয়িত করা হচ্ছে যে
 
                                             <span class="dynamic-short-line">
+
                                                 <t t-esc="
                                                     o.employee_id.name
                                                     if o.employee_id
                                                     else ''
                                                 "/>
+
                                             </span>
 
                                             পিতা
@@ -638,15 +687,18 @@
 
                                         </div>
 
+
                                     </div>
 
                                 </td>
+
 
                             </tr>
 
                         </tbody>
 
                     </table>
+
 
                 </div>
 

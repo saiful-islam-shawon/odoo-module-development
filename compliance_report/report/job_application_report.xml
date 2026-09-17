@@ -4,7 +4,10 @@
     <!-- =========================================================
          A4 PAPER FORMAT
     ========================================================== -->
-    <record id="paperformat_job_application" model="report.paperformat">
+
+    <record id="paperformat_job_application"
+            model="report.paperformat">
+
         <field name="name">Job Application A4</field>
         <field name="default" eval="False"/>
         <field name="format">A4</field>
@@ -17,35 +20,48 @@
 
         <field name="header_line" eval="False"/>
         <field name="header_spacing">0</field>
+
     </record>
 
 
     <!-- =========================================================
          REPORT ACTION
     ========================================================== -->
-    <record id="action_report_job_application" model="ir.actions.report">
+
+    <record id="action_report_job_application"
+            model="ir.actions.report">
+
         <field name="name">Job Application</field>
         <field name="model">compliance.job.application</field>
         <field name="report_type">qweb-pdf</field>
+
         <field name="report_name">compliance_report.report_job_application</field>
+
         <field name="report_file">compliance_report.report_job_application</field>
-        <field name="paperformat_id" ref="compliance_report.paperformat_job_application"/>
+
+        <field
+            name="paperformat_id"
+            ref="compliance_report.paperformat_job_application"
+        />
+
     </record>
 
 
     <!-- =========================================================
          QWEB REPORT
     ========================================================== -->
+
     <template id="report_job_application">
 
         <t t-call="web.html_container">
 
-            <!-- UTF-8 for Bengali -->
             <meta charset="UTF-8"/>
+
 
             <!-- =================================================
                  REPORT CSS
             ================================================== -->
+
             <style>
 
                 .job-application-page {
@@ -132,13 +148,46 @@
                     line-height: 1.7;
                 }
 
+
+                /* =========================================
+                   BULK PRINT
+
+                   Every employee after the first employee
+                   starts from a new physical PDF page.
+                ========================================== */
+
+                .bulk-new-page {
+                    page-break-before: always;
+                    break-before: page;
+                }
+
             </style>
 
 
             <!-- =================================================
                  RECORD LOOP
             ================================================== -->
+
             <t t-foreach="docs" t-as="o">
+
+
+                <!-- =============================================
+                     BULK EMPLOYEE SEPARATOR
+
+                     Employee 1 -> no break
+                     Employee 2+ -> new physical page
+                ============================================== -->
+
+                <div
+                    t-if="o_index != 0"
+                    class="bulk-new-page"
+                >
+                </div>
+
+
+                <!-- =============================================
+                     CURRENT EMPLOYEE JOB APPLICATION
+                ============================================== -->
 
                 <div class="page job-application-page">
 
@@ -157,10 +206,18 @@
                     ========================================== -->
 
                     <div class="receiver">
-                        বরাবর,<br/>
-                        ব্যবস্থাপনা পরিচালক<br/>
-                        Khetan trading<br/>
+
+                        বরাবর,
+                        <br/>
+
+                        ব্যবস্থাপনা পরিচালক
+                        <br/>
+
+                        Khetan trading
+                        <br/>
+
                         Dewliabari, Konabari, Gazipur
+
                     </div>
 
 
@@ -169,7 +226,10 @@
                     ========================================== -->
 
                     <div class="subject">
-                        <strong>বিষয়:</strong>
+
+                        <strong>
+                            বিষয়:
+                        </strong>
 
                         <span
                             class="dotted-line field-value-center"
@@ -179,6 +239,7 @@
                         </span>
 
                         পদে চাকরির জন্য আবেদন।
+
                     </div>
 
 
@@ -216,8 +277,10 @@
 
 
                     <div class="qualification-intro">
+
                         আমার ব্যক্তিগত এবং শিক্ষাগত যোগ্যতা সম্পর্কে
                         বিস্তারিত নিচে দেওয়া হলো:
+
                     </div>
 
 
@@ -232,6 +295,7 @@
 
                     <div class="section-content">
 
+
                         <!-- Name -->
 
                         <div class="field-row">
@@ -242,11 +306,13 @@
                                 class="dotted-line"
                                 style="min-width: 400px;"
                             >
+
                                 <t t-esc="
                                     o.employee_id.name
                                     if o.employee_id
                                     else ''
                                 "/>
+
                             </span>
 
                         </div>
@@ -358,9 +424,13 @@
                         ২. শিক্ষাগত যোগ্যতা
                     </div>
 
+
                     <div class="section-content">
 
-                        <t t-foreach="o.education_ids" t-as="education">
+                        <t
+                            t-foreach="o.education_ids"
+                            t-as="education"
+                        >
 
                             <div class="education-row">
 
@@ -381,7 +451,7 @@
 
 
                     <!-- =========================================
-                        3. WORK EXPERIENCE
+                         3. WORK EXPERIENCE
                     ========================================== -->
 
                     <div class="section-title">
@@ -391,10 +461,14 @@
 
                     <div class="section-content">
 
+
                         <t t-if="o.work_experience_ids">
 
-                            <t t-foreach="o.work_experience_ids"
-                            t-as="work">
+                            <t
+                                t-foreach="o.work_experience_ids"
+                                t-as="work"
+                            >
+
 
                                 <!-- Company -->
 
@@ -448,9 +522,11 @@
                                     &#160;
                                 </div>
 
+
                             </t>
 
                         </t>
+
 
                         <t t-else="">
 
@@ -459,6 +535,7 @@
                             </div>
 
                         </t>
+
 
                     </div>
 
@@ -515,34 +592,19 @@
                                 class="dotted-line"
                                 style="min-width: 250px;"
                             >
+
                                 <t t-esc="
                                     o.employee_id.name
                                     if o.employee_id
                                     else ''
                                 "/>
+
                             </span>
 
                         </div>
 
 
-                        <!-- Date -->
-
-                        <!-- <div>
-
-                            তারিখ:
-
-                            <span
-                                class="dotted-line"
-                                style="min-width: 160px;"
-                            >
-
-                                <t t-if="o.application_date">
-                                    <span t-field="o.application_date"/>
-                                </t>
-
-                            </span>
-
-                        </div> -->
+                        <!-- Signature Date -->
 
                         <div>
 
@@ -565,9 +627,12 @@
 
                         </div>
 
+
                     </div>
 
+
                 </div>
+
 
             </t>
 

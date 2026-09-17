@@ -102,19 +102,62 @@
                             string="Money Provided"
                         >
                         
-                            <field name="basic"/>
-                            <field name="compliance_house_rent"/>
+                            <field name="basic" readonly="1"/>
+                            <field name="compliance_house_rent" readonly="1"/>
                             <field name="medical_allowance"/>
                             <field name="transport_allowance"/>
                             <field name="other_allowance"/>
                             <field name="food_allowance"/>
+
+                            <!-- Auto Calculated -->
                             <field name="gro"/>
+
+                            <field name="attendance_bonus"/>
+
+                            <!-- Deductions -->
+                            <field name="earn_salary"/>
+                            <field name="absent_amount"/>
                             <field name="deduction"/>
-                            <field name="net_salary"/>
+                            <field name="tax"/>
+                            <field name="stamp_charge"/>
+
+                            <!-- Auto Calculated -->
+                            <field name="net_salary_display" readonly="1"/>
+
                             <field name="increment_amount"/>
                             <field name="revision_date"/>
 
                         </group>
+
+                    </group>
+
+
+                    <!-- =============================================
+                        COMPLIANCE ATTENDANCE
+                    ============================================== -->
+
+                    <group
+                        name="compliance_attendance"
+                        string="Compliance Attendance"
+                    >
+
+                        <field name="present_days"/>
+
+                        <field name="weekly_holiday"/>
+
+                        <field name="general_holiday"/>
+
+                        <field name="earned_leave"/>
+
+                        <field name="casual_leave"/>
+
+                        <field name="sick_leave"/>
+
+                        <field name="maternity_leave"/>
+
+                        <field name="absent_days"/>
+
+                        <field name="total_payable_days"/>
 
                     </group>
 
@@ -187,6 +230,49 @@
                     </field>
 
                 </page>
+
+            </xpath>
+
+
+            <!-- =================================================
+                PAYROLL TAB - OTHERS
+            ================================================== -->
+
+            <xpath
+                expr="//page[@name='payroll_information']//field[@name='resource_calendar_id']"
+                position="after"
+            >
+
+                <!-- Others Section -->
+
+                <separator
+                    name="compliance_payroll_others"
+                    string="Others"
+                />
+
+
+                <!-- Mobile Bill -->
+
+                <field name="mobile_bill"/>
+
+
+                <!-- Attendance Bonus -->
+
+                <label for="attendance_bonus"/>
+
+                <div class="o_row">
+
+                    <field
+                        name="attendance_bonus"
+                        nolabel="1"
+                        class="oe_inline o_hr_narrow_field"
+                    />
+
+                    <span class="ms-2">
+                        Per Month
+                    </span>
+
+                </div>
 
             </xpath>
 

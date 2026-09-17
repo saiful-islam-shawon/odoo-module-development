@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- =====================================================
+         BULK REPORT WIZARD
+    ====================================================== -->
+
+    <record id="view_compliance_bulk_report_wizard_form"
+        model="ir.ui.view">
+
+        <field name="name">compliance.bulk.report.wizard.form</field>
+
+        <field name="model">compliance.bulk.report.wizard</field>
+
+        <field name="arch" type="xml">
+
+            <form string="All Reports">
+
+                <sheet>
+
+                    <div class="oe_title">
+
+                        <h2>
+                            Compliance Reports
+                        </h2>
+
+                    </div>
+
+
+                    <p>
+                        Select a report to print for the selected employees.
+                    </p>
+
+
+                    <!-- =========================================
+                         Selected Employees
+                    ========================================== -->
+
+                    <group string="Selected Employees">
+
+                        <field
+                            name="employee_ids"
+                            widget="many2many_tags"
+                            readonly="1"
+                            nolabel="1"
+                        />
+
+                    </group>
+
+
+                    <separator string="Reports" />
+
+
+                    <!-- =========================================
+                         Report Buttons
+                    ========================================== -->
+
+                    <group>
+
+                        <!-- Left -->
+
+                        <group>
+
+                            <button
+                                name="action_print_job_application"
+                                string="Job Application"
+                                type="object"
+                                class="btn-primary"
+                            />
+
+                            <button
+                                name="action_print_appointment_letter"
+                                string="Appointment Letter"
+                                type="object"
+                                class="btn-primary"
+                            />
+
+                            <button
+                                name="action_print_joining_letter"
+                                string="Joining Letter"
+                                type="object"
+                                class="btn-primary"
+                            />
+
+                            <!-- monthly salary report button -->
+                            <button
+                                name="action_open_monthly_salary_report"
+                                string="Monthly Salary Report"
+                                type="object"
+                                class="btn-primary"
+                            />
+
+                        </group>
+
+
+                        <!-- Right -->
+
+                        <group>
+
+                            <button
+                                name="action_print_salary_increment"
+                                string="Salary Increment and Revision"
+                                type="object"
+                                class="btn-primary"
+                            />
+
+                            <button
+                                name="action_print_nominee_form"
+                                string="Nominee Form"
+                                type="object"
+                                class="btn-primary"
+                            />
+
+                            <button
+                                name="action_print_age_fitness_certificate"
+                                string="Age &amp; Fitness Certificate"
+                                type="object"
+                                class="btn-primary"
+                            />
+
+                        </group>
+
+                    </group>
+
+                </sheet>
+
+
+                <!-- =========================================
+                     Footer
+                ========================================== -->
+
+                <footer>
+
+                    <button
+                        string="Cancel"
+                        special="cancel"
+                        class="btn-secondary"
+                    />
+
+                </footer>
+
+            </form>
+
+        </field>
+
+    </record>
+
+
+    <!-- =====================================================
+         SERVER ACTION
+         Employee List -> Print -> All Report
+    ====================================================== -->
+
+    <record id="action_open_compliance_bulk_report"
+        model="ir.actions.server">
+
+        <field name="name">All Report</field>
+
+        <field
+            name="model_id"
+            ref="hr.model_hr_employee"
+        />
+
+        <field
+            name="binding_model_id"
+            ref="hr.model_hr_employee"
+        />
+
+        <field name="binding_type">report</field>
+
+        <field name="state">code</field>
+
+        <field name="code">action = env['compliance.bulk.report.wizard'].create({
+            'employee_ids': [(6, 0, records.ids)],
+            })._get_wizard_action()</field>
+
+    </record>
+
+</odoo>

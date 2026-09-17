@@ -15,6 +15,9 @@
         
         "data/resume_line_type_data.xml",
         
+        "wizard/compliance_bulk_report_wizard_views.xml",
+        "wizard/monthly_salary_wizard_views.xml",
+        
         "views/hr_resume_line_views.xml",
         "views/hr_employee_views.xml",
 
@@ -32,6 +35,7 @@
         "report/salary_increment_report.xml",
         "report/nominee_form_report.xml",
         "report/age_fitness_certificate_report.xml",
+        "report/monthly_salary_report.xml",
     ],
     "installable": True,
     "application": True,

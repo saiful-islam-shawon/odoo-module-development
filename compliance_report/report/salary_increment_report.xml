@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
 
-    <!-- A4 Paper Format -->
+    <!-- =====================================================
+         A4 PAPER FORMAT
+    ====================================================== -->
+
     <record id="paperformat_salary_increment"
             model="report.paperformat">
 
@@ -20,7 +23,10 @@
     </record>
 
 
-    <!-- Report Action -->
+    <!-- =====================================================
+         REPORT ACTION
+    ====================================================== -->
+
     <record id="action_report_salary_increment"
             model="ir.actions.report">
 
@@ -29,20 +35,27 @@
         <field name="report_type">qweb-pdf</field>
 
         <field name="report_name">compliance_report.report_salary_increment</field>
+
         <field name="report_file">compliance_report.report_salary_increment</field>
 
-        <field name="paperformat_id"
-               ref="compliance_report.paperformat_salary_increment"/>
+        <field
+            name="paperformat_id"
+            ref="compliance_report.paperformat_salary_increment"
+        />
 
     </record>
 
 
-    <!-- QWeb Template -->
+    <!-- =====================================================
+         QWEB TEMPLATE
+    ====================================================== -->
+
     <template id="report_salary_increment">
 
         <t t-call="web.html_container">
 
             <meta charset="UTF-8"/>
+
 
             <style>
 
@@ -57,6 +70,11 @@
                     font-size: 17px;
                     line-height: 1.7;
                 }
+
+
+                /* =========================
+                   HEADER
+                ========================== */
 
                 .report-header {
                     text-align: center;
@@ -80,6 +98,11 @@
                     font-weight: bold;
                 }
 
+
+                /* =========================
+                   INFORMATION
+                ========================== */
+
                 .info-row {
                     margin-bottom: 7px;
                 }
@@ -93,6 +116,11 @@
                     padding-right: 5px;
                 }
 
+
+                /* =========================
+                   CONTENT
+                ========================== */
+
                 .letter-paragraph {
                     margin-top: 15px;
                     margin-bottom: 15px;
@@ -104,6 +132,11 @@
                     margin-top: 16px;
                     margin-bottom: 8px;
                 }
+
+
+                /* =========================
+                   SALARY TABLE
+                ========================== */
 
                 .salary-table {
                     margin-left: 25px;
@@ -117,19 +150,63 @@
                     vertical-align: baseline;
                 }
 
+
+                /* =========================
+                   SIGNATURE
+                ========================== */
+
                 .signature-section {
                     margin-top: 35px;
+                }
+
+
+                /* =========================
+                   BULK PRINT
+
+                   Employee 2+ starts
+                   from a new physical page.
+                ========================== */
+
+                .bulk-new-page {
+                    page-break-before: always;
+                    break-before: page;
                 }
 
             </style>
 
 
+            <!-- =================================================
+                 RECORD LOOP
+            ================================================== -->
+
             <t t-foreach="docs" t-as="o">
+
+
+                <!-- =================================================
+                     BULK EMPLOYEE SEPARATOR
+
+                     Employee 1 -> no extra break
+                     Employee 2+ -> start from new page
+                ================================================== -->
+
+                <div
+                    t-if="o_index != 0"
+                    class="bulk-new-page"
+                >
+                </div>
+
+
+                <!-- =================================================
+                     CURRENT EMPLOYEE REPORT
+                ================================================== -->
 
                 <div class="page salary-increment-page">
 
 
-                    <!-- Header -->
+                    <!-- =================================================
+                         HEADER
+                    ================================================== -->
+
                     <div class="report-header">
 
                         <div class="company-name">
@@ -141,14 +218,19 @@
                         </div>
 
                         <div class="report-title">
+
                             Salary Increment and Revision
                             ( বেতন বৃদ্ধি ও সংশোধনী )
+
                         </div>
 
                     </div>
 
 
-                    <!-- Employee Name -->
+                    <!-- =================================================
+                         EMPLOYEE NAME
+                    ================================================== -->
+
                     <div class="info-row">
 
                         নাম:
@@ -157,17 +239,22 @@
                             class="dotted-line"
                             style="min-width: 320px;"
                         >
+
                             <t t-esc="
                                 o.employee_id.name
                                 if o.employee_id
                                 else ''
                             "/>
+
                         </span>
 
                     </div>
 
 
-                    <!-- Date -->
+                    <!-- =================================================
+                         LETTER DATE
+                    ================================================== -->
+
                     <div class="info-row">
 
                         তারিখ:
@@ -176,15 +263,20 @@
                             class="dotted-line"
                             style="min-width: 300px;"
                         >
+
                             <t t-if="o.letter_date">
                                 <span t-field="o.letter_date"/>
                             </t>
+
                         </span>
 
                     </div>
 
 
-                    <!-- Present Address -->
+                    <!-- =================================================
+                         PRESENT ADDRESS
+                    ================================================== -->
+
                     <div class="info-row">
 
                         বর্তমান ঠিকানা:
@@ -193,22 +285,33 @@
                             class="dotted-line"
                             style="min-width: 500px;"
                         >
+
                             <t t-esc="o.present_address or ''"/>
+
                         </span>
 
                     </div>
 
 
-                    <!-- Subject -->
+                    <!-- =================================================
+                         SUBJECT
+                    ================================================== -->
+
                     <div style="margin-top: 16px;">
 
-                        <strong>বিষয়:</strong>
+                        <strong>
+                            বিষয়:
+                        </strong>
+
                         বেতন বৃদ্ধি ও সংশোধনী সংক্রান্ত পত্র
 
                     </div>
 
 
-                    <!-- Receiver -->
+                    <!-- =================================================
+                         RECEIVER
+                    ================================================== -->
+
                     <div style="margin-top: 15px;">
 
                         প্রিয়
@@ -217,13 +320,18 @@
                             class="dotted-line"
                             style="min-width: 250px;"
                         >
+
                             <t t-esc="o.receiver_name or ''"/>
+
                         </span>
 
                     </div>
 
 
-                    <!-- Main Paragraph -->
+                    <!-- =================================================
+                         MAIN PARAGRAPH
+                    ================================================== -->
+
                     <div class="letter-paragraph">
 
                         গণপ্রজাতন্ত্রী বাংলাদেশ সরকার, শ্রম ও কর্মসংস্থান
@@ -237,27 +345,40 @@
                     </div>
 
 
-                    <!-- Revision -->
+                    <!-- =================================================
+                         REVISION
+                    ================================================== -->
+
                     <div class="letter-paragraph">
 
                         কর্তৃপক্ষ আনন্দের সাথে আপনাকে জানাচ্ছে যে,
 
                         <span
                             class="dotted-line"
-                            style="min-width: 160px; text-align: center;"
+                            style="
+                                min-width: 160px;
+                                text-align: center;
+                            "
                         >
+
                             <t t-if="o.effective_date">
                                 <span t-field="o.effective_date"/>
                             </t>
+
                         </span>
 
                         ইং তারিখ থেকে আপনার বেতন বৃদ্ধি করে মোট
 
                         <span
                             class="dotted-line"
-                            style="min-width: 140px; text-align: center;"
+                            style="
+                                min-width: 140px;
+                                text-align: center;
+                            "
                         >
+
                             <t t-esc="o.revised_salary or ''"/>
+
                         </span>
 
                         টাকা নির্ধারণ করা হয়েছে।
@@ -265,115 +386,187 @@
                     </div>
 
 
-                    <!-- Salary -->
+                    <!-- =================================================
+                         SALARY
+                    ================================================== -->
+
                     <div class="salary-heading">
+
                         আপনার বর্তমান বেতনের বিবরণ নিচে উল্লেখ করা হলো:
+
                     </div>
 
 
                     <table class="salary-table">
 
+
+                        <!-- Basic Salary -->
+
                         <tr>
+
                             <td>•</td>
-                            <td>১। মূল বেতন:</td>
 
                             <td>
+                                ১। মূল বেতন:
+                            </td>
+
+                            <td>
+
                                 <span
                                     class="dotted-line"
                                     style="min-width: 150px;"
                                 >
                                     <t t-esc="o.basic_salary or ''"/>
                                 </span>
+
                             </td>
 
-                            <td>টাকা</td>
+                            <td>
+                                টাকা
+                            </td>
+
                         </tr>
 
 
+                        <!-- House Rent -->
+
                         <tr>
+
                             <td>•</td>
-                            <td>২। বাড়ি ভাড়া:</td>
 
                             <td>
+                                ২। বাড়ি ভাড়া:
+                            </td>
+
+                            <td>
+
                                 <span
                                     class="dotted-line"
                                     style="min-width: 150px;"
                                 >
                                     <t t-esc="o.house_rent or ''"/>
                                 </span>
+
                             </td>
 
-                            <td>টাকা</td>
+                            <td>
+                                টাকা
+                            </td>
+
                         </tr>
 
 
+                        <!-- Others -->
+
                         <tr>
+
                             <td>•</td>
-                            <td>৩। অন্যান্য:</td>
 
                             <td>
+                                ৩। অন্যান্য:
+                            </td>
+
+                            <td>
+
                                 <span
                                     class="dotted-line"
                                     style="min-width: 150px;"
                                 >
                                     <t t-esc="o.others or ''"/>
                                 </span>
+
                             </td>
 
-                            <td>টাকা</td>
+                            <td>
+                                টাকা
+                            </td>
+
                         </tr>
 
 
+                        <!-- Increment -->
+
                         <tr>
+
                             <td>•</td>
-                            <td>৪। ৫% বৃদ্ধিতে:</td>
 
                             <td>
+                                ৪। ৫% বৃদ্ধিতে:
+                            </td>
+
+                            <td>
+
                                 <span
                                     class="dotted-line"
                                     style="min-width: 150px;"
                                 >
                                     <t t-esc="o.increment_amount or ''"/>
                                 </span>
+
                             </td>
 
-                            <td>টাকা</td>
+                            <td>
+                                টাকা
+                            </td>
+
                         </tr>
 
 
+                        <!-- Total -->
+
                         <tr>
+
                             <td>•</td>
-                            <td><strong>মোট:</strong></td>
 
                             <td>
+                                <strong>
+                                    মোট:
+                                </strong>
+                            </td>
+
+                            <td>
+
                                 <span
                                     class="dotted-line"
                                     style="min-width: 150px;"
                                 >
+
                                     <strong>
                                         <t t-esc="o.total_salary or ''"/>
                                     </strong>
+
                                 </span>
+
                             </td>
 
-                            <td>টাকা</td>
+                            <td>
+                                টাকা
+                            </td>
+
                         </tr>
+
 
                     </table>
 
 
-                    <!-- Signature -->
+                    <!-- =================================================
+                         SIGNATURE
+                    ================================================== -->
+
                     <div class="signature-section">
+
 
                         <div style="margin-bottom: 35px;">
                             স্বাক্ষর:
                         </div>
 
 
-                        <table style="
-                            width: 100%;
-                            text-align: center;
-                        ">
+                        <table
+                            style="
+                                width: 100%;
+                                text-align: center;
+                            "
+                        >
 
                             <tr>
 
@@ -410,10 +603,12 @@
 
                         </table>
 
+
                     </div>
 
 
                 </div>
+
 
             </t>
 
