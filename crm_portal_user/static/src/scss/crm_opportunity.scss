@@ -1,0 +1,337 @@
+.crm_opportunity_page {
+    min-height: 100vh;
+    background: #f5f8fb;
+
+    .container {
+        max-width: 1320px;
+    }
+}
+
+
+// ============================================================
+// Success Banner
+// ============================================================
+
+.custom_success_banner {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    padding: 18px 22px;
+    margin-bottom: 24px;
+
+    background: linear-gradient(
+        135deg,
+        #eafbfa,
+        #eef6fc
+    );
+
+    border: 1px solid #b8e7e5;
+    border-radius: 12px;
+
+    box-shadow:
+        0 6px 16px rgba(1, 126, 132, 0.08);
+}
+
+.custom_success_icon {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+
+    width: 42px;
+    height: 42px;
+
+    color: #ffffff;
+
+    background: linear-gradient(
+        135deg,
+        #017e84,
+        #0568ad
+    );
+
+    border-radius: 50%;
+}
+
+.custom_success_text {
+    h5 {
+        margin-bottom: 3px;
+        color: #0d2b45;
+        font-size: 15px;
+        font-weight: 600;
+    }
+
+    p {
+        margin: 0;
+        color: #5a6672;
+        font-size: 13.5px;
+    }
+}
+
+
+// ============================================================
+// CRM Tags
+// ============================================================
+
+.crm_tags_dropdown {
+    width: 100%;
+}
+
+.crm_tag_selector {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+
+    width: 100%;
+    min-height: 42px;
+
+    padding: 7px 40px 7px 10px;
+
+    background: #ffffff;
+
+    border: 1px solid #d8dadd;
+    border-radius: 6px;
+
+    cursor: pointer;
+
+    &::after {
+        display: none;
+    }
+
+    &:hover {
+        border-color: #9ca3af;
+    }
+
+    &[aria-expanded="true"] {
+        border-color: #017e84;
+
+        box-shadow:
+            0 0 0 2px rgba(1, 126, 132, 0.12);
+    }
+}
+
+.crm_selected_tags {
+    display: flex;
+    flex: 1;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+}
+
+.crm_tag_placeholder {
+    color: #8b8f94;
+}
+
+.crm_selected_tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+
+    padding: 4px 9px;
+
+    color: #263238;
+    font-size: 13px;
+
+    background: #b8e7e5;
+
+    border-radius: 12px;
+}
+
+.crm_tag_remove {
+    font-size: 17px;
+    line-height: 1;
+
+    cursor: pointer;
+
+    &:hover {
+        color: #dc3545;
+    }
+}
+
+.crm_tag_dropdown_icon {
+    position: absolute;
+
+    top: 50%;
+    right: 14px;
+
+    color: #017e84;
+
+    transform: translateY(-50%);
+}
+
+.crm_tags_dropdown_menu {
+    width: 100%;
+    max-height: 320px;
+
+    padding: 8px;
+
+    overflow: hidden;
+
+    border: 1px solid #d8dadd;
+    border-radius: 7px;
+
+    box-shadow:
+        0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.crm_tag_search_wrapper {
+    position: sticky;
+
+    top: 0;
+    z-index: 2;
+
+    display: flex;
+    align-items: center;
+
+    margin-bottom: 7px;
+
+    background: #ffffff;
+
+    > i {
+        position: absolute;
+        left: 12px;
+        color: #8b8f94;
+    }
+}
+
+.crm_tag_search {
+    padding-left: 34px;
+}
+
+.crm_tag_options {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+
+    max-height: 250px;
+    overflow-y: auto;
+}
+
+.crm_tag_option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    margin: 0;
+    padding: 9px 10px;
+
+    border-radius: 5px;
+
+    cursor: pointer;
+
+    &:hover {
+        background: #f1f6f7;
+    }
+}
+
+.crm_tag_option_input {
+    position: absolute;
+
+    opacity: 0;
+
+    pointer-events: none;
+}
+
+.crm_tag_checkmark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 18px;
+    height: 18px;
+
+    color: transparent;
+
+    border: 1px solid #b7bdc3;
+    border-radius: 4px;
+}
+
+.crm_tag_option_input:checked
++ .crm_tag_checkmark {
+
+    color: #ffffff;
+
+    background: #017e84;
+
+    border-color: #017e84;
+}
+
+.crm_tag_option_name {
+    flex: 1;
+}
+
+
+// ============================================================
+// Searchable Dropdowns
+// ============================================================
+
+.crm_country_search_wrapper,
+.crm_state_search_wrapper,
+.crm_campaign_search_wrapper,
+.crm_medium_search_wrapper,
+.crm_source_search_wrapper {
+    position: relative;
+}
+
+.crm_country_suggestions_dropdown,
+.crm_state_suggestions_dropdown,
+.crm_campaign_suggestions_dropdown,
+.crm_medium_suggestions_dropdown,
+.crm_source_suggestions_dropdown {
+
+    position: absolute;
+
+    z-index: 50;
+
+    width: 100%;
+    max-height: 240px;
+
+    margin-top: 4px;
+
+    overflow-y: auto;
+
+    background: #ffffff;
+
+    border: 1px solid #d8dadd;
+    border-radius: 6px;
+
+    box-shadow:
+        0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.crm_country_suggestion_item,
+.crm_state_suggestion_item,
+.crm_campaign_suggestion_item,
+.crm_medium_suggestion_item,
+.crm_source_suggestion_item {
+
+    padding: 9px 12px;
+
+    cursor: pointer;
+
+    &:hover {
+        background: #f1f6f7;
+    }
+}
+
+
+// ============================================================
+// Mobile
+// ============================================================
+
+@media (max-width: 767.98px) {
+
+    .crm_opportunity_page {
+        .container {
+            padding-left: 16px;
+            padding-right: 16px;
+        }
+    }
+
+    .custom_success_banner {
+        padding: 14px 16px;
+    }
+}

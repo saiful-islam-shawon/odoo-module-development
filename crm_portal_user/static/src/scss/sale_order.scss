@@ -1,5 +1,33 @@
 #sale_order_form {
 
+    .sale_order_page {
+        min-height: 100vh;
+
+        background: #f5f8fb;
+
+        .custom_content_wrapper {
+            padding: 30px;
+
+            background: #ffffff;
+
+            border-radius: 12px;
+        }
+    }
+
+
+    @media (max-width: 767.98px) {
+
+        .sale_order_page {
+
+            .custom_content_wrapper {
+                padding: 16px;
+            }
+
+        }
+    }
+
+    // ====================================
+
     .so_customer_search_wrapper {
         position: relative;
     }
