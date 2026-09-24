@@ -1,0 +1,1205 @@
+from odoo.http import request, route
+from odoo.addons.portal.controllers.portal import (
+    CustomerPortal,
+    pager as portal_pager,
+)
+from odoo.tools import html2plaintext
+from werkzeug.exceptions import Forbidden, NotFound
+from markupsafe import escape
+
+
+class FakirCustomerPortal(CustomerPortal):
+
+    # =========================================================
+    # PORTAL HOME
+    # =========================================================
+
+    def _prepare_home_portal_values(self, counters):
+
+        values = super()._prepare_home_portal_values(counters)
+
+        user = request.env.user
+
+        has_crm_access = (
+            user.has_group(
+                "fakir_portal_management.group_crm_website_access"
+            )
+            or user.has_group("base.group_system")
+        )
+
+        values["has_crm_portal_access"] = has_crm_access
+
+        if has_crm_access:
+
+            values["crm_opportunity_count"] = (
+                request.env["crm.lead"]
+                .sudo()
+                .search_count([
+                    ("type", "=", "opportunity"),
+                ])
+            )
+
+        else:
+
+            values["crm_opportunity_count"] = 0
+
+        return values
+
+
+    # =========================================================
+    # CHECK CRM PORTAL ACCESS
+    # =========================================================
+
+    def _check_crm_portal_access(self):
+
+        user = request.env.user
+
+        has_crm_access = (
+            user.has_group(
+                "fakir_portal_management.group_crm_website_access"
+            )
+            or user.has_group("base.group_system")
+        )
+
+        if not has_crm_access:
+            raise Forbidden()
+
+
+    # =========================================================
+    # OPPORTUNITY LIST
+    # =========================================================
+
+    @route(
+        [
+            "/my/crm/opportunities",
+            "/my/crm/opportunities/page/<int:page>",
+        ],
+        type="http",
+        auth="user",
+        website=True,
+    )
+    def portal_my_crm_opportunities(
+        self,
+        page=1,
+        sortby=None,
+        search=None,
+        **kw,
+    ):
+
+        self._check_crm_portal_access()
+
+        Opportunity = request.env["crm.lead"]
+
+
+        # =====================================================
+        # SORTING OPTIONS
+        # =====================================================
+
+        sortings = {
+
+            "date": {
+                "label": "Newest",
+                "order": "create_date desc",
+            },
+
+            "name": {
+                "label": "Opportunity",
+                "order": "name",
+            },
+
+            "revenue": {
+                "label": "Expected Revenue",
+                "order": "expected_revenue desc",
+            },
+        }
+
+
+        # =====================================================
+        # DEFAULT SORTING
+        # =====================================================
+
+        if not sortby or sortby not in sortings:
+            sortby = "date"
+
+        order = sortings[sortby]["order"]
+
+
+        # =====================================================
+        # CLEAN SEARCH VALUE
+        # =====================================================
+
+        search = (search or "").strip()
+
+
+        # =====================================================
+        # BASE DOMAIN
+        # =====================================================
+
+        domain = [
+            ("type", "=", "opportunity"),
+        ]
+
+
+        # =====================================================
+        # SEARCH DOMAIN
+        #
+        # Search in:
+        #
+        # 1. Opportunity Name
+        # 2. Contact / Customer
+        # 3. Contact Name
+        # 4. Email
+        # 5. Phone
+        #
+        # IMPORTANT:
+        # crm.lead does NOT have a "mobile" field in this
+        # database, so mobile is intentionally not included.
+        # =====================================================
+
+        if search:
+
+            domain += [
+                "|",
+                "|",
+                "|",
+                "|",
+
+                ("name", "ilike", search),
+
+                ("partner_id.name", "ilike", search),
+
+                ("contact_name", "ilike", search),
+
+                ("email_from", "ilike", search),
+
+                ("phone", "ilike", search),
+            ]
+
+
+        # =====================================================
+        # TOTAL MATCHING OPPORTUNITIES
+        # =====================================================
+
+        opportunity_count = (
+            Opportunity
+            .sudo()
+            .search_count(domain)
+        )
+
+
+        # =====================================================
+        # PAGINATION
+        # =====================================================
+
+        items_per_page = 20
+
+        pager_values = portal_pager(
+            url="/my/crm/opportunities",
+
+            url_args={
+                "sortby": sortby,
+                "search": search,
+            },
+
+            total=opportunity_count,
+
+            page=page,
+
+            step=items_per_page,
+        )
+
+
+        # =====================================================
+        # CURRENT PAGE OPPORTUNITIES
+        # =====================================================
+
+        opportunities = (
+            Opportunity
+            .sudo()
+            .search(
+                domain,
+
+                order=order,
+
+                limit=items_per_page,
+
+                offset=pager_values["offset"],
+            )
+        )
+
+
+        # =====================================================
+        # RESULT RANGE
+        #
+        # Example:
+        #
+        # Page 1 = 1 - 20
+        # Page 2 = 21 - 40
+        # =====================================================
+
+        if opportunity_count:
+
+            result_start = (
+                pager_values["offset"] + 1
+            )
+
+            result_end = (
+                pager_values["offset"]
+                + len(opportunities)
+            )
+
+        else:
+
+            result_start = 0
+            result_end = 0
+
+
+        # =====================================================
+        # SEND MAIL STATUS
+        # =====================================================
+
+        mail_sent = kw.get("mail_sent") == "1"
+        mail_error = (kw.get("mail_error") or "").strip()
+
+
+        # =====================================================
+        # TEMPLATE VALUES
+        # =====================================================
+
+        values = {
+
+            "opportunities": opportunities,
+
+            "page_name": "crm_opportunity",
+
+            "pager": pager_values,
+
+            "sortby": sortby,
+
+            "sortings": sortings,
+
+            "search": search,
+
+            "opportunity_count": opportunity_count,
+
+            "result_start": result_start,
+
+            "result_end": result_end,
+
+            "default_url": "/my/crm/opportunities",
+        }
+
+
+        # =====================================================
+        # RENDER
+        # =====================================================
+
+        return request.render(
+            "fakir_portal_management."
+            "portal_my_crm_opportunities",
+            values,
+        )
+
+
+    # =========================================================
+    # GET OPPORTUNITY
+    # =========================================================
+
+    def _get_crm_opportunity(self, opportunity_id):
+
+        opportunity = (
+            request.env["crm.lead"]
+            .sudo()
+            .browse(opportunity_id)
+        )
+
+        if (
+            not opportunity.exists()
+            or opportunity.type != "opportunity"
+        ):
+            raise NotFound()
+
+        return opportunity
+
+
+    # =========================================================
+    # OPPORTUNITY DETAIL / EDIT
+    # =========================================================
+
+    @route(
+        ["/my/crm/opportunities/<int:opportunity_id>"],
+        type="http",
+        auth="user",
+        website=True,
+        methods=["GET", "POST"],
+    )
+    def portal_crm_opportunity_detail(
+        self,
+        opportunity_id,
+        **kw,
+    ):
+
+        self._check_crm_portal_access()
+
+        opportunity = self._get_crm_opportunity(
+            opportunity_id
+        )
+
+        success = False
+        
+        # Send Mail status
+        mail_sent = request.params.get("mail_sent")
+        mail_error = request.params.get("mail_error")
+
+
+        # =====================================================
+        # QUICK STAGE CHANGE
+        # =====================================================
+
+        if (
+            request.httprequest.method == "GET"
+            and kw.get("stage_id")
+        ):
+
+            try:
+                stage_id = int(
+                    kw.get("stage_id")
+                )
+
+            except (TypeError, ValueError):
+                stage_id = False
+
+            if stage_id:
+
+                stage = (
+                    request.env["crm.stage"]
+                    .sudo()
+                    .browse(stage_id)
+                )
+
+                if stage.exists():
+
+                    opportunity.sudo().write({
+                        "stage_id": stage.id,
+                    })
+
+            return request.redirect(
+                "/my/crm/opportunities/%s"
+                % opportunity.id
+            )
+
+
+        # =====================================================
+        # UPDATE OPPORTUNITY
+        # =====================================================
+
+        if request.httprequest.method == "POST":
+
+            expected_revenue = (
+                kw.get("expected_revenue")
+                or 0.0
+            )
+
+            try:
+
+                expected_revenue = float(
+                    expected_revenue
+                )
+
+            except (TypeError, ValueError):
+
+                expected_revenue = (
+                    opportunity.expected_revenue
+                )
+
+
+            tag_ids = (
+                request.httprequest.form
+                .getlist("tag_ids")
+            )
+
+
+            def _int_or_false(value):
+
+                try:
+                    return int(value)
+
+                except (TypeError, ValueError):
+                    return False
+
+
+            # =====================================================
+            # SALESPERSON VALIDATION
+            # =====================================================
+
+            requested_user_id = _int_or_false(
+                kw.get("user_id")
+            )
+
+            salesperson_id = False
+
+            if requested_user_id:
+                salesperson = (
+                    request.env["res.users"]
+                    .sudo()
+                    .search(
+                        [
+                            ("id", "=", requested_user_id),
+                            ("active", "=", True),
+                            ("share", "=", False),
+                        ],
+                        limit=1,
+                    )
+                )
+
+                if salesperson:
+                    salesperson_id = salesperson.id
+
+
+            vals = {
+
+                # =============================================
+                # BASIC / NOTES
+                # =============================================
+
+                "name": (
+                    kw.get("name")
+                    or opportunity.name
+                ),
+
+                "contact_name": kw.get(
+                    "contact_name"
+                ),
+
+                "email_from": kw.get(
+                    "email_from"
+                ),
+
+                "phone": kw.get(
+                    "phone"
+                ),
+
+                "expected_revenue": (
+                    expected_revenue
+                ),
+
+                "date_deadline": (
+                    kw.get("date_deadline")
+                    or False
+                ),
+
+                "description": kw.get(
+                    "description"
+                ),
+
+                "tag_ids": [
+                    (
+                        6,
+                        0,
+                        [
+                            int(tag)
+                            for tag in tag_ids
+                            if str(tag).isdigit()
+                        ],
+                    )
+                ],
+
+
+                # =============================================
+                # COMPANY INFORMATION
+                # =============================================
+
+                "partner_name": kw.get(
+                    "partner_name"
+                ),
+
+                "street": kw.get(
+                    "street"
+                ),
+
+                "street2": kw.get(
+                    "street2"
+                ),
+
+                "city": kw.get(
+                    "city"
+                ),
+
+                "zip": kw.get(
+                    "zip"
+                ),
+
+                "state_id": _int_or_false(
+                    kw.get("state_id")
+                ),
+
+                "country_id": _int_or_false(
+                    kw.get("country_id")
+                ),
+
+
+                # =============================================
+                # CONTACT INFORMATION
+                # =============================================
+
+                "function": kw.get(
+                    "function"
+                ),
+
+                "website": kw.get(
+                    "website"
+                ),
+
+
+                # =============================================
+                # MARKETING
+                # =============================================
+
+                "campaign_id": _int_or_false(
+                    kw.get("campaign_id")
+                ),
+
+                "medium_id": _int_or_false(
+                    kw.get("medium_id")
+                ),
+
+                "source_id": _int_or_false(
+                    kw.get("source_id")
+                ),
+
+                "referred": kw.get(
+                    "referred"
+                ),
+
+
+                # =============================================
+                # OWNERSHIP
+                # =============================================
+
+                "team_id": _int_or_false(
+                    kw.get("team_id")
+                ),
+
+                "user_id": salesperson_id,
+            }
+
+
+            opportunity.sudo().write(vals)
+
+            success = True
+
+
+        # =====================================================
+        # ACTIVITY TYPES
+        # =====================================================
+
+        activity_types = (
+            request.env["mail.activity.type"]
+            .sudo()
+            .search(
+                [],
+                order="id",
+            )
+        )
+
+
+        # =====================================================
+        # INTERNAL USERS FOR ACTIVITY
+        # =====================================================
+
+        activity_users = (
+            request.env["res.users"]
+            .sudo()
+            .search(
+                [
+                    ("active", "=", True),
+                    ("share", "=", False),
+                ],
+                order="name",
+            )
+        )
+
+
+        # =====================================================
+        # TEMPLATE VALUES
+        # =====================================================
+
+        values = {
+
+            "opportunity": opportunity,
+
+            "description_plain": html2plaintext(
+                opportunity.description or ""
+            ),
+
+
+            # =============================================
+            # CRM DATA
+            # =============================================
+
+            "stages": (
+                request.env["crm.stage"]
+                .sudo()
+                .search(
+                    [],
+                    order="sequence, id",
+                )
+            ),
+
+            "lost_reasons": (
+                request.env["crm.lost.reason"]
+                .sudo()
+                .search([], order="name")
+            ),
+
+            "all_tags": (
+                request.env["crm.tag"]
+                .sudo()
+                .search(
+                    [],
+                    order="name",
+                )
+            ),
+
+            "crm_countries": (
+                request.env["res.country"]
+                .sudo()
+                .search(
+                    [],
+                    order="name",
+                )
+            ),
+
+            "crm_states": (
+                request.env["res.country.state"]
+                .sudo()
+                .search(
+                    [],
+                    order="name",
+                )
+            ),
+
+            "crm_campaigns": (
+                request.env["utm.campaign"]
+                .sudo()
+                .search(
+                    [],
+                    order="name",
+                )
+            ),
+
+            "crm_mediums": (
+                request.env["utm.medium"]
+                .sudo()
+                .search(
+                    [],
+                    order="name",
+                )
+            ),
+
+            "crm_sources": (
+                request.env["utm.source"]
+                .sudo()
+                .search(
+                    [],
+                    order="name",
+                )
+            ),
+
+            "crm_teams": (
+                request.env["crm.team"]
+                .sudo()
+                .search(
+                    [],
+                    order="name",
+                )
+            ),
+
+
+            # =============================================
+            # CHATTER
+            # =============================================
+
+            "messages": (
+                opportunity.message_ids
+            ),
+
+
+            # =============================================
+            # ACTIVITIES
+            # =============================================
+
+            "activities": (
+                opportunity.activity_ids
+            ),
+
+            "activity_types": activity_types,
+
+            "activity_users": activity_users,
+
+
+            # =============================================
+            # OTHER
+            # =============================================
+
+            "success": success,
+            "mail_sent": mail_sent,
+            "mail_error": mail_error,
+
+            "page_name": (
+                "crm_opportunity_detail"
+            ),
+        }
+
+
+        return request.render(
+            "fakir_portal_management."
+            "portal_my_crm_opportunity_detail",
+            values,
+        )
+
+
+    # =========================================================
+    # OPPORTUNITY - MARK WON
+    # =========================================================
+
+    @route(
+        ["/my/crm/opportunities/<int:opportunity_id>/won"],
+        type="http",
+        auth="user",
+        website=True,
+        methods=["POST"],
+    )
+    def portal_crm_opportunity_mark_won(self, opportunity_id, **kw):
+
+        self._check_crm_portal_access()
+        opportunity = self._get_crm_opportunity(opportunity_id)
+
+        # Odoo 19 standard CRM business logic.
+        opportunity.sudo().action_set_won_rainbowman()
+
+        return request.redirect(
+            "/my/crm/opportunities/%s" % opportunity.id
+        )
+
+
+    # =========================================================
+    # OPPORTUNITY - MARK LOST
+    # =========================================================
+
+    @route(
+        ["/my/crm/opportunities/<int:opportunity_id>/lost"],
+        type="http",
+        auth="user",
+        website=True,
+        methods=["POST"],
+    )
+    def portal_crm_opportunity_mark_lost(self, opportunity_id, **kw):
+
+        self._check_crm_portal_access()
+        opportunity = self._get_crm_opportunity(opportunity_id)
+
+        lost_reason_id = kw.get("lost_reason_id")
+        closing_note = (kw.get("closing_note") or "").strip()
+
+        try:
+            lost_reason_id = int(lost_reason_id) if lost_reason_id else False
+        except (TypeError, ValueError):
+            lost_reason_id = False
+
+        if lost_reason_id:
+            lost_reason = (
+                request.env["crm.lost.reason"]
+                .sudo()
+                .browse(lost_reason_id)
+            )
+            if lost_reason.exists():
+                opportunity.sudo().write({
+                    "lost_reason_id": lost_reason.id,
+                })
+
+        # Odoo 19 standard CRM lost logic.
+        opportunity.sudo().action_set_lost()
+
+        if closing_note:
+            opportunity.sudo().message_post(
+                body=closing_note,
+                message_type="comment",
+                subtype_xmlid="mail.mt_note",
+            )
+
+        return request.redirect(
+            "/my/crm/opportunities/%s" % opportunity.id
+        )
+
+
+    # =========================================================
+    # OPPORTUNITY - SEND MAIL
+    # =========================================================
+
+    @route(
+        [
+            "/my/crm/opportunities/"
+            "<int:opportunity_id>/send_mail"
+        ],
+        type="http",
+        auth="user",
+        website=True,
+        methods=["POST"],
+        csrf=True,
+    )
+    def portal_crm_opportunity_send_mail(
+        self,
+        opportunity_id,
+        **kw,
+    ):
+
+        self._check_crm_portal_access()
+        opportunity = self._get_crm_opportunity(opportunity_id)
+
+        email_to = (kw.get("email_to") or "").strip()
+        subject = (kw.get("subject") or "").strip()
+        message_body = (kw.get("message_body") or "").strip()
+
+        redirect_url = (
+            "/my/crm/opportunities/%s" % opportunity.id
+        )
+
+        # Basic validation.
+        if not email_to or "@" not in email_to:
+            return request.redirect(
+                redirect_url + "?mail_error=invalid_email"
+            )
+
+        if not subject:
+            return request.redirect(
+                redirect_url + "?mail_error=missing_subject"
+            )
+
+        if not message_body:
+            return request.redirect(
+                redirect_url + "?mail_error=missing_message"
+            )
+
+        # Escape user-entered text before using it as HTML.
+        safe_body_html = str(escape(message_body)).replace(
+            "\n",
+            "<br/>",
+        )
+
+        # Use the current company's configured sender when available.
+        email_from = (
+            request.env.company.email
+            or request.env.user.email
+            or False
+        )
+
+        mail = request.env["mail.mail"].sudo().create({
+            "subject": subject,
+            "body_html": safe_body_html,
+            "email_to": email_to,
+            "email_from": email_from,
+            "model": "crm.lead",
+            "res_id": opportunity.id,
+        })
+
+        # Ask Odoo to send the email using the configured outgoing mail server.
+        mail.send()
+
+        # Keep a visible history entry in this opportunity's chatter.
+        log_body = (
+            "<p><strong>Email sent</strong></p>"
+            "<p><strong>To:</strong> %s</p>"
+            "<p><strong>Subject:</strong> %s</p>"
+            "<div>%s</div>"
+        ) % (
+            escape(email_to),
+            escape(subject),
+            safe_body_html,
+        )
+
+        opportunity.sudo().message_post(
+            body=log_body,
+            message_type="comment",
+            subtype_xmlid="mail.mt_comment",
+        )
+
+        return request.redirect(
+            redirect_url + "?mail_sent=1"
+        )
+
+
+    # =========================================================
+    # CHATTER - POST MESSAGE / LOG NOTE
+    # =========================================================
+
+    @route(
+        [
+            "/my/crm/opportunities/"
+            "<int:opportunity_id>/post_message"
+        ],
+        type="http",
+        auth="user",
+        website=True,
+        methods=["POST"],
+        csrf=True,
+    )
+    def portal_crm_opportunity_post_message(
+        self,
+        opportunity_id,
+        **kw,
+    ):
+
+        self._check_crm_portal_access()
+
+        opportunity = self._get_crm_opportunity(opportunity_id)
+
+        message_body = (kw.get("message_body") or "").strip()
+        message_mode = (kw.get("message_mode") or "message").strip()
+
+        if message_body:
+            subtype_xmlid = (
+                "mail.mt_note"
+                if message_mode == "note"
+                else "mail.mt_comment"
+            )
+
+            opportunity.sudo().message_post(
+                body=message_body,
+                message_type="comment",
+                subtype_xmlid=subtype_xmlid,
+            )
+
+        return request.redirect(
+            "/my/crm/opportunities/%s" % opportunity.id
+        )
+
+
+    # =========================================================
+    # ACTIVITY - SAVE / MARK DONE
+    # =========================================================
+
+    @route(
+        [
+            "/my/crm/opportunities/"
+            "<int:opportunity_id>/schedule_activity"
+        ],
+        type="http",
+        auth="user",
+        website=True,
+        methods=["POST"],
+    )
+    def portal_crm_opportunity_schedule_activity(
+        self,
+        opportunity_id,
+        **kw,
+    ):
+
+        self._check_crm_portal_access()
+
+        opportunity = (
+            self._get_crm_opportunity(
+                opportunity_id
+            )
+        )
+
+
+        # =====================================================
+        # FORM VALUES
+        # =====================================================
+
+        activity_type_id = kw.get(
+            "activity_type_id"
+        )
+
+        summary = (
+            kw.get("summary")
+            or ""
+        ).strip()
+
+        note = (
+            kw.get("note")
+            or ""
+        ).strip()
+
+        date_deadline = kw.get(
+            "date_deadline"
+        )
+
+        user_id = kw.get(
+            "user_id"
+        )
+
+        action = (
+            kw.get("action")
+            or "save"
+        )
+
+
+        # =====================================================
+        # CONVERT ACTIVITY TYPE
+        # =====================================================
+
+        try:
+
+            activity_type_id = int(
+                activity_type_id
+            )
+
+        except (TypeError, ValueError):
+
+            activity_type_id = False
+
+
+        # =====================================================
+        # CONVERT USER
+        # =====================================================
+
+        try:
+
+            user_id = int(
+                user_id
+            )
+
+        except (TypeError, ValueError):
+
+            user_id = False
+
+
+        # =====================================================
+        # VALIDATE ACTIVITY TYPE
+        # =====================================================
+
+        if not activity_type_id:
+
+            return request.redirect(
+                "/my/crm/opportunities/%s"
+                % opportunity.id
+            )
+
+
+        activity_type = (
+            request.env["mail.activity.type"]
+            .sudo()
+            .browse(activity_type_id)
+        )
+
+        if not activity_type.exists():
+
+            return request.redirect(
+                "/my/crm/opportunities/%s"
+                % opportunity.id
+            )
+
+
+        # =====================================================
+        # VALIDATE DUE DATE
+        # =====================================================
+
+        if not date_deadline:
+
+            return request.redirect(
+                "/my/crm/opportunities/%s"
+                % opportunity.id
+            )
+
+
+        # =====================================================
+        # ASSIGNED USER
+        # =====================================================
+
+        assigned_user = False
+
+
+        if user_id:
+
+            assigned_user = (
+                request.env["res.users"]
+                .sudo()
+                .search(
+                    [
+                        ("id", "=", user_id),
+                        ("active", "=", True),
+                        ("share", "=", False),
+                    ],
+                    limit=1,
+                )
+            )
+
+
+        # Opportunity salesperson
+
+        if not assigned_user and opportunity.user_id:
+
+            if (
+                opportunity.user_id.active
+                and not opportunity.user_id.share
+            ):
+
+                assigned_user = (
+                    opportunity.user_id
+                )
+
+
+        # Any internal user as fallback
+
+        if not assigned_user:
+
+            assigned_user = (
+                request.env["res.users"]
+                .sudo()
+                .search(
+                    [
+                        ("active", "=", True),
+                        ("share", "=", False),
+                    ],
+                    order="id",
+                    limit=1,
+                )
+            )
+
+
+        if not assigned_user:
+
+            return request.redirect(
+                "/my/crm/opportunities/%s"
+                % opportunity.id
+            )
+
+
+        # =====================================================
+        # CREATE ACTIVITY
+        # =====================================================
+
+        activity = (
+            opportunity
+            .sudo()
+            .activity_schedule(
+                activity_type_id=activity_type.id,
+                date_deadline=date_deadline,
+                summary=summary or False,
+                note=note or False,
+                user_id=assigned_user.id,
+            )
+        )
+
+
+        # =====================================================
+        # MARK DONE
+        # =====================================================
+
+        if action == "done":
+
+            activity.sudo().action_feedback(
+                feedback=note or False
+            )
+
+
+        # =====================================================
+        # REDIRECT
+        # =====================================================
+
+        return request.redirect(
+            "/my/crm/opportunities/%s"
+            % opportunity.id
+        )

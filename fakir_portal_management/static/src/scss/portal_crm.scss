@@ -1,0 +1,952 @@
+// ============================================================
+// Fakir Portal Management
+// CRM Opportunity Portal List
+//
+// File:
+// static/src/scss/portal_crm.scss
+//
+// IMPORTANT:
+// All styles are scoped under #fpmCrmOpportunityList.
+// So these styles will not affect other Odoo tables/pages.
+// ============================================================
+
+#fpmCrmOpportunityList {
+
+    // ========================================================
+    // MAIN WRAPPER
+    // Horizontal scrolling happens here
+    // ========================================================
+
+    &.fpm-crm-opportunity-table-wrapper {
+        position: relative;
+
+        display: block;
+
+        width: 100%;
+        max-width: 100%;
+
+        overflow-x: auto;
+        overflow-y: visible;
+
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior-x: contain;
+
+        scrollbar-width: thin;
+    }
+
+
+    // ========================================================
+    // CRM TABLE
+    // ========================================================
+
+    #fpmCrmOpportunityTable {
+        width: max-content;
+        min-width: 100%;
+
+        table-layout: auto;
+
+        margin-bottom: 0;
+
+        border-collapse: separate;
+        border-spacing: 0;
+
+
+        // ----------------------------------------------------
+        // All cells
+        // ----------------------------------------------------
+
+        th,
+        td {
+            white-space: nowrap;
+            vertical-align: middle;
+        }
+
+
+        // ====================================================
+        // FIXED / REQUIRED COLUMNS
+        // ====================================================
+
+        // Checkbox
+        th:first-child,
+        td:first-child {
+            width: 48px;
+            min-width: 48px;
+            max-width: 48px;
+
+            text-align: center;
+        }
+
+
+        // Opportunity
+        th:nth-child(2),
+        td:nth-child(2) {
+            min-width: 220px;
+        }
+
+
+        // Email
+        th:nth-child(3),
+        td:nth-child(3) {
+            min-width: 190px;
+        }
+
+
+        // ====================================================
+        // OPTIONAL COLUMN WIDTHS
+        // ====================================================
+
+        [data-column="created_on"] {
+            min-width: 160px;
+        }
+
+        [data-column="contact"] {
+            min-width: 180px;
+        }
+
+        [data-column="contact_name"] {
+            min-width: 170px;
+        }
+
+        [data-column="phone"] {
+            min-width: 150px;
+        }
+
+        [data-column="city"] {
+            min-width: 130px;
+        }
+
+        [data-column="state"] {
+            min-width: 150px;
+        }
+
+        [data-column="country"] {
+            min-width: 160px;
+        }
+
+        [data-column="salesperson"] {
+            min-width: 180px;
+        }
+
+        [data-column="sales_team"] {
+            min-width: 170px;
+        }
+
+        [data-column="priority"] {
+            min-width: 120px;
+        }
+
+        [data-column="activities"] {
+            min-width: 190px;
+        }
+
+        [data-column="activity_by"] {
+            min-width: 160px;
+        }
+
+        [data-column="my_deadline"] {
+            min-width: 150px;
+        }
+
+        [data-column="campaign"] {
+            min-width: 160px;
+        }
+
+        [data-column="medium"] {
+            min-width: 150px;
+        }
+
+        [data-column="source"] {
+            min-width: 150px;
+        }
+
+        [data-column="expected_revenue"] {
+            min-width: 170px;
+        }
+
+        [data-column="expected_closing"] {
+            min-width: 170px;
+        }
+
+        [data-column="stage"] {
+            min-width: 130px;
+        }
+
+        [data-column="probability"] {
+            min-width: 145px;
+        }
+
+        [data-column="lost_reason"] {
+            min-width: 170px;
+        }
+
+        [data-column="tags"] {
+            min-width: 190px;
+        }
+
+
+        // ====================================================
+        // SELECT COLUMN
+        // ====================================================
+
+        .fpm-crm-select-column {
+            width: 48px;
+            min-width: 48px;
+            max-width: 48px;
+
+            text-align: center;
+        }
+
+
+        // ====================================================
+        // SETTINGS COLUMN
+        // Keep slider button visible on the right
+        // ====================================================
+
+        .fpm-crm-settings-column {
+            position: sticky;
+            right: 0;
+
+            width: 52px;
+            min-width: 52px;
+            max-width: 52px;
+
+            padding-left: 8px;
+            padding-right: 8px;
+
+            text-align: center;
+
+            background-color: #f8f9fa;
+
+            border-left: 1px solid #dee2e6;
+
+            z-index: 20;
+        }
+
+
+        // Body empty cell under settings button
+        tbody td:last-child {
+            position: sticky;
+            right: 0;
+
+            width: 52px;
+            min-width: 52px;
+            max-width: 52px;
+
+            background-color: #ffffff;
+
+            border-left: 1px solid #dee2e6;
+
+            z-index: 10;
+        }
+
+
+        // Footer empty cell under settings button
+        tfoot td:last-child {
+            position: sticky;
+            right: 0;
+
+            width: 52px;
+            min-width: 52px;
+            max-width: 52px;
+
+            background-color: #ffffff;
+
+            border-left: 1px solid #dee2e6;
+
+            z-index: 10;
+        }
+
+
+        // ====================================================
+        // OPPORTUNITY ROW
+        // ====================================================
+
+        .fpm-crm-opportunity-row {
+            cursor: pointer;
+        }
+
+
+        // Keep sticky cell background clean on hover
+        .fpm-crm-opportunity-row:hover {
+            td:last-child {
+                background-color: #f8f9fa;
+            }
+        }
+
+
+        // ====================================================
+        // SALESPERSON AVATAR
+        // ====================================================
+
+        .fpm-crm-salesperson-avatar {
+            width: 24px;
+            height: 24px;
+
+            object-fit: cover;
+
+            flex: 0 0 auto;
+        }
+    }
+
+
+    // ========================================================
+    // OPTIONAL COLUMN SETTINGS BUTTON
+    // ========================================================
+
+    #fpmCrmOptionalColumnsButton {
+        display: inline-flex;
+
+        align-items: center;
+        justify-content: center;
+
+        width: 36px;
+        height: 32px;
+
+        padding: 0;
+
+        cursor: pointer;
+
+        position: relative;
+
+        z-index: 21;
+    }
+
+
+    // ========================================================
+    // OPTIONAL COLUMN DROPDOWN
+    // ========================================================
+
+    .fpm-crm-optional-menu {
+        min-width: 245px;
+
+        // IMPORTANT:
+        // Do NOT use:
+        // min(520px, 70vh)
+        //
+        // Odoo/Sass compiler can throw:
+        // Incompatible units: 'vh' and 'px'
+        max-height: 520px;
+
+        overflow-x: hidden;
+        overflow-y: auto;
+
+        -webkit-overflow-scrolling: touch;
+
+        z-index: 1080;
+
+
+        // Dropdown title
+        .fw-bold {
+            white-space: nowrap;
+        }
+
+
+        // Each optional field
+        .form-check {
+            display: flex;
+
+            align-items: center;
+
+            min-height: 28px;
+
+            margin-bottom: 8px;
+
+            white-space: nowrap;
+        }
+
+
+        // Checkbox
+        .form-check-input {
+            flex-shrink: 0;
+
+            cursor: pointer;
+        }
+
+
+        // Label
+        .form-check-label {
+            width: 100%;
+
+            margin-left: 4px;
+
+            cursor: pointer;
+
+            user-select: none;
+        }
+    }
+
+
+    // ========================================================
+    // HORIZONTAL SCROLLBAR
+    // Chrome / Chromium / Edge / Safari
+    // ========================================================
+
+    &.fpm-crm-opportunity-table-wrapper::-webkit-scrollbar {
+        width: 10px;
+        height: 10px;
+    }
+
+
+    &.fpm-crm-opportunity-table-wrapper::-webkit-scrollbar-track {
+        background-color: rgba(0, 0, 0, 0.05);
+    }
+
+
+    &.fpm-crm-opportunity-table-wrapper::-webkit-scrollbar-thumb {
+        background-color: rgba(0, 0, 0, 0.30);
+
+        border-radius: 10px;
+
+        border: 2px solid transparent;
+
+        background-clip: padding-box;
+    }
+
+
+    &.fpm-crm-opportunity-table-wrapper::-webkit-scrollbar-thumb:hover {
+        background-color: rgba(0, 0, 0, 0.45);
+
+        background-clip: padding-box;
+    }
+
+
+    // ========================================================
+    // TABLE FOOTER
+    // ========================================================
+
+    #fpmCrmOpportunityTable {
+        tfoot {
+            td {
+                background-color: #ffffff;
+            }
+        }
+    }
+
+
+    // ========================================================
+    // TABLE CHECKBOXES
+    // ========================================================
+
+    #fpmCrmSelectAll,
+    .fpm-crm-row-checkbox {
+        cursor: pointer;
+    }
+
+
+    // ========================================================
+    // TABLE LINKS
+    // ========================================================
+
+    #fpmCrmOpportunityTable {
+        a {
+            white-space: nowrap;
+        }
+    }
+
+
+    // ========================================================
+    // TABLET
+    // ========================================================
+
+    @media (max-width: 991.98px) {
+
+        #fpmCrmOpportunityTable {
+
+            th,
+            td {
+                padding-left: 0.75rem;
+                padding-right: 0.75rem;
+            }
+
+
+            th:nth-child(2),
+            td:nth-child(2) {
+                min-width: 200px;
+            }
+
+
+            th:nth-child(3),
+            td:nth-child(3) {
+                min-width: 190px;
+            }
+        }
+    }
+
+
+    // ========================================================
+    // MOBILE
+    // ========================================================
+
+    @media (max-width: 767.98px) {
+
+        &.fpm-crm-opportunity-table-wrapper {
+            width: 100%;
+            max-width: 100%;
+
+            overflow-x: auto;
+        }
+
+
+        #fpmCrmOpportunityTable {
+            width: max-content;
+            min-width: 100%;
+
+
+            th,
+            td {
+                padding: 0.65rem 0.75rem;
+            }
+
+
+            // Opportunity
+            th:nth-child(2),
+            td:nth-child(2) {
+                min-width: 200px;
+            }
+
+
+            // Email
+            th:nth-child(3),
+            td:nth-child(3) {
+                min-width: 190px;
+            }
+
+
+            // Sticky settings
+            .fpm-crm-settings-column {
+                width: 48px;
+                min-width: 48px;
+                max-width: 48px;
+            }
+
+
+            tbody td:last-child,
+            tfoot td:last-child {
+                width: 48px;
+                min-width: 48px;
+                max-width: 48px;
+            }
+        }
+
+
+        #fpmCrmOptionalColumnsButton {
+            width: 34px;
+            height: 30px;
+        }
+
+
+        .fpm-crm-optional-menu {
+            min-width: 230px;
+
+            // vh alone is safe.
+            max-height: 65vh;
+
+            overflow-y: auto;
+        }
+    }
+
+
+    // ========================================================
+    // VERY SMALL MOBILE
+    // ========================================================
+
+    @media (max-width: 575.98px) {
+
+        #fpmCrmOpportunityTable {
+
+            th,
+            td {
+                padding-left: 0.6rem;
+                padding-right: 0.6rem;
+            }
+
+
+            th:first-child,
+            td:first-child {
+                width: 44px;
+                min-width: 44px;
+                max-width: 44px;
+            }
+
+
+            th:nth-child(2),
+            td:nth-child(2) {
+                min-width: 190px;
+            }
+        }
+
+
+        .fpm-crm-optional-menu {
+            min-width: 220px;
+            max-height: 60vh;
+        }
+    }
+}
+
+
+
+// ============================================================
+// Floating Optional Columns Menu
+//
+// JS moves this menu to <body> while it is open.
+// Prefix keeps it isolated from other Odoo dropdowns.
+// ============================================================
+
+.fpm-crm-floating-optional-menu {
+    display: block;
+
+    min-width: 245px;
+
+    padding: 1rem;
+
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    background-color: #ffffff;
+
+    border: 1px solid #dee2e6;
+    border-radius: 0.375rem;
+
+    box-shadow:
+        0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+
+    z-index: 2000;
+
+    .form-check {
+        display: flex;
+        align-items: center;
+
+        min-height: 28px;
+
+        margin-bottom: 8px;
+
+        white-space: nowrap;
+    }
+
+    .form-check-input {
+        flex-shrink: 0;
+        cursor: pointer;
+    }
+
+    .form-check-label {
+        width: 100%;
+
+        margin-left: 4px;
+
+        cursor: pointer;
+
+        user-select: none;
+    }
+}
+
+// ============================================================
+// CRM OPPORTUNITY SEARCH
+// ============================================================
+
+#fpmCrmOpportunitySearchWrapper {
+    width: 100%;
+
+    .fpm-crm-search-form,
+    .input-group {
+        width: 100%;
+    }
+
+    .input-group-text {
+        background-color: #ffffff;
+        border-right: 0;
+    }
+
+    input[type="search"] {
+        min-height: 42px;
+        border-left: 0;
+        box-shadow: none;
+
+        &:focus {
+            border-color: #dee2e6;
+            box-shadow: none;
+        }
+    }
+
+    .btn {
+        min-height: 42px;
+    }
+
+    .fpm-crm-search-result-info {
+        min-height: 20px;
+    }
+
+    @media (max-width: 575.98px) {
+        .input-group {
+            flex-wrap: nowrap;
+        }
+
+        .btn {
+            padding-left: 12px;
+            padding-right: 12px;
+        }
+    }
+}
+
+
+// ============================================================
+// CRM OPPORTUNITY SEARCH
+// ============================================================
+
+#fpmCrmOpportunitySearchWrapper {
+
+    width: 100%;
+
+    .fpm-crm-search-form {
+        width: 100%;
+        margin: 0;
+    }
+
+
+    // ========================================================
+    // SEARCH BOX
+    // ========================================================
+
+    .fpm-crm-search-box {
+
+        display: flex;
+        align-items: stretch;
+
+        width: 100%;
+        min-height: 42px;
+
+        background-color: #ffffff;
+
+        border: 1px solid #dee2e6;
+        border-radius: 6px;
+
+        overflow: hidden;
+
+        transition:
+            border-color 0.15s ease-in-out,
+            box-shadow 0.15s ease-in-out;
+
+
+        &:focus-within {
+            border-color: #875a7b;
+
+            box-shadow:
+                0 0 0 2px rgba(135, 90, 123, 0.08);
+        }
+    }
+
+
+    // ========================================================
+    // SEARCH ICON
+    // ========================================================
+
+    .fpm-crm-search-icon {
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        width: 48px;
+        min-width: 48px;
+
+        font-size: 16px;
+
+        color: #495057;
+
+        background-color: #ffffff;
+    }
+
+
+    // ========================================================
+    // INPUT
+    // ========================================================
+
+    .fpm-crm-search-input {
+
+        flex: 1 1 auto;
+
+        width: 100%;
+        min-width: 0;
+
+        padding:
+            0.55rem
+            0.75rem;
+
+        font-size: 15px;
+
+        color: #212529;
+
+        background-color: #ffffff;
+
+        border: 0;
+        outline: 0;
+
+        box-shadow: none;
+
+
+        &::placeholder {
+            color: #8b9298;
+        }
+
+
+        &:focus {
+            border: 0;
+            outline: 0;
+            box-shadow: none;
+        }
+
+
+        // Remove browser search decoration where possible.
+        &::-webkit-search-decoration {
+            -webkit-appearance: none;
+        }
+    }
+
+
+    // ========================================================
+    // CLEAR BUTTON
+    // ========================================================
+
+    .fpm-crm-search-clear {
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        width: 46px;
+        min-width: 46px;
+
+        text-decoration: none;
+
+        color: #dc8b20;
+
+        background-color: #ffffff;
+
+        border-left: 1px solid #dee2e6;
+
+        transition:
+            background-color 0.15s ease-in-out,
+            color 0.15s ease-in-out;
+
+
+        &:hover {
+
+            color: #ffffff;
+
+            background-color: #dc8b20;
+
+            text-decoration: none;
+        }
+    }
+
+
+    // ========================================================
+    // SEARCH BUTTON
+    // ========================================================
+
+    .fpm-crm-search-button {
+
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        min-width: 110px;
+
+        padding-left: 18px;
+        padding-right: 18px;
+
+        border: 0;
+        border-left: 1px solid rgba(0, 0, 0, 0.08);
+
+        border-radius: 0;
+
+        white-space: nowrap;
+    }
+
+
+    // ========================================================
+    // MOBILE
+    // ========================================================
+
+    @media (max-width: 575.98px) {
+
+        .fpm-crm-search-box {
+            min-height: 40px;
+        }
+
+
+        .fpm-crm-search-icon {
+
+            width: 40px;
+            min-width: 40px;
+        }
+
+
+        .fpm-crm-search-input {
+
+            padding-left: 0.4rem;
+            padding-right: 0.4rem;
+
+            font-size: 14px;
+        }
+
+
+        .fpm-crm-search-clear {
+
+            width: 40px;
+            min-width: 40px;
+        }
+
+
+        .fpm-crm-search-button {
+
+            min-width: auto;
+
+            padding-left: 12px;
+            padding-right: 12px;
+
+
+            span {
+                display: none;
+            }
+
+
+            .fa {
+                margin-right: 0 !important;
+            }
+        }
+    }
+}
+// ============================================================================
+// FAKIR PORTAL CRM - CHATTER
+// ============================================================================
+#fpmCrmChatter {
+    &.fpm-crm-chatter { overflow: hidden; border-radius: 10px; }
+    .fpm-crm-chatter-actions .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 34px; }
+    .fpm-crm-chatter-composer { padding: 14px; border: 1px solid #dee2e6; border-radius: 8px; background-color: #fff; }
+    .fpm-crm-chatter-composer textarea { min-height: 100px; max-height: 220px; resize: vertical; }
+    .fpm-crm-message-composer { border-left: 3px solid #714b67; }
+    .fpm-crm-note-composer { border-left: 3px solid #e0a800; background-color: #fffdf5; }
+    .fpm-crm-chatter-timeline { max-height: 520px; overflow-x: hidden; overflow-y: auto; padding-right: 8px; scrollbar-width: thin; }
+    .fpm-crm-chatter-timeline::-webkit-scrollbar { width: 7px; }
+    .fpm-crm-chatter-timeline::-webkit-scrollbar-track { background-color: rgba(0, 0, 0, .04); border-radius: 10px; }
+    .fpm-crm-chatter-timeline::-webkit-scrollbar-thumb { background-color: rgba(0, 0, 0, .22); border-radius: 10px; }
+    .fpm-crm-timeline-item { display: flex; align-items: flex-start; gap: 10px; padding: 14px 4px; border-bottom: 1px solid #eee; }
+    .fpm-crm-timeline-item:last-child { border-bottom: 0; }
+    .fpm-crm-timeline-content { flex: 1; min-width: 0; word-break: break-word; overflow-wrap: anywhere; }
+    .fpm-crm-timeline-avatar, .fpm-crm-timeline-avatar img, .fpm-crm-default-avatar, .fpm-crm-timeline-icon { width: 38px; height: 38px; flex: 0 0 38px; border-radius: 50%; }
+    .fpm-crm-timeline-avatar { overflow: hidden; }
+    .fpm-crm-timeline-avatar img { display: block; object-fit: cover; }
+    .fpm-crm-default-avatar, .fpm-crm-timeline-icon { display: flex; align-items: center; justify-content: center; background-color: #f1f3f5; color: #6c757d; }
+    .fpm-crm-timeline-activity { padding: 12px; margin-bottom: 8px; border: 1px solid #dee2e6; border-radius: 8px; background-color: #f8f9fa; }
+    .fpm-crm-message-body { font-size: 14px; line-height: 1.55; }
+    .fpm-crm-message-body p:last-child { margin-bottom: 0; }
+    .fpm-crm-message-body img { max-width: 100%; height: auto; }
+    .fpm-crm-tracking-values { padding: 10px; border-radius: 6px; background-color: #f8f9fa; font-size: 13px; }
+    .fpm-crm-tracking-value + .fpm-crm-tracking-value { margin-top: 8px; padding-top: 8px; border-top: 1px solid #e9ecef; }
+    .fpm-crm-old-value { color: #6c757d; text-decoration: line-through; }
+    .fpm-crm-new-value { font-weight: 600; }
+    @media (max-width: 767.98px) {
+        .fpm-crm-chatter-actions .btn { flex: 1 1 auto; }
+        .fpm-crm-chatter-timeline { max-height: 420px; padding-right: 5px; }
+    }
+}
