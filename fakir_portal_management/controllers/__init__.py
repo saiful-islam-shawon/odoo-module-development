@@ -1,1 +1,1 @@
-from . import crm_controller, portal
+from . import portal

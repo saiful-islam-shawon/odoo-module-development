@@ -20,9 +20,11 @@ Fakir Portal Management
     "data": [
         # Security
         "security/security.xml",
+        "security/ir.model.access.csv",
 
         # Website Template
         "views/crm_template.xml",
+        "views/backend_send_mail_views.xml",
         "views/portal_crm_template.xml",
 
         # Website Menu
